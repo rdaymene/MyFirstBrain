@@ -12,8 +12,49 @@ package DAO;
  */
 public class QuestionBean {
     
-    int ID;
-    int niveau;
-    String question;
-    String reponse;
+    private int ID;
+    private int niveau;
+    private String question;
+    private String reponse;
+
+    public QuestionBean(int ID, int niveau, String question, String reponse) {
+        this.ID = ID;
+        this.niveau = niveau;
+        this.question = question;
+        this.reponse = reponse;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public int getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(int niveau) {
+        this.niveau = niveau;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getReponse() {
+        return reponse;
+    }
+
+    public void setReponse(String reponse) {
+        this.reponse = reponse;
+    }
+    
+    
 }

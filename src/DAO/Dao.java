@@ -7,16 +7,37 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import connection.MySQLConnection;
 
 /**
  *
  * @author $céline
  */
 public  class Dao {
+    // objet de type connection :
+     protected Connection connection = MySQLConnection.getInstance();
     //protected Connection connection = MySQLConnection.getInstance();
-    
+    public final String TABLE = "myfirstbrain";
     public QuestionBean find(int id){
         QuestionBean qb = null;
+        try {
+
+            String req = "SELECT * FROM " + TABLE + " WHERE id = ? ";
+            PreparedStatement pstmt = this.connection.prepareStatement(req);
+            pstmt.setInt(1, id);
+            ResultSet res = pstmt.executeQuery();
+            if (res.first()) {
+                qb = new QuestionBean(id, res.getInt("niveau"),res.getString("question"), res.getString("reponse"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return qb;
     }
         

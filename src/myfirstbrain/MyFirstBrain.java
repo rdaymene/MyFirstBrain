@@ -23,7 +23,12 @@ public class MyFirstBrain extends Application {
         Tab drawTab = new Tab("Dessin");
         Tab calculTab = new Tab("Calcul");
         Tab questionTab = new Tab("Questions");
-        Tab administrationTab = new Tab("Administration");  
+        Tab administrationTab = new Tab("Administration"); 
+        
+        drawTab.setClosable(false);
+        calculTab.setClosable(false);
+        questionTab.setClosable(false);
+        administrationTab.setClosable(false);
         
         TabPane tabPane = new TabPane();
         tabPane.getTabs().add(drawTab);

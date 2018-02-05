@@ -9,7 +9,7 @@ package calcul;
  *
  * @author stag
  */
-public class DoCalculExpert extends DoCalcul {
+public class DoCalculExpert extends DoCalcul{
     
     public int multiplication(int a, int b){
         /*

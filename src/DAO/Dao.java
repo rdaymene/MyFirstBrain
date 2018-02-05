@@ -12,12 +12,23 @@ import java.sql.Connection;
  *
  * @author $céline
  */
-public abstract class Dao <T> {
+public  class Dao {
     //protected Connection connection = MySQLConnection.getInstance();
     
-    public abstract T find(int id);
-        // to implement in children
-    public abstract T create(T obj);
-    public abstract T update(T obj);
-    public abstract void delete(T obj);
+    public QuestionBean find(int id){
+        QuestionBean qb = null;
+        return qb;
+    }
+        
+    public  QuestionBean create(QuestionBean qb){
+        QuestionBean qb2 = null;
+        return qb;
+    }
+    public  QuestionBean update(QuestionBean qb){
+        QuestionBean qb3 = null;
+        return qb;
+    }
+    public void delete(QuestionBean obj){
+        
+    }
 }

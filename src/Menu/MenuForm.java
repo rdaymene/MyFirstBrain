@@ -12,16 +12,17 @@ import javafx.scene.paint.Color;
 public class MenuForm extends MenuBar{
     
     public MenuForm(){ 
-    //=============================== CHANGEMENT DU FOND DU MENU ======================================
+    
+    //=============================== CHANGEMENT DU FOND DU MENU ==================================================================================
     this.setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));;
-    //=============================== DECLARATION DES MENUS DU MENU PRINCIPAL ======================================
+    //=============================== DECLARATION DES MENUS DU MENU PRINCIPAL =====================================================================
     Menu menuActivite = new Menu();
     menuActivite.setText("Activité");
     Menu menuNiveau = new Menu();
     menuNiveau.setText("Niveau");
     Menu menuAdministration = new Menu();
     menuAdministration.setText("Administration");
-    //=============================== AJOUT DES MENUS AU MENU PRINCIPAL ======================================
+    //=============================== AJOUT DES MENUS AU MENU PRINCIPAL ===========================================================================
     this.getMenus().setAll(menuActivite,menuNiveau,menuAdministration);
     //=============================== DECLARATION DES MENU ITEM DE CHAQUE MENU DU MENU PRINCIPAL ======================================
     MenuItem menuDrawItem = new MenuItem();

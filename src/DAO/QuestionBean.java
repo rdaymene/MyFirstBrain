@@ -16,14 +16,14 @@ public class QuestionBean {
     private int niveau;
     private String question;
     private String reponse;
-
+    // constructeur avec parametres
     public QuestionBean(int ID, int niveau, String question, String reponse) {
         this.ID = ID;
         this.niveau = niveau;
         this.question = question;
         this.reponse = reponse;
     }
-
+    // getter et setter
     public int getID() {
         return ID;
     }

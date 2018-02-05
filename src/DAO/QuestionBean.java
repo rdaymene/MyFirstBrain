@@ -23,6 +23,7 @@ public class QuestionBean {
         this.question = question;
         this.reponse = reponse;
     }
+    
     // getter et setter
     public int getID() {
         return ID;

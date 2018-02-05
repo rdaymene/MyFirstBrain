@@ -5,6 +5,7 @@
  */
 package myfirstbrain;
 
+import Menu.MenuForm;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,9 +25,9 @@ public class MyFirstBrain extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        
-        
+
         BorderPane root = new BorderPane();
+        MenuForm menuBar = new MenuForm();
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================
         Tab drawTab = new Tab("Dessin");
         Tab calculTab = new Tab("Calcul");
@@ -40,6 +41,9 @@ public class MyFirstBrain extends Application {
         tabPane.getTabs().add(administrationTab);
        
         Scene scene = new Scene(root, 1000, 600);
+        
+        root.setCenter(tabPane);
+        root.setTop(menuBar);
         
         primaryStage.setTitle("MyFirstBrain");
         primaryStage.setScene(scene);

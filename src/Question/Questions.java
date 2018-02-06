@@ -141,6 +141,13 @@ public class Questions extends BorderPane {
                 answer.setText("Mauvaise réponse. La réponse est : " + this.questionBean.getReponse());
             }
         });
+        btOtherQuestion.setOnAction(e->{
+            // on affecte a questionBean une nouvelle question
+            tfInput.clear();
+            
+            this.questionBean = ListNiveau1.get(getRandomQuestionBean(1));
+            tQuestion.setText(questionBean.getQuestion());
+        });
     }
     // methode qui rend le questionBean de la collection en fonction de l'attribut question
 

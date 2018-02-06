@@ -117,6 +117,10 @@ public class Questions extends BorderPane {
             }
 
         });
+        // gestion évènement du bouton solution
+        btSolution.setOnAction(e-> {
+            
+        });
     }
     // methode qui rend le questionBean de la collection en fonction de l'attribut question
 

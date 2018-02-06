@@ -67,7 +67,7 @@ public class Draw extends BorderPane{
         toolsGrid.setAlignment(Pos.CENTER);
         //=============================== ZONE DE DESSIN ======================================
         //zone de dessin
-        Canvas canvas = new Canvas(700,500);
+        Canvas canvas = new Canvas(800,500);
         GraphicsContext gc;
         gc = canvas.getGraphicsContext2D();
         //déclaration de la forme du pinceau , de la couleur et de son épaisseur.
@@ -77,7 +77,7 @@ public class Draw extends BorderPane{
         //=============================== EVENT SUR LES DIFFERENTS BOUTONS ======================================
         //=============================== BOUTON EFFACER ======================================
         btnEffacer.setOnAction((ActionEvent event) -> {
-            gc.clearRect(0, 0, 700, 500);
+            gc.clearRect(0, 0, 800, 500);
         });
         //=============================== BOUTON ROUGE ======================================
         btnRouge.setOnAction((ActionEvent event) -> {
@@ -106,12 +106,12 @@ public class Draw extends BorderPane{
         //début du tracé dans la zone canvas avec la position de la souris
         canvas.setOnMousePressed(e->{
             gc.beginPath();
-            gc.lineTo(e.getSceneX(), e.getSceneY());
+            gc.lineTo(e.getSceneX()-135, e.getSceneY()-65);
             gc.stroke();
         });
         //arret du tracé dans la zone canvas avec la position de la souris
         canvas.setOnMouseDragged(e->{
-            gc.lineTo(e.getSceneX(), e.getSceneY());
+            gc.lineTo(e.getSceneX()-135, e.getSceneY()-65);
             gc.stroke();
         });
         toolsGrid.setBorder(Border.EMPTY);

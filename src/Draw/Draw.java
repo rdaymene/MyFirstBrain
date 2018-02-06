@@ -102,16 +102,15 @@ public class Draw extends BorderPane{
         
         //Pane final pour l'ensemble.
         //Scene ou l'on va afficher la zone de canvas
-        Scene scene = new Scene(this, 700, 500);
         
         //début du tracé dans la zone canvas avec la position de la souris
-        scene.setOnMousePressed(e->{
+        canvas.setOnMousePressed(e->{
             gc.beginPath();
             gc.lineTo(e.getSceneX()-100, e.getSceneY());
             gc.stroke();
         });
         //arret du tracé dans la zone canvas avec la position de la souris
-        scene.setOnMouseDragged(e->{
+        canvas.setOnMouseDragged(e->{
             gc.lineTo(e.getSceneX()-100, e.getSceneY());
             gc.stroke();
         });

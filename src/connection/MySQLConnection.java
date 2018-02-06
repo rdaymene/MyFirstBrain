@@ -20,7 +20,7 @@ public class MySQLConnection {
      /**
      * URL de connection
      */
-    private static final String HOST = "localhost";
+    private static final String HOST = "172.16.0.48";
     private static final String PORT = "3306";
     private static final String DATABASE = "dsig2";
     private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
@@ -51,6 +51,7 @@ public class MySQLConnection {
             try {
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
             } catch (SQLException ex) {
+                System.out.println("Connection ratée");
                 Logger.getLogger(MySQLConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

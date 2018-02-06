@@ -21,6 +21,7 @@ public class MenuForm extends MenuBar{
     //=============================== CHANGEMENT DU FOND DU MENU ==================================================================================
     this.setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));;
     //=============================== DECLARATION DES MENUS DU MENU PRINCIPAL =====================================================================
+    this.level=1;
     Menu menuActivite = new Menu();
     menuActivite.setText("Activité");
     Menu menuNiveau = new Menu();

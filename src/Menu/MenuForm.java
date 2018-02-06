@@ -1,5 +1,7 @@
 package Menu;
 
+import Administration.AdministrationLogin;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -38,6 +40,9 @@ public class MenuForm extends MenuBar{
     menuNiveau2Item.setText("Niveau 2");
     MenuItem menuSeConnecterItem = new MenuItem();
     menuSeConnecterItem.setText("Se connecter");
+    menuSeConnecterItem.setOnAction((ActionEvent event) -> {
+            AdministrationLogin calculette = new AdministrationLogin(primaryStage);
+        });
     //=============================== AJOUT A CHAQUE MENU DE SES ITEMS ======================================
     menuNiveau.getItems().setAll(menuNiveau1Item,menuNiveau2Item);
     menuActivite.getItems().setAll(menuDrawItem,menuCalculItem,menuQuestionItem);

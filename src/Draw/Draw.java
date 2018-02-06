@@ -18,9 +18,9 @@ public class Draw extends BorderPane{
     
     public Draw(){
         
-        Image gomme = new Image(getClass().getResourceAsStream("ressources/gomme.png"));
-        Image rond = new Image(getClass().getResourceAsStream("ressources/rond.png"));
-        Image carre = new Image(getClass().getResourceAsStream("ressources/carre.png"));        
+        Image gomme = new Image(getClass().getResourceAsStream("gomme.png"));
+        Image rond = new Image(getClass().getResourceAsStream("rond.png"));
+        Image carre = new Image(getClass().getResourceAsStream("carre.png"));        
         //=============================== DECLARATION DU MENU TOOLS  ==========================================================
         VBox toolsGrid = new VBox();
         //=============================== ESPACE ENTRE LES DIFFERENTES BOX ===========================================

@@ -7,7 +7,9 @@ package Question;
 
 import DAO.Dao;
 import DAO.QuestionBean;
+import Menu.MenuForm;
 import java.util.ArrayList;
+import java.util.Random;
 import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -68,6 +70,9 @@ public class Questions extends BorderPane {
         tfInput.setStyle("-fx-background-color: #FEC3AC;");
         // on instancie le text qui fera apparaitre la bonne réponse
         answer = new Text();
+        //on remplit le texte avec une question aléatoire
+        
+        //answer.setText();
         // on ajoute ces éléments à la vbox
         vbQuestion.getChildren().add(tQuestion);
         vbText.getChildren().addAll(tfInput, answer);
@@ -110,7 +115,7 @@ public class Questions extends BorderPane {
     // methode qui rend le questionBean de la collection en fonction de l'attribut question
 
     public boolean getQuestionBeanFromList(String question, String reponse, int niveau) {
-        
+
         if (niveau == 1) {
             for (QuestionBean qb : this.ListNiveau1) {// on parcourt la collection de liste facile
                 // on compare la question à sa réponse            
@@ -122,11 +127,26 @@ public class Questions extends BorderPane {
             for (QuestionBean qb : this.ListNiveau1) {
                 if (qb.getQuestion() == question && qb.getReponse() == reponse) {
                     return true;// la réponse est juste
-               
+
                 }
             }
         }
         return false;
-            
+
+    }
+    // generation d'un nombre aleatoire pour charger une question
+    public int getRandomQuestionBean(int level) {
+        Random rand = new Random();
+        int min = 0;
+        int randomNum = 0;
+        if (level == 1) {// si niveau 1 on prend un numero de question en fonction de la liste facile
+
+            randomNum = rand.nextInt((this.ListNiveau1.size() - min) + 1) + min;
+            // numero aléatoire entre 0 et le nombre de max de question dans liste facile
+        } else {
+            randomNum = rand.nextInt((this.ListNiveau2.size() - min) + 1) + min;
+            // numero aléatoire entre 0 et le nombre de max de question dans liste facile
+        }
+        return randomNum;
     }
 }

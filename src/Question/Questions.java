@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -33,7 +34,7 @@ public class Questions extends BorderPane {
     private Dao questionDAO;
     private ArrayList<QuestionBean> ListNiveau1;
     private ArrayList<QuestionBean> ListNiveau2;
-    private Text tQuestion;
+    private Label tQuestion;
     private TextField tfInput;
     private Text answer;
     private Button btCheck;
@@ -53,13 +54,15 @@ public class Questions extends BorderPane {
         vbText = new VBox(30);
         vbQuestion = new VBox();
         // on instancie le champ question
-        tQuestion = new Text();
+        tQuestion = new Label();
         tQuestion.setFont(new Font("Verdana", 30)); // grosse fonte pour la question 
         tQuestion.setTranslateY(20);
         tQuestion.setTranslateX(40);
+        tQuestion.setWrapText(true);
          //on remplit le texte avec une question aléatoire
         this.questionBean = ListNiveau1.get(getRandomQuestionBean(1));
         tQuestion.setText(questionBean.getQuestion());
+        
         vbQuestion.setAlignment(Pos.CENTER);// on centre la question
         //tQuestion.setTextAlignment(TextAlignment.LEFT);
         // on instancie le champ réponse

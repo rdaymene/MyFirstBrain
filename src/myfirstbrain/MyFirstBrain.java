@@ -3,6 +3,7 @@ package myfirstbrain;
 import Draw.Draw;
 import Menu.MenuForm;
 import Question.Questions;
+import calcul.Calcul;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,20 +18,23 @@ import javafx.stage.Stage;
 public class MyFirstBrain extends Application {
     // attribut question
     Questions questions;
+    Calcul calcul;      // attribut calcul
     @Override
     public void start(Stage primaryStage) {
         
         questions = new Questions();
+        calcul = new Calcul();   //création d'un objet calcul
         BorderPane root = new BorderPane();
         MenuForm menuBar = new MenuForm();
         Draw my_draw = new Draw();
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================
         Tab drawTab = new Tab("Dessin");
         Tab calculTab = new Tab("Calcul");
-        Tab questionTab = new Tab("Questions");
+        calculTab.setContent(this.calcul);
         
+        Tab questionTab = new Tab("Questions");        
         drawTab.setContent(my_draw);
-        questionTab.setContent(this.questions);
+        questionTab.setContent(this.questions);        
         Tab administrationTab = new Tab("Administration"); 
         
         drawTab.setClosable(false);

@@ -1,5 +1,6 @@
 package myfirstbrain;
 
+import Draw.Draw;
 import Menu.MenuForm;
 import Question.Questions;
 import javafx.application.Application;
@@ -22,10 +23,13 @@ public class MyFirstBrain extends Application {
         questions = new Questions();
         BorderPane root = new BorderPane();
         MenuForm menuBar = new MenuForm();
+        Draw my_draw = new Draw();
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================
         Tab drawTab = new Tab("Dessin");
         Tab calculTab = new Tab("Calcul");
         Tab questionTab = new Tab("Questions");
+        
+        drawTab.setContent(my_draw);
         questionTab.setContent(this.questions);
         Tab administrationTab = new Tab("Administration"); 
         

@@ -8,10 +8,11 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class MenuForm extends MenuBar{
     
-    public MenuForm(){ 
+    public MenuForm(Stage primaryStage){ 
     
     //=============================== CHANGEMENT DU FOND DU MENU ==================================================================================
     this.setBackground(new Background(new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY)));;

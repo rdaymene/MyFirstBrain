@@ -1,6 +1,5 @@
 package Menu;
 
-//import Administration.AdministrationLogin;
 import Administration.AdministrationLogin;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;

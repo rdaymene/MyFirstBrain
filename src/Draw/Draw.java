@@ -106,12 +106,12 @@ public class Draw extends BorderPane{
         //début du tracé dans la zone canvas avec la position de la souris
         canvas.setOnMousePressed(e->{
             gc.beginPath();
-            gc.lineTo(e.getSceneX()-100, e.getSceneY());
+            gc.lineTo(e.getSceneX(), e.getSceneY());
             gc.stroke();
         });
         //arret du tracé dans la zone canvas avec la position de la souris
         canvas.setOnMouseDragged(e->{
-            gc.lineTo(e.getSceneX()-100, e.getSceneY());
+            gc.lineTo(e.getSceneX(), e.getSceneY());
             gc.stroke();
         });
         toolsGrid.setBorder(Border.EMPTY);

@@ -44,6 +44,7 @@ public class Questions extends BorderPane {
     private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
     private QuestionBean questionBean;
+
     public Questions() {
         // on instancie l'objet Dao et les 2 listes d'objet question
         questionDAO = new Dao();
@@ -59,10 +60,10 @@ public class Questions extends BorderPane {
         tQuestion.setTranslateY(20);
         tQuestion.setTranslateX(40);
         tQuestion.setWrapText(true);
-         //on remplit le texte avec une question aléatoire
+        //on remplit le texte avec une question aléatoire
         this.questionBean = ListNiveau1.get(getRandomQuestionBean(1));
         tQuestion.setText(questionBean.getQuestion());
-        
+
         vbQuestion.setAlignment(Pos.CENTER);// on centre la question
         //tQuestion.setTextAlignment(TextAlignment.LEFT);
         // on instancie le champ réponse
@@ -76,7 +77,8 @@ public class Questions extends BorderPane {
         tfInput.setStyle("-fx-background-color: #FEC3AC;");
         // on instancie le text qui fera apparaitre la bonne réponse
         answer = new Text();
-       
+        answer.setTranslateY(200);
+        answer.setFont(new Font("Verdana", 20));
         //answer.setText(ListNiveau1.get(getRandomQuestionBean(1)));
         // on ajoute ces éléments à la vbox
         vbQuestion.getChildren().add(tQuestion);
@@ -86,7 +88,7 @@ public class Questions extends BorderPane {
         hbButton.setSpacing(150);
         // on instancie les boutons
         btCheck = new Button("Vérifier");
-        btCheck.setStyle("-fx-background-color: #FF6F7D;");
+        //btCheck.setStyle("-fx-background-color: #FF6F7D;");
         btSolution = new Button("Solution");
         btSolution.setStyle("-fx-background-color: #FF6F7D;");
         btOtherQuestion = new Button("Autre question");
@@ -107,19 +109,36 @@ public class Questions extends BorderPane {
 
         // gestion evenementielle du bouton vérifier
         btCheck.setOnAction(e -> {
+            answer.setText(null);
+            tfInput.setStyle("-fx-background-color : #fff");
             // on appelle la methode booleenne de compraison question réponse
             if (getQuestionBeanFromList(tQuestion.getText(), tfInput.getText(), 1)) {
                 // on colorie la zone réponse en vert
                 tfInput.setStyle("-fx-background-color : #3A9D23");
+
             } else {
                 //on colorie la zone réponse en rouge
                 tfInput.setStyle("-fx-background-color : #FF0000;");
+
             }
 
         });
         // gestion évènement du bouton solution
-        btSolution.setOnAction(e-> {
-            
+        btSolution.setOnAction(e -> {
+            answer.setText(null);
+            tfInput.setStyle("-fx-background-color : #fff");
+            if (getQuestionBeanFromList(tQuestion.getText(), tfInput.getText(), 1)) {
+                // on colorie la zone réponse en vert
+                tfInput.setStyle("-fx-background-color : #3A9D23");
+                answer.setFill(Color.GREEN);
+                answer.setText("Bonne réponse");// on affiche bonne réponse
+            } else {
+                //on colorie la zone réponse en rouge
+               
+                tfInput.setStyle("-fx-background-color : #FF0000;");
+                // on affiche la bonne réponse
+                answer.setText("Mauvaise réponse. La réponse est : " + this.questionBean.getReponse());
+            }
         });
     }
     // methode qui rend le questionBean de la collection en fonction de l'attribut question
@@ -144,6 +163,7 @@ public class Questions extends BorderPane {
         return false;
 
     }
+
     // generation d'un nombre aleatoire pour charger une question
     public int getRandomQuestionBean(int level) {
         Random rand = new Random();

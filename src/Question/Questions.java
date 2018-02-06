@@ -49,7 +49,7 @@ public class Questions extends BorderPane {
         // on instancie l'objet Dao et les 2 listes d'objet question
         questionDAO = new Dao();
         ListNiveau1 = questionDAO.fillCollection(1);// remplit la collection avec les questions faciles
-//         ListNiveau2 = questionDAO.fillCollection(2);// remplit la collection avec les questions difficiles
+        ListNiveau2 = questionDAO.fillCollection(2);// remplit la collection avec les questions difficiles
 
         this.setPadding(new Insets(15, 10, 15, 10));// on fait le padding du container parent
         vbText = new VBox(30);
@@ -60,10 +60,16 @@ public class Questions extends BorderPane {
         tQuestion.setTranslateY(20);
         tQuestion.setTranslateX(40);
         tQuestion.setWrapText(true);
-        //on remplit le texte avec une question aléatoire
-        this.questionBean = ListNiveau1.get(getRandomQuestionBean(1));
+        // on initialise l'attribut questionBean en fonction du niveau
+        if (MenuForm.level == 1) {
+            // SI NIVEAU 1 , l'attribut questionBean sera un objet de la liste facile
+            this.questionBean = ListNiveau1.get(getRandomQuestionBean());
+            // si niveau 2, on fait appel à la liste difficile
+        } else {
+            this.questionBean = ListNiveau2.get(getRandomQuestionBean());
+        }
+        ////on remplit le texte avec une question aléatoire en fonction du niveau
         tQuestion.setText(questionBean.getQuestion());
-
         vbQuestion.setAlignment(Pos.CENTER);// on centre la question
         //tQuestion.setTextAlignment(TextAlignment.LEFT);
         // on instancie le champ réponse
@@ -134,18 +140,18 @@ public class Questions extends BorderPane {
                 answer.setText("Bonne réponse");// on affiche bonne réponse
             } else {
                 //on colorie la zone réponse en rouge
-               
+
                 tfInput.setStyle("-fx-background-color : #FF0000;");
                 // on affiche la bonne réponse
                 answer.setFill(Color.RED);
                 answer.setText("Mauvaise réponse. La réponse est : " + this.questionBean.getReponse());
             }
         });
-        btOtherQuestion.setOnAction(e->{
+        btOtherQuestion.setOnAction(e -> {
             // on affecte a questionBean une nouvelle question
             tfInput.clear();
-            
-            this.questionBean = ListNiveau1.get(getRandomQuestionBean(1));
+
+            this.questionBean = ListNiveau1.get(getRandomQuestionBean());
             tQuestion.setText(questionBean.getQuestion());
         });
     }
@@ -173,11 +179,11 @@ public class Questions extends BorderPane {
     }
 
     // generation d'un nombre aleatoire pour charger une question
-    public int getRandomQuestionBean(int level) {
+    public int getRandomQuestionBean() {
         Random rand = new Random();
         int min = 0;
         int randomNum = 0;
-        if (level == 1) {// si niveau 1 on prend un numero de question en fonction de la liste facile
+        if (MenuForm.level == 1) {// si niveau 1 on prend un numero de question en fonction de la liste facile
 
             randomNum = rand.nextInt((this.ListNiveau1.size() - min) + 1) + min;
             // numero aléatoire entre 0 et le nombre de max de question dans liste facile

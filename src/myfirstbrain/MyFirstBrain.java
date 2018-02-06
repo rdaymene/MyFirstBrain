@@ -25,7 +25,7 @@ public class MyFirstBrain extends Application {
         questions = new Questions();
         calcul = new Calcul();   //création d'un objet calcul
         BorderPane root = new BorderPane();
-        MenuForm menuBar = new MenuForm();
+        MenuForm menuBar = new MenuForm(primaryStage);
         Draw my_draw = new Draw();
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================
         Tab drawTab = new Tab("Dessin");

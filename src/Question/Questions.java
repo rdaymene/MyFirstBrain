@@ -72,7 +72,7 @@ public class Questions extends BorderPane {
         answer = new Text();
         //on remplit le texte avec une question aléatoire
         
-        //answer.setText();
+        //answer.setText(ListNiveau1.get(getRandomQuestionBean(1)));
         // on ajoute ces éléments à la vbox
         vbQuestion.getChildren().add(tQuestion);
         vbText.getChildren().addAll(tfInput, answer);

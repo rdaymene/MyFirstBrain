@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 
 public class MenuForm extends MenuBar{
     
+    public static int level;
+    
     public MenuForm(Stage primaryStage){ 
     
     //=============================== CHANGEMENT DU FOND DU MENU ==================================================================================

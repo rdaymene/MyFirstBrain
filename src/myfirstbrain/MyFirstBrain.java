@@ -1,6 +1,7 @@
 package myfirstbrain;
 
 import Menu.MenuForm;
+import Question.Questions;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,18 +12,21 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-// hsqdjfhskjfd
+
 public class MyFirstBrain extends Application {
-    
+    // attribut question
+    Questions questions;
     @Override
     public void start(Stage primaryStage) {
-
+        
+        questions = new Questions();
         BorderPane root = new BorderPane();
         MenuForm menuBar = new MenuForm();
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================
         Tab drawTab = new Tab("Dessin");
         Tab calculTab = new Tab("Calcul");
         Tab questionTab = new Tab("Questions");
+        questionTab.setContent(this.questions);
         Tab administrationTab = new Tab("Administration"); 
         
         drawTab.setClosable(false);

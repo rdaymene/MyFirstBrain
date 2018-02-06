@@ -14,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -23,7 +24,7 @@ import javafx.scene.text.TextAlignment;
  *
  * @author $céline
  */
-public class Questions extends VBox {
+public class Questions extends BorderPane {
 
     private Dao questionDAO;
     private ArrayList<QuestionBean> ListNiveau1;
@@ -35,6 +36,7 @@ public class Questions extends VBox {
     private Button btSolution;
     private Button btOtherQuestion;
     private VBox vbText;//contient les 2 textfield (question et saisie réponse) 
+    private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
 
     public Questions() {
@@ -42,10 +44,11 @@ public class Questions extends VBox {
         // questionDAO = new Dao();
         // ListNiveau1 = questionDAO.fillCollection(1);// remplit la collection avec les questions faciles
         //  ListNiveau2 = questionDAO.fillCollection(2);// remplit la collection avec les questions difficiles
-        // on instancie la vbox avec 10 d'écart entre les composants
-        this.setSpacing(20);// on met un espace de 20 entre les éléments du container parent
+        
+        
         this.setPadding(new Insets(15, 10, 15, 10));// on fait le padding du container parent
         vbText = new VBox(30);
+        vbQuestion = new VBox();
         // on instancie le champ question
         tQuestion = new Text("Ici la question ?");
         //tQuestion.setTextAlignment(TextAlignment.LEFT);
@@ -54,11 +57,13 @@ public class Questions extends VBox {
         tfInput.setPromptText("Entrez votre réponse");
         tfInput.setPrefHeight(50);
         tfInput.setPrefWidth(25);
-        tfInput.setTranslateY(100);
+        tfInput.setPrefColumnCount(35);
+        tfInput.setAlignment(Pos.CENTER);
         // on instancie le text qui fera apparaitre la bonne réponse
         answer = new Text();
         // on ajoute ces éléments à la vbox
-        vbText.getChildren().addAll(tQuestion, tfInput, answer);
+        vbQuestion.getChildren().add(tQuestion);
+        vbText.getChildren().addAll(tfInput, answer);
         // on instancie la hbox qui contiendra les boutons:
         hbButton = new HBox(20);
         hbButton.setSpacing(150);
@@ -70,12 +75,14 @@ public class Questions extends VBox {
         btSolution.setMinSize(100, 50);
         btOtherQuestion.setMinSize(100, 50);
         hbButton.setAlignment(Pos.CENTER);
-        hbButton.setTranslateY(180);
+        
         // on ajoute les boutons au hbox
         hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);
 
         // on ajoute les 2 box au container parent      
-        this.getChildren().addAll(vbText, hbButton);
+        this.setTop(vbQuestion);
+        this.setCenter(vbText);
+        this.setBottom(hbButton);
     }
 
 }

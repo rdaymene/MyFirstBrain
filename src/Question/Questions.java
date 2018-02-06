@@ -42,7 +42,7 @@ public class Questions extends BorderPane {
     private VBox vbText;//contient les 2 textfield (question et saisie réponse) 
     private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
-
+    private QuestionBean questionBean;
     public Questions() {
         // on instancie l'objet Dao et les 2 listes d'objet question
         questionDAO = new Dao();
@@ -53,10 +53,13 @@ public class Questions extends BorderPane {
         vbText = new VBox(30);
         vbQuestion = new VBox();
         // on instancie le champ question
-        tQuestion = new Text("Ici la question ?");
+        tQuestion = new Text();
         tQuestion.setFont(new Font("Verdana", 30)); // grosse fonte pour la question 
         tQuestion.setTranslateY(20);
         tQuestion.setTranslateX(40);
+         //on remplit le texte avec une question aléatoire
+        this.questionBean = ListNiveau1.get(getRandomQuestionBean(1));
+        tQuestion.setText(questionBean.getQuestion());
         vbQuestion.setAlignment(Pos.CENTER);// on centre la question
         //tQuestion.setTextAlignment(TextAlignment.LEFT);
         // on instancie le champ réponse
@@ -70,8 +73,7 @@ public class Questions extends BorderPane {
         tfInput.setStyle("-fx-background-color: #FEC3AC;");
         // on instancie le text qui fera apparaitre la bonne réponse
         answer = new Text();
-        //on remplit le texte avec une question aléatoire
-        
+       
         //answer.setText(ListNiveau1.get(getRandomQuestionBean(1)));
         // on ajoute ces éléments à la vbox
         vbQuestion.getChildren().add(tQuestion);
@@ -105,9 +107,10 @@ public class Questions extends BorderPane {
             // on appelle la methode booleenne de compraison question réponse
             if (getQuestionBeanFromList(tQuestion.getText(), tfInput.getText(), 1)) {
                 // on colorie la zone réponse en vert
-                tfInput.setStyle("-fx-background-color");
+                tfInput.setStyle("-fx-background-color : #3A9D23");
             } else {
                 //on colorie la zone réponse en rouge
+                tfInput.setStyle("-fx-background-color : #FF0000;");
             }
 
         });
@@ -119,13 +122,13 @@ public class Questions extends BorderPane {
         if (niveau == 1) {
             for (QuestionBean qb : this.ListNiveau1) {// on parcourt la collection de liste facile
                 // on compare la question à sa réponse            
-                if (qb.getQuestion() == question && qb.getReponse() == reponse) {
+                if (qb.getQuestion().equals(question) && qb.getReponse().equals(reponse)) {
                     return true;// la réponse est juste
                 }
             }
         } else {// on parcourt la collection de liste difficile
             for (QuestionBean qb : this.ListNiveau1) {
-                if (qb.getQuestion() == question && qb.getReponse() == reponse) {
+                if (qb.getQuestion().equals(question) && qb.getReponse().equals(reponse)) {
                     return true;// la réponse est juste
 
                 }

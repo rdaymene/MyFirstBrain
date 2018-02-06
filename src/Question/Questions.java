@@ -137,6 +137,7 @@ public class Questions extends BorderPane {
                
                 tfInput.setStyle("-fx-background-color : #FF0000;");
                 // on affiche la bonne réponse
+                answer.setFill(Color.RED);
                 answer.setText("Mauvaise réponse. La réponse est : " + this.questionBean.getReponse());
             }
         });

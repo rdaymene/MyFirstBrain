@@ -19,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -47,6 +49,7 @@ public class Questions extends BorderPane {
     private HBox hbButton;//contient les 3 boutons
     private QuestionBean questionBean;
     private Label levelInfo;
+    private GridPane gp;
     
     public Questions() {
         levelInfo = new Label();
@@ -57,7 +60,7 @@ public class Questions extends BorderPane {
         // on instancie 2 listes qui contiendront les questions déjà passées
         ArrayList<QuestionBean> List1Passed = new ArrayList<>();
         ArrayList<QuestionBean> List2Passed = new ArrayList<>();
-
+        gp = new GridPane();
         this.setPadding(new Insets(15, 10, 15, 10));// on fait le padding du container parent
         vbText = new VBox(30);
         vbQuestion = new VBox();
@@ -66,7 +69,7 @@ public class Questions extends BorderPane {
         tQuestion.setFont(new Font("Verdana", 30)); // grosse fonte pour la question 
         tQuestion.setTranslateY(20);
         tQuestion.setTranslateX(40);
-
+       
         //on remplit le texte avec une question aléatoire
         if (MenuForm.level == 1) {// de la liste 1 si niveau1
             this.questionBean = ListNiveau1.get(getRandomQuestionBean(ListNiveau1.size() - 1));
@@ -116,11 +119,19 @@ public class Questions extends BorderPane {
         hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);       
         
         levelInfo.setText(MenuForm.level == 1 ? "niveau 1" : "niveau 2");
-        levelInfo.setRotate(90);
-        this.setLeft(levelInfo);
+       
+        levelInfo.setFont(new Font("Verdana",20));
+        levelInfo.setTextFill(Color.web("#D20303"));
+        //levelInfo.setTranslateX(5);
+        //levelInfo.setTranslateY(5);
+        gp.getColumnConstraints().add(new ColumnConstraints(150)); 
+        //gp.getColumnConstraints().add(new ColumnConstraints(700)); 
+        gp.add(levelInfo,0,0);
+        gp.add(vbQuestion,1,0);
+        
         // on ajoute les 3 box au container parent  
         
-        this.setTop(vbQuestion);// contient la question
+        this.setTop(gp);// contient la question
         this.setCenter(vbText);// contient le champ de saisie 
         this.setBottom(hbButton);
         this.setStyle("-fx-background-color: #6D6671;");// background color

@@ -1,6 +1,11 @@
-build
-private
+#NetBeans specific
+nbproject/private/
 build/
+build
+nbbuild/
 dist/
+nbdist/
 private/
-
+private
+nbaction.xml
+nb-configuration.xml

@@ -44,8 +44,12 @@ public class MenuForm extends MenuBar{
     MenuItem menuSeConnecterItem = new MenuItem();
     menuSeConnecterItem.setText("Se connecter");
     menuSeConnecterItem.setOnAction((ActionEvent event) -> {
-            AdministrationLogin calculette = new AdministrationLogin(primaryStage);
-        });
+    AdministrationLogin calculette = new AdministrationLogin(primaryStage);
+        });    
+    menuNiveau1Item.setOnAction(e->{
+            level=1;});           
+    menuNiveau2Item.setOnAction(e->{
+            level=2;});
     //=============================== AJOUT A CHAQUE MENU DE SES ITEMS ======================================
     menuNiveau.getItems().setAll(menuNiveau1Item,menuNiveau2Item);
     menuActivite.getItems().setAll(menuDrawItem,menuCalculItem,menuQuestionItem);

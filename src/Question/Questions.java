@@ -46,7 +46,7 @@ public class Questions extends BorderPane {
     private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
     private QuestionBean questionBean;
-
+    private Label levelInfo;
     public Questions() {
         // on instancie l'objet Dao et les 2 listes d'objet question
         questionDAO = new Dao();
@@ -77,7 +77,7 @@ public class Questions extends BorderPane {
         }
         // on affiche la question aléatoire 
         tQuestion.setText(questionBean.getQuestion());
-        tQuestion.setMaxWidth(750);
+        tQuestion.setMaxWidth(780);
         tQuestion.setWrapText(true);
         vbQuestion.setAlignment(Pos.CENTER);// on centre la question
 
@@ -112,8 +112,8 @@ public class Questions extends BorderPane {
 
         // on ajoute les boutons au hbox
         hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);
-        String machin = MenuForm.level == 1 ? "1" : "2";
-        this.setLeft(new Label(machin));
+        String levelInfo = MenuForm.level == 1 ? "niveau 1" : "niveau 2";
+        this.setLeft(new Label(levelInfo));
         // on ajoute les 3 box au container parent  
         this.setTop(new Text(MenuForm.level == 1 ? "niveau1" : "niveau 2"));
         this.setTop(vbQuestion);// contient la question

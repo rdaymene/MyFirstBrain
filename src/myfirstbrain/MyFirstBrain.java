@@ -73,6 +73,7 @@ public class MyFirstBrain extends Application {
         root.setCenter(tabPane);
         root.setTop(menuBar);
         root.getStylesheets().add("file:stylesheet.css");
+        primaryStage.setResizable(false);
         primaryStage.setTitle("MyFirstBrain");
         primaryStage.setScene(scene);
         primaryStage.show();

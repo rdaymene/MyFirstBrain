@@ -24,10 +24,10 @@ public class MyFirstBrain extends Application {
     public static SingleSelectionModel<Tab> selectionModel;
     // attribut question
     public static Questions questions;
-    Calcul calcul;      // attribut calcul
+    public static Calcul calcul;
     // getter question
     public static Tab questionTab;
-
+    public static Tab calculTab;
     public void start(Stage primaryStage) {
 
         calcul = new Calcul();   //création d'un objet calcul
@@ -46,7 +46,7 @@ public class MyFirstBrain extends Application {
         drawTab.setContent(my_draw);
 
         //Creation de l'onget tab avec un label Calcul
-        Tab calculTab = new Tab("Calcul");
+        calculTab = new Tab("Calcul");
         //On rajoute le contenu crée à partir de la classe Calcul
         calculTab.setContent(this.calcul);
 

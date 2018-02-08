@@ -56,12 +56,16 @@ public class MenuForm extends MenuBar {
             level = 1;
             MyFirstBrain.questions = new Questions();
             MyFirstBrain.questionTab.setContent(questions);
+            MyFirstBrain.calcul = new Calcul();
+            MyFirstBrain.calculTab.setContent( MyFirstBrain.calcul);
         });
 
         menuNiveau2Item.setOnAction(e -> {
             level = 2;
             MyFirstBrain.questions = new Questions();
             MyFirstBrain.questionTab.setContent(questions);
+            MyFirstBrain.calcul = new Calcul();
+            MyFirstBrain.calculTab.setContent( MyFirstBrain.calcul);
         });
 
         //gestion évènements du menu activité pour qu'on ouvre l'onglet choisi
@@ -73,6 +77,8 @@ public class MenuForm extends MenuBar {
         });
         menuCalculItem.setOnAction(e -> {
             MyFirstBrain.selectionModel.select(1);
+            MyFirstBrain.calcul = new Calcul();
+            MyFirstBrain.calculTab.setContent( MyFirstBrain.calcul);
 
         });
         menuDrawItem.setOnAction(e -> {

@@ -29,13 +29,16 @@
     -fx-height:50px;
     -fx-width:100px;
     -fx-font-size: 25px;
+    -fx-border-style: solid;
+    -fx-border-width: 5px;
+    -fx-border-color:black;
     -fx-background-radius: 30;
     -fx-background-insets: 0,1,1;
     -fx-text-fill: black;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
-}
-.Label {
-    -fx-background-color : #FFF;
-    
+    -fx-border-radius:30;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );  
     
 }
+
+    
+    

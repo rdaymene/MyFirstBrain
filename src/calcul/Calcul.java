@@ -1,6 +1,7 @@
 package calcul;
 
 import Menu.MenuForm;
+import Question.MyButton;
 import static java.lang.Math.abs;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,9 +40,9 @@ public class Calcul extends BorderPane {
     private TextField screenCalcul;
     private Text answer;
     //private Button btCheck;
-    private Button btegale;
-    private Button btReponse;
-    private Button btOtherCalcul;
+    private MyButton btegale;
+    private MyButton btReponse;
+    private MyButton btOtherCalcul;
     private VBox vbText;
     private VBox vbCalcul;
     private HBox hbButton;//contient les 2 boutons réponse et solution
@@ -132,8 +133,8 @@ public class Calcul extends BorderPane {
         hbButton.setSpacing(150);
 
         // on instancie les boutons
-        btReponse = new Button("Solution");
-        btOtherCalcul = new Button("Autre Calcul");
+        btReponse = new MyButton("Solution");
+        btOtherCalcul = new MyButton("Autre Calcul");
         btReponse.setMinSize(100, 50);
         btOtherCalcul.setMinSize(100, 50);
         hbButton.setAlignment(Pos.CENTER);

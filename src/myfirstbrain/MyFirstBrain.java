@@ -30,10 +30,12 @@ public class MyFirstBrain extends Application {
     public static Tab calculTab;
     public void start(Stage primaryStage) {
 
-        calcul = new Calcul();   //création d'un objet calcul
+          
         BorderPane root = new BorderPane();
         MenuForm menuBar = new MenuForm(primaryStage);
         questions = new Questions();
+        //création d'un objet calcul
+        calcul = new Calcul(); 
         Administration my_administration = new Administration();
         Draw my_draw = new Draw();
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================

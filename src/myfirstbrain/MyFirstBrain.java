@@ -23,10 +23,11 @@ public class MyFirstBrain extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        questions = new Questions();
+        
         calcul = new Calcul();   //création d'un objet calcul
         BorderPane root = new BorderPane();
         MenuForm menuBar = new MenuForm(primaryStage);
+        questions = new Questions();
         Administration my_administration = new Administration();
         Draw my_draw = new Draw();
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================
@@ -71,7 +72,7 @@ public class MyFirstBrain extends Application {
         //on place le menuBar et la tabPane
         root.setCenter(tabPane);
         root.setTop(menuBar);
-        
+        root.getStylesheets().add("file:stylesheet.css");
         primaryStage.setTitle("MyFirstBrain");
         primaryStage.setScene(scene);
         primaryStage.show();

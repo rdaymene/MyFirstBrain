@@ -1,4 +1,4 @@
-/*
+/**
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +8,7 @@ package Question;
 import DAO.Dao;
 import DAO.QuestionBean;
 import Menu.MenuForm;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.event.EventType;
@@ -24,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import myfirstbrain.MyButton;
 
 /**
  *
@@ -37,9 +39,9 @@ public class Questions extends BorderPane {
     private Label tQuestion;
     private TextField tfInput;
     private Text answer;
-    private Button btCheck;
-    private Button btSolution;
-    private Button btOtherQuestion;
+    private MyButton btCheck;
+    private MyButton btSolution;
+    private MyButton btOtherQuestion;
     private VBox vbText;//contient les 2 textfield (question et saisie réponse) 
     private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
@@ -50,6 +52,9 @@ public class Questions extends BorderPane {
         questionDAO = new Dao();
         ListNiveau1 = questionDAO.fillCollection(1);// remplit la collection avec les questions faciles
         ListNiveau2 = questionDAO.fillCollection(2);// remplit la collection avec les questions difficiles
+        // on instancie 2 listes qui contiendront les questions déjà passées
+        ArrayList<QuestionBean> List1Passed = new ArrayList<>();
+        ArrayList<QuestionBean> List2Passed = new ArrayList<>();
 
         this.setPadding(new Insets(15, 10, 15, 10));// on fait le padding du container parent
         vbText = new VBox(30);
@@ -59,33 +64,36 @@ public class Questions extends BorderPane {
         tQuestion.setFont(new Font("Verdana", 30)); // grosse fonte pour la question 
         tQuestion.setTranslateY(20);
         tQuestion.setTranslateX(40);
-        tQuestion.setWrapText(true);
-        // on initialise l'attribut questionBean en fonction du niveau
-        if (MenuForm.level == 1) {
-            // SI NIVEAU 1 , l'attribut questionBean sera un objet de la liste facile
-            this.questionBean = ListNiveau1.get(getRandomQuestionBean());
-            // si niveau 2, on fait appel à la liste difficile
-        } else {
-            this.questionBean = ListNiveau2.get(getRandomQuestionBean());
+
+        //on remplit le texte avec une question aléatoire
+        if (MenuForm.level == 1) {// de la liste 1 si niveau1
+            this.questionBean = ListNiveau1.get(getRandomQuestionBean(ListNiveau1.size() - 1));
+            List1Passed.add(questionBean);
+            System.out.println(ListNiveau1.size());
+        } else {// de la liste 2 si niveau 2
+            this.questionBean = ListNiveau2.get(getRandomQuestionBean(ListNiveau2.size() - 1));
+            List2Passed.add(questionBean);
+
         }
-        ////on remplit le texte avec une question aléatoire en fonction du niveau
+        // on affiche la question aléatoire 
         tQuestion.setText(questionBean.getQuestion());
+        tQuestion.setMaxWidth(750);
+        tQuestion.setWrapText(true);
         vbQuestion.setAlignment(Pos.CENTER);// on centre la question
-        //tQuestion.setTextAlignment(TextAlignment.LEFT);
-        // on instancie le champ réponse
+
+        // on instancie le champ réponse et on le positionne
         tfInput = new TextField();
         tfInput.setPromptText("Entrez votre réponse");
         tfInput.setPrefHeight(70);
         tfInput.setPrefWidth(20);
-        tfInput.setPrefColumnCount(35);
+        tfInput.setPrefColumnCount(10);
         tfInput.setTranslateY(170);
-        tfInput.setFont(new Font("Verdana", 30));
-        tfInput.setStyle("-fx-background-color: #FEC3AC;");
+        tfInput.getStyleClass().add("TextField");// css pour le textfield       
         // on instancie le text qui fera apparaitre la bonne réponse
         answer = new Text();
         answer.setTranslateY(200);
         answer.setFont(new Font("Verdana", 20));
-        //answer.setText(ListNiveau1.get(getRandomQuestionBean(1)));
+
         // on ajoute ces éléments à la vbox
         vbQuestion.getChildren().add(tQuestion);
         vbText.getChildren().addAll(tfInput, answer);
@@ -93,104 +101,130 @@ public class Questions extends BorderPane {
         hbButton = new HBox(20);
         hbButton.setSpacing(150);
         // on instancie les boutons
-        btCheck = new Button("Vérifier");
-        //btCheck.setStyle("-fx-background-color: #FF6F7D;");
-        btSolution = new Button("Solution");
-        btSolution.setStyle("-fx-background-color: #FF6F7D;");
-        btOtherQuestion = new Button("Autre question");
-        btOtherQuestion.setStyle("-fx-background-color: #FF6F7D;");
+        btCheck = new MyButton("Vérifier");
+        
+        btSolution = new MyButton("Solution");
+        btOtherQuestion = new MyButton("Autre question");
         btCheck.setMinSize(130, 80);
-        btSolution.setMinSize(130, 80);
+        // btSolution.setMinSize(130, 80);
         btOtherQuestion.setMinSize(130, 80);
         hbButton.setAlignment(Pos.CENTER);
 
         // on ajoute les boutons au hbox
         hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);
-
-        // on ajoute les 2 box au container parent      
-        this.setTop(vbQuestion);
-        this.setCenter(vbText);
+        String machin = MenuForm.level == 1 ? "1" : "2";
+        this.setLeft(new Label(machin));
+        // on ajoute les 3 box au container parent  
+        this.setTop(new Text(MenuForm.level == 1 ? "niveau1" : "niveau 2"));
+        this.setTop(vbQuestion);// contient la question
+        this.setCenter(vbText);// contient le champ de saisie 
         this.setBottom(hbButton);
-        this.setStyle("-fx-background-color: #D473D4;");
+        this.setStyle("-fx-background-color: #6D6671;");// background color
 
+////////////////////////////GESTION EVENEMENTIELLE //////////////////////////////////
         // gestion evenementielle du bouton vérifier
         btCheck.setOnAction(e -> {
             answer.setText(null);
             tfInput.setStyle("-fx-background-color : #fff");
-            // on appelle la methode booleenne de compraison question réponse
-            if (getQuestionBeanFromList(tQuestion.getText(), tfInput.getText(), 1)) {
+            // on appelle la methode booleenne de comparaison question réponse
+            if (compareAnswerToRightAnswer(tQuestion.getText(), tfInput.getText())) {// reponse juste
                 // on colorie la zone réponse en vert
-                tfInput.setStyle("-fx-background-color : #3A9D23");
-
-            } else {
+                tfInput.setStyle("-fx-background-color : #0E8C1B");
+            } else {// réponse fausse
                 //on colorie la zone réponse en rouge
-                tfInput.setStyle("-fx-background-color : #FF0000;");
-
+                tfInput.setStyle("-fx-background-color : #D20303;");
             }
 
         });
-        // gestion évènement du bouton solution
+/////// // gestion évènement du bouton solution
         btSolution.setOnAction(e -> {
             answer.setText(null);
             tfInput.setStyle("-fx-background-color : #fff");
-            if (getQuestionBeanFromList(tQuestion.getText(), tfInput.getText(), 1)) {
+            // si réponse correcte
+            if (compareAnswerToRightAnswer(tQuestion.getText(), tfInput.getText())) {
                 // on colorie la zone réponse en vert
-                tfInput.setStyle("-fx-background-color : #3A9D23");
-                answer.setFill(Color.GREEN);
-                answer.setText("Bonne réponse");// on affiche bonne réponse
+                tfInput.setStyle("-fx-background-color : #0E8C1B");
+                answer.setFill(Color.web("#38591F"));
+                answer.setText("Bonne réponse : " + this.questionBean.getReponse());// on affiche bonne réponse
             } else {
                 //on colorie la zone réponse en rouge
+                answer.setFill(Color.web("#D20303"));
+                tfInput.setStyle("-fx-background-color : #D20303;");
 
-                tfInput.setStyle("-fx-background-color : #FF0000;");
                 // on affiche la bonne réponse
-                answer.setFill(Color.RED);
                 answer.setText("Mauvaise réponse. La réponse est : " + this.questionBean.getReponse());
             }
         });
+//////// gestion évenementielle pour le bouton autre question
         btOtherQuestion.setOnAction(e -> {
-            // on affecte a questionBean une nouvelle question
-            tfInput.clear();
+            
+            answer.setText(null);// on vide le texte qui mentionne la réponse
+            tfInput.clear();// on vide le champ de saisie
+            tfInput.setStyle("-fx-background-color : #FFF;");// on colorie en blanc le champ
+//on remplit le texte avec une question aléatoire
+            if (MenuForm.level == 1) {// si niveau 1 
+                // on vide la liste de questions passées si elle contient ttes les questions
+                if (ListNiveau1.size() == List1Passed.size()) {
 
-            this.questionBean = ListNiveau1.get(getRandomQuestionBean());
-            tQuestion.setText(questionBean.getQuestion());
-        });
-    }
-    // methode qui rend le questionBean de la collection en fonction de l'attribut question
-
-    public boolean getQuestionBeanFromList(String question, String reponse, int niveau) {
-
-        if (niveau == 1) {
-            for (QuestionBean qb : this.ListNiveau1) {// on parcourt la collection de liste facile
-                // on compare la question à sa réponse            
-                if (qb.getQuestion().equals(question) && qb.getReponse().equals(reponse)) {
-                    return true;// la réponse est juste
+                    List1Passed.removeAll(ListNiveau1);
                 }
+                do {
+                    // on choisit une question tant qu'elle figure dans celles déjà passée
+                    this.questionBean = ListNiveau1.get(getRandomQuestionBean(ListNiveau1.size() - 1));
+                } while (List1Passed.contains(questionBean));
+                List1Passed.add(questionBean);// on ajoute la nouvelle question à celles déjà passées
+
+            } else {// si niveau 2 on fait pareil mais avec liste niveau 2
+                if (ListNiveau2.size() == List2Passed.size()) {
+                    List2Passed.removeAll(ListNiveau2);
+                }
+                do {
+                    this.questionBean = ListNiveau2.get(getRandomQuestionBean(ListNiveau2.size() - 1));
+                } while (List2Passed.contains(questionBean));
+                List2Passed.add(questionBean);
+
             }
-        } else {// on parcourt la collection de liste difficile
-            for (QuestionBean qb : this.ListNiveau1) {
-                if (qb.getQuestion().equals(question) && qb.getReponse().equals(reponse)) {
-                    return true;// la réponse est juste
+            tQuestion.setText(questionBean.getQuestion());// on affiche la question
+        });
 
-                }
+    }
+////////////////////////METHODES GESTION QUESTION ALEATOIRE    ///////////////////////////
+
+    // methode qui compare la réponse donnée à la bonne et retourne vrai ou faux
+    public boolean compareAnswerToRightAnswer(String question, String reponse) {
+        ArrayList<QuestionBean> qb = new ArrayList<>();
+        if (MenuForm.level == 1) {// si niveau 1 on charge la liste 1
+            qb = ListNiveau1;
+        } else {// sinon on charge la 2
+            qb = ListNiveau2;
+        }
+        // on parcourt la nouvelle liste (créée à partir de la liste appropriée)
+        for (QuestionBean q : qb) {
+            // on crée une string qui va retirer les accents à la bonne réponse 
+            String rightAnswer = Normalizer.normalize(q.getReponse(),
+                    Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+            // on crée une string qui va retirer les accents à la réponse donnée
+            String givenAnswer = Normalizer.normalize(reponse,
+                    Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+            // on cherche  la question dans la liste et on compare  sa réponse à la réponse donnée
+            // avec accents retirés et en minuscules
+            if (q.getQuestion().equals(question)
+                    && rightAnswer.toLowerCase().equals(givenAnswer.toLowerCase())) {
+                return true;// la réponse est juste
             }
         }
-        return false;
-
+        return false;// par défaut on dit que la réponse est fausse
     }
 
     // generation d'un nombre aleatoire pour charger une question
-    public int getRandomQuestionBean() {
+    public int getRandomQuestionBean(int size) {
         Random rand = new Random();
-        int min = 0;
+        int min = 0;// car une l'indice d'une liste commence à zéro
         int randomNum = 0;
-        if (MenuForm.level == 1) {// si niveau 1 on prend un numero de question en fonction de la liste facile
-
-            randomNum = rand.nextInt((this.ListNiveau1.size() - min) + 1) + min;
-            // numero aléatoire entre 0 et le nombre de max de question dans liste facile
-        } else {
-            randomNum = rand.nextInt((this.ListNiveau2.size() - min) + 1) + min;
-            // numero aléatoire entre 0 et le nombre de max de question dans liste facile
-        }
-        return randomNum;
+        randomNum = rand.nextInt((size - min) + 1) + min;
+        // numero aléatoire entre 0 et le nombre  max de questions dans liste facile
+        return randomNum;// on retourne le nombre aléatoire
     }
+    
+
 }

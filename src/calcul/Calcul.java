@@ -151,7 +151,9 @@ public class Calcul extends BorderPane{
         
         /*--bouton Autre Calcul--*/
         btOtherCalcul.setOnAction(e -> {
-            saisirResultat.clear();
+            saisirResultat.clear();     
+            saisirResultat.setStyle("-fx-background-color : #FFFFFF"); // on colorie la zone réponse en blanc
+
             // génération de nouveaux nombres aléatoires
             number1 = getRandomChiffre1();
             number2 = getRandomChiffre1(); 

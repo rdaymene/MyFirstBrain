@@ -6,6 +6,8 @@ import Menu.MenuForm;
 import Question.Questions;
 import calcul.Calcul;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -71,6 +73,12 @@ public class MyFirstBrain extends Application {
         tabPane.getTabs().add(administrationTab);
         selectionModel = tabPane.getSelectionModel();
         selectionModel.select(0);
+        tabPane.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> arg0, Tab arg1, Tab arg2) -> {
+            if(arg2 == questionTab){
+                this.questions = new Questions();
+                questionTab.setContent(questions);               
+            }
+        });
         //creation de la scene principale de notre programme
         Scene scene = new Scene(root, 1000, 600);
         //on place le menuBar et la tabPane

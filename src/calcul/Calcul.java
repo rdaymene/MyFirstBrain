@@ -58,16 +58,19 @@ public class Calcul extends BorderPane{
     Text lettre_touche;
     
     //----- Génération des chiffres et le type d'opération à éxécuter aléatoirement--------
-    int number1 = getRandomChiffre1();
-    int number2 = getRandomChiffre2();
-    int typeOp =  getRandomOpertaion(); 
+    
+    int typeOp =  getRandomOpertaion(MenuForm.level); 
+    int number1 = getRandomChiffre1(MenuForm.level);
+    int number2 = getRandomChiffre2(MenuForm.level);   
+    
+    
     /*
     //debug
     String v1 = Integer.toString(MenuForm.level); //conversion en string
     String v2 = Integer.toString(number1);
     String v3 = Integer.toString(number2);
     String v4 = Integer.toString(typeOp);
-    */
+    /*
     //String debug = "\n MenuForm.level : " + v1 + "\n number1 : " + v2 + "\n number2 : " + v3 +
     //               "\n typeOp : "+ v4;
     
@@ -76,12 +79,14 @@ public class Calcul extends BorderPane{
     public Calcul() {
     
         /*---------------------Le contenaire principal de type: VBox---------------*/
+        //Le padding du container parent
+        this.setPadding(new Insets(15, 10, 15, 10));
         VBox vBox1 = new VBox(20);
         vBox1.setSpacing(80);
         vBox1.setAlignment(Pos.CENTER);
         
         //Initialisation: affichage de l'opération à faire
-        String questionCalcul = getRandomCalcul(number1, number2, typeOp);
+        String questionCalcul = getRandomCalcul(number1, number2, typeOp, MenuForm.level);
         /*
         //debug
         //String ch1 = Integer.toString(chif1); //1ér chiffre aléatoire
@@ -103,6 +108,7 @@ public class Calcul extends BorderPane{
         saisirResultat.setPromptText("Entrez votre réponse");
         saisirResultat.setPrefHeight(80);
         saisirResultat.setPrefWidth(25);
+        saisirResultat.getStyleClass().add("TextField");// css pour le textfield   
         //Autofocus
         //saisirResultat.setFocusTraversable(false);
         //saisirResultat.requestFocus();
@@ -130,7 +136,7 @@ public class Calcul extends BorderPane{
         this.setTop(vbCalcul);
         this.setBottom(hbButton); 
         //ajout du backgroundmath
-        this.setBackground(backgroundmathclassic);
+        //this.setBackground(backgroundmathclassic);
         
         //-------------------- gestion evenementielle--------------------------
         /*--bouton Solution--*/
@@ -141,7 +147,14 @@ public class Calcul extends BorderPane{
             //Convérsion réponse candidat en int
             int reponseSaisi = Integer.parseInt(reponseCandidatStr); 
             int result =0;
-            String otherCalcul = getRandomCalcul(number1, number2, typeOp);
+            /*
+            typeOp = getRandomOpertaion(MenuForm.level);
+            number1 = getRandomChiffre1(MenuForm.level) ;
+            number2 = getRandomChiffre2(MenuForm.level) ;
+            */
+            //String otherCalcul = getRandomCalcul(number1, number2, typeOp);
+            String otherCalcul = getRandomCalcul(number1, number2, typeOp, MenuForm.level);
+           
             if(typeOp == 0){
                 result = number1 + number2;
             }
@@ -172,73 +185,96 @@ public class Calcul extends BorderPane{
             saisirResultat.setStyle("-fx-background-color : #FFFFFF"); // on colorie la zone réponse en blanc
 
             // génération de nouveaux nombres aléatoires
-            number1 = getRandomChiffre1();
-            number2 = getRandomChiffre2(); 
-            typeOp = getRandomOpertaion();
-            // Nouvelle opération 
-            //afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp)); 
             
-            //debug            
+            typeOp = getRandomOpertaion(MenuForm.level);
+            number1 = getRandomChiffre1(MenuForm.level);
+            number2 = getRandomChiffre2(MenuForm.level); 
+            
+            // Nouvelle opération 
+            //afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp, MenuForm.level)); 
+            
+            //debug      
             String nb1 = Integer.toString(number1);
             String nb2 = Integer.toString(number2);
             String nb3 = Integer.toString(typeOp);
             String nb4 = Integer.toString(MenuForm.level);
             
-            afficheurCalcul.setText(" opération : "+ getRandomCalcul(number1,number2,typeOp)
+            afficheurCalcul.setText(" opération : "+ getRandomCalcul(number1,number2,typeOp, MenuForm.level)
             + "\n number1 : " + number1 + " number2 : " + number2 + "\n typeOp : "+ typeOp
             + " MenuForm.level : " + MenuForm.level);
                       
-        });
-        
-        
-               
+        });              
     }
     
+   /*-------------------------------------------------------------------------------------*/ 
     //Méthode qui retourne le type d'opération selon le niveau
     //Addition, Soustraction pour le niveau1, pour le niveau 2, il y'a la multiplication en plus 
-    public int getRandomOpertaion() { 
-      int typeOperation;  
-      if (MenuForm.level == 1) {
+    int typeOperation;  
+    public int getRandomOpertaion(int level) {       
+      if (level == 1) {
          typeOperation  = (int)(Math.random() * 2); // 2 possibilités d'opérations (niveau 1)
-      }else{
+      }
+      if (level == 2) {
          typeOperation  = (int)(Math.random() * 3); // 3 possibilités d'opérations (niveau 2)
-       }      
+      }       
       return typeOperation;  
     }
     
     //Méthode d'envoie de 1ér chiffre aléatoire selon le niveau  
-    int chiffre1;
-    int chiffre2;
-    public int getRandomChiffre1() { 
+    int chiffre1 = 7;
+    int chiffre2 = 5;
+    String signeOperation = "hello";  
+    int resultat = 0; 
+    public int getRandomChiffre1(int level) { 
       //int chiffre1 = 5;
-      if (MenuForm.level == 1) {
+      //level = MenuForm.level;
+      if (level == 1) {
          chiffre1 = (int)(Math.random() * 10);      //chiffre aléatoire entre 0 et 9
          //return chiffre1;
       }
-      if ((MenuForm.level == 2) && (getRandomOpertaion() != 2)){
-         chiffre1 = (int)(Math.random() * 1000);    //chiffre aléatoire entre 0 et 999
-         //return chiffre1;
-      }      
+      //(getRandomOpertaion(level) != 2
+      else if (level == 2) {
+         //chiffre1 = (int)(Math.random() * 1000);    //chiffre aléatoire entre 0 et 999
+         if(getRandomOpertaion(level) == 2){
+            chiffre1 = (int)(Math.random() * 10);
+         }else{
+            chiffre1 = (int)(Math.random() * 1000);
+         }
+             
+         //return chiffre1;     
+      }     
+       
       return chiffre1;  
     }
   
     //Méthode d'envoie de 2éme chiffre aléatoire     
-    public int getRandomChiffre2() { 
+    public int getRandomChiffre2(int level) { 
       //int chiffre2 = 7;
-      if (MenuForm.level == 1) {
+      if (level == 1) {
          chiffre2 = (int)(Math.random() * 10);      //chiffre aléatoire entre 0 et 9
+         //return chiffre1;
       }
-      if ((MenuForm.level == 2) && (getRandomOpertaion() != 2)){
-         chiffre2 = (int)(Math.random() * 1000);    //chiffre aléatoire entre 0 et 999
-       }       
-      return chiffre2; 
-    }               
+      //(getRandomOpertaion(level) != 2
+      else if (level == 2) {
+         //chiffre1 = (int)(Math.random() * 1000);    //chiffre aléatoire entre 0 et 999
+         if(getRandomOpertaion(level) == 2){
+            chiffre2 = (int)(Math.random() * 10);
+         }else{
+            chiffre2 = (int)(Math.random() * 1000);
+         }
+             
+         //return chiffre1;     
+      }     
+       
+      return chiffre2;  
+    }
         
     // Méthode qui renvoie l'opération à résoudre sous type string   
-    public String getRandomCalcul(int chif1, int chif2, int typeOpe) {      
-        int resultat = 0;    
-        String signeOperation = "hello";        
-        if (MenuForm.level == 1) {
+    public String getRandomCalcul(int chif1, int chif2, int typeOpe, int level) {      
+        //int resultat = 0;    
+        //String signeOperation = "hello";        
+        //if (MenuForm.level == 1) {
+        if (level== 1) {
             //comparaison des 2 chiffres aléatoires
             if(chif1 < chif2){
                 int temp = chif1;

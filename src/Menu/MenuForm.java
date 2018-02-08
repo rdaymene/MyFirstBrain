@@ -11,6 +11,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import myfirstbrain.MyFirstBrain;
 
 public class MenuForm extends MenuBar{
     
@@ -50,6 +51,16 @@ public class MenuForm extends MenuBar{
             level=1;});           
     menuNiveau2Item.setOnAction(e->{
             level=2;});
+      //gestion évènements du menu activité pour qu'on ouvre l'onglet choisi
+    menuQuestionItem.setOnAction(e->{
+        MyFirstBrain.selectionModel.select(2);       
+    });
+    menuCalculItem.setOnAction(e->{
+        MyFirstBrain.selectionModel.select(1);  
+    });
+    menuDrawItem.setOnAction(e->{
+        MyFirstBrain.selectionModel.select(0);  
+    });
     //=============================== AJOUT A CHAQUE MENU DE SES ITEMS ======================================
     menuNiveau.getItems().setAll(menuNiveau1Item,menuNiveau2Item);
     menuActivite.getItems().setAll(menuDrawItem,menuCalculItem,menuQuestionItem);

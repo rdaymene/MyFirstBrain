@@ -47,7 +47,9 @@ public class Questions extends BorderPane {
     private HBox hbButton;//contient les 3 boutons
     private QuestionBean questionBean;
     private Label levelInfo;
+    
     public Questions() {
+        levelInfo = new Label();
         // on instancie l'objet Dao et les 2 listes d'objet question
         questionDAO = new Dao();
         ListNiveau1 = questionDAO.fillCollection(1);// remplit la collection avec les questions faciles
@@ -109,13 +111,15 @@ public class Questions extends BorderPane {
         // btSolution.setMinSize(130, 80);
         btOtherQuestion.setMinSize(130, 80);
         hbButton.setAlignment(Pos.CENTER);
-
+        
         // on ajoute les boutons au hbox
-        hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);
-        String levelInfo = MenuForm.level == 1 ? "niveau 1" : "niveau 2";
-        this.setLeft(new Label(levelInfo));
+        hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);       
+        
+        levelInfo.setText(MenuForm.level == 1 ? "niveau 1" : "niveau 2");
+        levelInfo.setRotate(90);
+        this.setLeft(levelInfo);
         // on ajoute les 3 box au container parent  
-        this.setTop(new Text(MenuForm.level == 1 ? "niveau1" : "niveau 2"));
+        
         this.setTop(vbQuestion);// contient la question
         this.setCenter(vbText);// contient le champ de saisie 
         this.setBottom(hbButton);
@@ -157,7 +161,7 @@ public class Questions extends BorderPane {
         });
 //////// gestion évenementielle pour le bouton autre question
         btOtherQuestion.setOnAction(e -> {
-            
+            levelInfo.setText(MenuForm.level == 1 ? "niveau 1" : "niveau 2");
             answer.setText(null);// on vide le texte qui mentionne la réponse
             tfInput.clear();// on vide le champ de saisie
             tfInput.setStyle("-fx-background-color : #FFF;");// on colorie en blanc le champ

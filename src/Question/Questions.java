@@ -33,7 +33,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import myfirstbrain.MyButton;
+import Question.MyButton;
 
 /**
  *
@@ -70,7 +70,7 @@ public class Questions extends BorderPane {
     private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
     private QuestionBean questionBean;
-    private Label levelInfo;
+    
     private GridPane gp;
     
     public Questions() {
@@ -139,17 +139,12 @@ public class Questions extends BorderPane {
         // on ajoute les boutons au hbox
         hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);       
         // on affiche le niveau actuel lors de la mise en route 
-        levelInfo = new Label();
-        levelInfo.setText(MenuForm.level == 1 ? "niveau 1" : "niveau 2");      
-        levelInfo.setFont(new Font("Verdana",20));
-        levelInfo.setTextFill(Color.web("#D20303"));
+
         
        // on remplit le gridpane avec la question à gauche et le niveau à droite
-        gp.getColumnConstraints().add(new ColumnConstraints(800)); 
+        
         gp.setHgap(50);
-        gp.add(vbQuestion,0,0);
-        gp.add(levelInfo,1,0);
-       
+        gp.add(vbQuestion,0,0);              
         gp.setTranslateY(100);
         gp.getStyleClass().add("GridPane");
         gp.setMinHeight(100);
@@ -198,8 +193,7 @@ public class Questions extends BorderPane {
 //////// gestion évenementielle pour le bouton autre question
         btOtherQuestion.setOnAction(e -> {
             this.setBackground(MenuForm.level == 1 ? backgroundquestionclassic : backgroundquestionexpert);
-            levelInfo.setText(MenuForm.level == 1 ? "niveau 1" : "niveau 2");
-            answer.setText(null);// on vide le texte qui mentionne la réponse
+            answer.setText(null);// on levelInvide le texte qui mentionne la réponse
             tfInput.clear();// on vide le champ de saisie
             tfInput.setStyle("-fx-background-color : #FFF;");// on colorie en blanc le champ
 //on remplit le texte avec une question aléatoire

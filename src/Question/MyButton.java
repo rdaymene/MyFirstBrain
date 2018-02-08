@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package myfirstbrain;
+package Question;
 
+import Menu.*;
+import myfirstbrain.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 

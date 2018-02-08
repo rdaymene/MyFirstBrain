@@ -104,11 +104,13 @@ public class Calcul extends BorderPane {
                 "\n number1 : " + v2 + ", number2 : " + v3 + "\n typeOp : "+ v4;
          */
         Label afficheurCalcul = new Label(questionCalcul);
-        afficheurCalcul.setFont(new Font("Verdana", 30));
+        afficheurCalcul.setFont(new Font("Verdana", 75));
         afficheurCalcul.setWrapText(true);
+        /*
         //le bouton de signe =
         btegale = new Button("=");
         btegale.setMinSize(100, 50);
+        */
         //Le champs de saisir le résultat
         TextField saisirResultat = new TextField();
         saisirResultat.setPromptText("Entrez votre réponse");
@@ -121,7 +123,8 @@ public class Calcul extends BorderPane {
 
         //saisirResultat.setPrefColumnCount(35);
         // on ajoute les boutons au vBox1
-        vBox1.getChildren().addAll(afficheurCalcul, btegale, saisirResultat);
+        //vBox1.getChildren().addAll(afficheurCalcul, btegale, saisirResultat);
+        vBox1.getChildren().addAll(afficheurCalcul, saisirResultat);
         this.setCenter(vBox1);
 
         /*---------------------Le contenaire bas de la page de type HBox----------*/
@@ -142,7 +145,7 @@ public class Calcul extends BorderPane {
         this.setTop(vbCalcul);
         this.setBottom(hbButton);
         //ajout du backgroundmath
-        //this.setBackground(backgroundmathclassic);
+        this.setBackground(backgroundmathclassic);
 
         //-------------------- gestion evenementielle--------------------------
         /*--bouton Solution--*/
@@ -197,7 +200,8 @@ public class Calcul extends BorderPane {
             number2 = getRandomChiffre();
 
             // Nouvelle opération 
-            //afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp, MenuForm.level)); 
+            afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp)); 
+            /*
             //debug      
             String nb1 = Integer.toString(number1);
             String nb2 = Integer.toString(number2);
@@ -207,7 +211,7 @@ public class Calcul extends BorderPane {
             afficheurCalcul.setText(" opération : " + getRandomCalcul(number1, number2, typeOp)
                     + "\n number1 : " + number1 + " number2 : " + number2 + "\n typeOp : " + typeOp
                     + " MenuForm.level : " + MenuForm.level);
-
+            */        
         });
     }
 
@@ -279,7 +283,7 @@ public class Calcul extends BorderPane {
         }
         //--conversions du résultat en string--//
         String ch3 = Integer.toString(resultat);
-        String questionCalcul = ch1 + " " + signeOperation + " " + ch2;
+        String questionCalcul = ch1 + " " + signeOperation + " " + ch2 + " = ?";
         return questionCalcul;
     }
 }

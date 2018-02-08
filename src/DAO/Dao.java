@@ -79,8 +79,11 @@ public  class Dao {
             pstmt.setInt(1, qb.getNiveau());
             pstmt.setString(2, qb.getQuestion());
             pstmt.setString(3, qb.getReponse());
-            int res = pstmt.executeUpdate();
-            qb3 = this.find(qb.getID());
+            pstmt.setInt(4,qb.getID());
+          //  int nbLignesImpactees = pstmt.executeUpdate();
+          pstmt.executeUpdate();
+//            int res = pstmt.executeUpdate();
+//            qb3 = this.find(qb.getID());
         } catch (SQLException ex) {
             Logger.getLogger(QuestionBean.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -156,11 +156,11 @@ public class Calcul extends BorderPane{
 
             // génération de nouveaux nombres aléatoires
             number1 = getRandomChiffre1();
-            number2 = getRandomChiffre1(); 
+            number2 = getRandomChiffre2(); 
             typeOp = getRandomOpertaion();
             // Nouvelle opération 
-            afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp)); 
-            /*
+            //afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp)); 
+            
             //debug            
             String nb1 = Integer.toString(number1);
             String nb2 = Integer.toString(number2);
@@ -170,7 +170,7 @@ public class Calcul extends BorderPane{
             afficheurCalcul.setText(" opération : "+ getRandomCalcul(number1,number2,typeOp)
             + "\n number1 : " + number1 + " number2 : " + number2 + " typeOp : "+ typeOp
             + "MenuForm.level : " + MenuForm.level);
-            */           
+                      
         });
                
     }
@@ -188,28 +188,32 @@ public class Calcul extends BorderPane{
     }
     
     //Méthode d'envoie de 1ér chiffre aléatoire selon le niveau   
+   
     public int getRandomChiffre1() { 
-      int chiffre1 = 0;
+      int chiffre1 = 5;
       if (MenuForm.level == 1) {
          chiffre1 = (int)(Math.random() * 10);      //chiffre aléatoire entre 0 et 9
+         return chiffre1;
       }
-      if ((MenuForm.level == 2) && (getRandomOpertaion() == 0) && (getRandomOpertaion() == 1)){
+      if ((MenuForm.level == 2) && (getRandomOpertaion() != 2)){
          chiffre1 = (int)(Math.random() * 1000);    //chiffre aléatoire entre 0 et 999
-       }      
+         return chiffre1;
+      }      
       return chiffre1;  
     }
   
     //Méthode d'envoie de 2éme chiffre aléatoire     
     public int getRandomChiffre2() { 
-      int chiffre2;
+      int chiffre2 = 7;
       if (MenuForm.level == 1) {
          chiffre2 = (int)(Math.random() * 10);      //chiffre aléatoire entre 0 et 9
-      }else{
+      }
+      if ((MenuForm.level == 2) && (getRandomOpertaion() != 2)){
          chiffre2 = (int)(Math.random() * 1000);    //chiffre aléatoire entre 0 et 999
-       }      
+       }       
       return chiffre2; 
     }
-                    
+                
         
     // Méthode qui renvoie l'opération à résoudre sous type string   
     public String getRandomCalcul(int chif1, int chif2, int typeOpe) {      

@@ -41,10 +41,17 @@ import myfirstbrain.MyButton;
  */
 public class Questions extends BorderPane {
     
-    //attributs qui concerne le background
+    //attributs qui concerne le background classic
     private final Image questionclassic = new Image(getClass().getResourceAsStream("backgroundquestionclassic.png"));
     private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
     private final Background backgroundquestionclassic = new Background(new BackgroundImage(questionclassic,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER,
+            bSize));
+    //attributs qui concerne le background classic
+    private final Image questionexpert = new Image(getClass().getResourceAsStream("backgroundquestionexpert.png"));
+    private final Background backgroundquestionexpert = new Background(new BackgroundImage(questionexpert,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
@@ -67,7 +74,7 @@ public class Questions extends BorderPane {
     private GridPane gp;
     
     public Questions() {
-        levelInfo = new Label();
+       
         // on instancie l'objet Dao et les 2 listes d'objet question
         questionDAO = new Dao();
         ListNiveau1 = questionDAO.fillCollection(1);// remplit la collection avec les questions faciles
@@ -113,7 +120,7 @@ public class Questions extends BorderPane {
         answer = new Text();
         answer.setTranslateY(200);
         answer.setFont(new Font("Verdana", 20));
-
+        answer.minHeight(30);
         // on ajoute ces éléments à la vbox
         vbQuestion.getChildren().add(tQuestion);
         vbQuestion.getStyleClass().add("Label");
@@ -127,33 +134,31 @@ public class Questions extends BorderPane {
         btSolution = new MyButton("Solution");
         btOtherQuestion = new MyButton("Autre question");
         btCheck.setMinSize(130, 80);
-        // btSolution.setMinSize(130, 80);
         btOtherQuestion.setMinSize(130, 80);
-        hbButton.setAlignment(Pos.CENTER);
-        
+        hbButton.setAlignment(Pos.CENTER);        
         // on ajoute les boutons au hbox
         hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);       
-        
-        levelInfo.setText(MenuForm.level == 1 ? "niveau 1" : "niveau 2");
-       
+        // on affiche le niveau actuel lors de la mise en route 
+        levelInfo = new Label();
+        levelInfo.setText(MenuForm.level == 1 ? "niveau 1" : "niveau 2");      
         levelInfo.setFont(new Font("Verdana",20));
         levelInfo.setTextFill(Color.web("#D20303"));
         
-       
+       // on remplit le gridpane avec la question à gauche et le niveau à droite
         gp.getColumnConstraints().add(new ColumnConstraints(800)); 
         gp.setHgap(50);
-         gp.add(vbQuestion,0,0);
+        gp.add(vbQuestion,0,0);
         gp.add(levelInfo,1,0);
        
         gp.setTranslateY(100);
         gp.getStyleClass().add("GridPane");
-       
+        gp.setMinHeight(100);
         // on ajoute les 3 box au container parent  
         
         this.setTop(gp);// contient la question
         this.setCenter(vbText);// contient le champ de saisie 
         this.setBottom(hbButton);
-        this.setBackground(backgroundquestionclassic);
+        this.setBackground(MenuForm.level == 1 ? backgroundquestionclassic : backgroundquestionexpert);
         //this.setStyle("-fx-background-color: #6D6671;");// background color
 
 ////////////////////////////GESTION EVENEMENTIELLE //////////////////////////////////
@@ -192,6 +197,7 @@ public class Questions extends BorderPane {
         });
 //////// gestion évenementielle pour le bouton autre question
         btOtherQuestion.setOnAction(e -> {
+            this.setBackground(MenuForm.level == 1 ? backgroundquestionclassic : backgroundquestionexpert);
             levelInfo.setText(MenuForm.level == 1 ? "niveau 1" : "niveau 2");
             answer.setText(null);// on vide le texte qui mentionne la réponse
             tfInput.clear();// on vide le champ de saisie

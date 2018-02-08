@@ -1,6 +1,7 @@
 package Menu;
 
 import Administration.AdministrationLogin;
+import calcul.Calcul;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Menu;
@@ -53,10 +54,13 @@ public class MenuForm extends MenuBar{
             level=2;});
       //gestion évènements du menu activité pour qu'on ouvre l'onglet choisi
     menuQuestionItem.setOnAction(e->{
-        MyFirstBrain.selectionModel.select(2);       
+        MyFirstBrain.selectionModel.select(2); 
+        
+        
     });
     menuCalculItem.setOnAction(e->{
-        MyFirstBrain.selectionModel.select(1);  
+        MyFirstBrain.selectionModel.select(1);
+        
     });
     menuDrawItem.setOnAction(e->{
         MyFirstBrain.selectionModel.select(0);  

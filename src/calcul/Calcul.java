@@ -35,6 +35,14 @@ public class Calcul extends BorderPane {
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
             bSize));
+    
+    //attributs Image et Background
+    private final Image mathexpert = new Image(getClass().getResourceAsStream("backgroundmathexpert.png"));
+    private final Background backgroundmathexpert = new Background(new BackgroundImage(mathexpert,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER,
+            bSize));
 
     private Text tCalcul;
     private TextField screenCalcul;
@@ -150,7 +158,7 @@ public class Calcul extends BorderPane {
         this.setTop(vbCalcul);
         this.setBottom(hbButton);
         //ajout du backgroundmath
-        this.setBackground(backgroundmathclassic);
+        this.setBackground(MenuForm.level == 1 ? backgroundmathclassic : backgroundmathexpert);
 
         //-------------------- gestion evenementielle--------------------------
         /*--bouton Solution--*/
@@ -198,6 +206,7 @@ public class Calcul extends BorderPane {
 
         /*--bouton Autre Calcul--*/
         btOtherCalcul.setOnAction(e -> {
+            this.setBackground(MenuForm.level == 1 ? backgroundmathclassic : backgroundmathexpert);
             saisirResultat.clear();
             saisirResultat.setStyle("-fx-background-color : #FFFFFF"); // on colorie la zone réponse en blanc
 

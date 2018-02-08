@@ -7,6 +7,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,6 +25,15 @@ import javafx.scene.text.Text;
  * @author Rachid
  */
 public class Calcul extends BorderPane{
+    
+//attributs Image et Background
+    private final Image mathclassic = new Image(getClass().getResourceAsStream("backgroundmathclassic.png"));
+    private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+    private final Background backgroundmathclassic = new Background(new BackgroundImage(mathclassic,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER,
+            bSize));
 
     private Text tCalcul;
     private TextField screenCalcul;
@@ -114,6 +129,8 @@ public class Calcul extends BorderPane{
         // on ajoute les 2 box au container parent 
         this.setTop(vbCalcul);
         this.setBottom(hbButton); 
+        //ajout du backgroundmath
+        this.setBackground(backgroundmathclassic);
         
         //-------------------- gestion evenementielle--------------------------
         /*--bouton Solution--*/
@@ -172,6 +189,8 @@ public class Calcul extends BorderPane{
             + " MenuForm.level : " + MenuForm.level);
                       
         });
+        
+        
                
     }
     

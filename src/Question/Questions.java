@@ -123,7 +123,7 @@ public class Questions extends BorderPane {
         answer.minHeight(30);
         // on ajoute ces éléments à la vbox
         vbQuestion.getChildren().add(tQuestion);
-        vbQuestion.getStyleClass().add("Label");
+        
         vbText.getChildren().addAll(tfInput, answer);
         // on instancie la hbox qui contiendra les boutons:
         hbButton = new HBox(20);

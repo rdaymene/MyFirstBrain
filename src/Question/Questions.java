@@ -18,6 +18,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -34,6 +40,15 @@ import myfirstbrain.MyButton;
  * @author $céline
  */
 public class Questions extends BorderPane {
+    
+    //attributs qui concerne le background
+    private final Image questionclassic = new Image(getClass().getResourceAsStream("backgroundquestionclassic.png"));
+    private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+    private final Background backgroundquestionclassic = new Background(new BackgroundImage(questionclassic,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER,
+            bSize));
 
     private Dao questionDAO;
     private ArrayList<QuestionBean> ListNiveau1;
@@ -134,7 +149,8 @@ public class Questions extends BorderPane {
         this.setTop(gp);// contient la question
         this.setCenter(vbText);// contient le champ de saisie 
         this.setBottom(hbButton);
-        this.setStyle("-fx-background-color: #6D6671;");// background color
+        this.setBackground(backgroundquestionclassic);
+        //this.setStyle("-fx-background-color: #6D6671;");// background color
 
 ////////////////////////////GESTION EVENEMENTIELLE //////////////////////////////////
         // gestion evenementielle du bouton vérifier

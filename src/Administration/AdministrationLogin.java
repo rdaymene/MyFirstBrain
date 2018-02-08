@@ -1,5 +1,9 @@
 package Administration;
 
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +16,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AdministrationLogin {
+    private String USER;
+    private String PASSWORD;
+    private boolean flagPwd;
+    private boolean flagUser;
     
     public AdministrationLogin(Stage primaryStage){
         
@@ -41,21 +49,21 @@ public class AdministrationLogin {
         Label pass_label = new Label("Mot de passe");
         champloginetpass.add(pass_label, 0, 2);
         
-        TextField logintext = new TextField();
-        champloginetpass.add(logintext, 1, 1);
+        TextField loginText = new TextField();
+        champloginetpass.add(loginText, 1, 1);
         
-        TextField passText = new TextField();
-        champloginetpass.add(passText, 1, 2);
+        TextField pwdText = new TextField();
+        champloginetpass.add(pwdText, 1, 2);
         
         GridPane annulerokGrid = new GridPane();
         Button btnannuler = new Button("Annuler");
-        Button btnok = new Button("Ok");
+        Button btnLogin = new Button("Login");
         
         annulerokGrid.add(btnannuler,1,0);
-        annulerokGrid.add(btnok,2,0);
+        annulerokGrid.add(btnLogin,2,0);
         
         btnannuler.setAlignment(Pos.TOP_LEFT);
-        btnok.setAlignment(Pos.TOP_LEFT);
+        btnLogin.setAlignment(Pos.TOP_LEFT);
         
         annulerokGrid.setAlignment(Pos.CENTER);
         
@@ -68,5 +76,62 @@ public class AdministrationLogin {
         stage_formulaire.setX(primaryStage.getX() + 200);
         stage_formulaire.setY(primaryStage.getY() + 100);
         stage_formulaire.show();
+        
+        
+        //Chargement des variables 
+                // Crée un objet properties        
+        Properties recup_info = new Properties();
+        
+        //INFO >> je cree une instance de type MySQLConnection, pour pouvoir utiliser 
+        //getClass, car la methode getClass ne fctionne qu avec des instances.
+        
+        
+        try {
+            recup_info.load(this.getClass().getResourceAsStream("/ressources/ManagementInfo"));            
+
+        } catch (IOException ex) {
+             System.out.println("Fichier property << Management Info >> n'a pas pu être lu");
+        }
+        USER= recup_info.getProperty("USER");
+        PASSWORD= recup_info.getProperty("PASSWORD");
+        loginText.setText(USER);
+        pwdText.setText(PASSWORD);
+        
+        
+        btnLogin.setOnAction(e->{
+        
+        if(recup_info.equals(loginText.getText())){
+//      //mettre un text rouge // ou logo 
+//flagUser false
+flagUser=false;
+        }
+    else
+    {
+        //clear text rouge // ou logo 
+        // mettre flagUser True
+        flagUser=true;
     }
+    if(!recup_info.get("PASSWORD").equals(pwdText.getText())){
+        //mettre un text rouge // ou logo
+        // mettre flagPwd false
+        flagPwd=false;
+    }
+    else
+    {
+        //clear text rouge // ou logo 
+        // mettre flagPwd true
+        flagPwd=true;
+    }
+    if(flagPwd && flagUser){
+        System.out.println("there is a match!!");
+    }
+        
+        });
+        
+        
+        
+        
+        
+    }
+       
 }

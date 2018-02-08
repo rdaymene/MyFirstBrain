@@ -33,21 +33,21 @@ public class Draw extends BorderPane {
     
     //attributs images
     //<editor-fold>
-    private Image gomme = new Image(getClass().getResourceAsStream("gomme.png"));
-    private Image rond = new Image(getClass().getResourceAsStream("rond.png"));
-    private Image carre = new Image(getClass().getResourceAsStream("carre.png")); 
-    private Image crayon = new Image(getClass().getResourceAsStream("crayon.png"));
-    private Image ardoise = new Image(getClass().getResourceAsStream("backgroundclassic.png"));
-    private Image ardoisecar = new Image(getClass().getResourceAsStream("backgroundcars.png"));
-    private Image ardoisefrozen = new Image(getClass().getResourceAsStream("backgroundfrozen.png"));
-    private Image iconeelsa = new Image(getClass().getResourceAsStream("iconeelsa.png"));
-    private Image iconecars = new Image(getClass().getResourceAsStream("iconecars.png")); 
-    private Image iconeclassic = new Image(getClass().getResourceAsStream("iconeclassic.png")); 
+    private final Image gomme = new Image(getClass().getResourceAsStream("gomme.png"));
+    private final Image rond = new Image(getClass().getResourceAsStream("rond.png"));
+    private final Image carre = new Image(getClass().getResourceAsStream("carre.png")); 
+    private final Image crayon = new Image(getClass().getResourceAsStream("crayon.png"));
+    private final Image ardoise = new Image(getClass().getResourceAsStream("backgroundclassic.png"));
+    private final Image ardoisecar = new Image(getClass().getResourceAsStream("backgroundcars.png"));
+    private final Image ardoisefrozen = new Image(getClass().getResourceAsStream("backgroundfrozen.png"));
+    private final Image iconeelsa = new Image(getClass().getResourceAsStream("iconeelsa.png"));
+    private final Image iconecars = new Image(getClass().getResourceAsStream("iconecars.png")); 
+    private final Image iconeclassic = new Image(getClass().getResourceAsStream("iconeclassic.png")); 
     //</editor-fold>
     
     //attributs BackGround & BackGround Setting
     //<editor-fold>
-    private BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+    private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
     private Background backgroundardoiseclassic = new Background(new BackgroundImage(ardoise,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
@@ -68,31 +68,31 @@ public class Draw extends BorderPane {
     //attributs menu general en haut de l'ardoise
     //<editor-fold>
     //containeur de l'ensemble de la barre du haut
-    private HBox choixardoiseetboiteoutilHBox;
+    private final HBox choixardoiseetboiteoutilHBox;
     //bouton qui va effacer l'ensemble de l'ardoise
-    private Button btnEffacer;
+    private final Button btnEffacer;
     //containeur de toute la barre
-    private HBox boiteoutilsHBox;
+    private final HBox boiteoutilsHBox;
     //containeur et bouton des formes
     private final HBox formeGrid;
     private final Button btnRond;
     private final Button btnCarre;
     //containeur couleur RVB et bouton des couleurs/
-    private GridPane couleurGrid;
-    private Button btnRouge;
-    private Button btnVert;
-    private Button btnBleu;
+    private final GridPane couleurGrid;
+    private final Button btnRouge;
+    private final Button btnVert;
+    private final Button btnBleu;
     //containeur et bouton des choix des background de l'ardoise
     private final GridPane buttonchoixardoiseGrid;
     private final Button buttonclassic;
     private final Button buttoncars;
     private final Button buttonfrozen;
     //elements colorpicker pour choisir parmis un panel
-    private VBox colorPickerandslider;
-    private Label colorpickerlabel;
-    private ColorPicker colorPicker;
-    private Label sliderepaisseurlabel;
-    private Slider sliderepaisseur;
+    private final VBox colorPickerandslider;
+    private final Label colorpickerlabel;
+    private final ColorPicker colorPicker;
+    private final Label sliderepaisseurlabel;
+    private final Slider sliderepaisseur;
     //</editor-fold>
     
     

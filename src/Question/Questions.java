@@ -266,6 +266,11 @@ public class Questions extends BorderPane {
         // numero aléatoire entre 0 et le nombre  max de questions dans liste facile
         return randomNum;// on retourne le nombre aléatoire
     }
+// getter du textfield pour focus
+    public TextField getTfInput() {
+        return this.tfInput;
+    }
+    
     
 
 }

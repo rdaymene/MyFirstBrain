@@ -116,6 +116,7 @@ public class Questions extends BorderPane {
 
         // on ajoute ces éléments à la vbox
         vbQuestion.getChildren().add(tQuestion);
+        vbQuestion.getStyleClass().add("Label");
         vbText.getChildren().addAll(tfInput, answer);
         // on instancie la hbox qui contiendra les boutons:
         hbButton = new HBox(20);
@@ -137,13 +138,16 @@ public class Questions extends BorderPane {
        
         levelInfo.setFont(new Font("Verdana",20));
         levelInfo.setTextFill(Color.web("#D20303"));
-        //levelInfo.setTranslateX(5);
-        //levelInfo.setTranslateY(5);
-        gp.getColumnConstraints().add(new ColumnConstraints(150)); 
-        //gp.getColumnConstraints().add(new ColumnConstraints(700)); 
-        gp.add(levelInfo,0,0);
-        gp.add(vbQuestion,1,0);
         
+       
+        gp.getColumnConstraints().add(new ColumnConstraints(800)); 
+        gp.setHgap(50);
+         gp.add(vbQuestion,0,0);
+        gp.add(levelInfo,1,0);
+       
+        gp.setTranslateY(100);
+        gp.getStyleClass().add("GridPane");
+       
         // on ajoute les 3 box au container parent  
         
         this.setTop(gp);// contient la question

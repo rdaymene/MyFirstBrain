@@ -27,7 +27,8 @@ public class MyFirstBrain extends Application {
     // attribut question
     public static Questions questions;
     public static Calcul calcul;
-    // getter question
+    public static Draw my_draw;
+        //   
     public static Tab questionTab;
     public static Tab calculTab;
     Stage primaryStage;
@@ -40,7 +41,7 @@ public class MyFirstBrain extends Application {
         //création d'un objet calcul
         calcul = new Calcul(); 
         //Administration my_administration = new Administration();
-        Draw my_draw = new Draw();
+        my_draw = new Draw();
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================
         //On crée un onglet pour chaque jeu de notre programme
 
@@ -81,7 +82,7 @@ public class MyFirstBrain extends Application {
         //tabPane.getTabs().add(administrationTab);
         selectionModel = tabPane.getSelectionModel();
         selectionModel.select(0);
-       MyFirstBrain.questions.getTfInput().requestFocus();
+        questions.getTfInput().requestFocus();
         tabPane.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> arg0, Tab arg1, Tab arg2) -> {
             if (arg2 == questionTab) {
                 this.questions = new Questions();

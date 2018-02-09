@@ -23,7 +23,7 @@ public class MyFirstBrain extends Application {
 
     public static SingleSelectionModel<Tab> selectionModel;
     public static TabPane tabPane;
-   
+    private Tab drawTab;
     // attribut question
     public static Questions questions;
     public static Calcul calcul;
@@ -46,17 +46,18 @@ public class MyFirstBrain extends Application {
 
         //Onglet 1 : L'ardoise magique
         //Creation de l'onget tab avec un label Dessin
-        Tab drawTab = new Tab("Dessin");
+        drawTab = new Tab("Draw");
+       
         //On rajoute le contenu crée à partir de la classe Dessin
         drawTab.setContent(my_draw);
 
         //Creation de l'onget tab avec un label Calcul
-        calculTab = new Tab("Calcul");
+        calculTab = new Tab("Math");
         //On rajoute le contenu crée à partir de la classe Calcul
         calculTab.setContent(this.calcul);
 
         //Creation de l'onget tab avec un label Questions
-        questionTab = new Tab("Questions");
+        questionTab = new Tab("Quizz");
         //On rajoute le contenu crée à partir de la classe Questions
         questionTab.setContent(this.questions);
         
@@ -95,6 +96,9 @@ public class MyFirstBrain extends Application {
         root.setCenter(tabPane);
         root.setTop(menuBar);
         root.getStylesheets().add("file:stylesheet.css");
+        drawTab.getStyleClass().add("Tab");
+        calculTab.getStyleClass().add("Tab");
+        questionTab.getStyleClass().add("Tab");
         primaryStage.setResizable(false);
         primaryStage.setTitle("MyFirstBrain");
         primaryStage.setScene(scene);

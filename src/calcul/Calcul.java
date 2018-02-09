@@ -5,7 +5,6 @@ import Question.MyButton;
 import static java.lang.Math.abs;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -17,8 +16,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -27,7 +24,8 @@ import javafx.scene.text.Text;
  */
 public class Calcul extends BorderPane {
 
-//attributs Image et Background
+    //attributs
+    //Image et Background
     private final Image mathclassic = new Image(getClass().getResourceAsStream("backgroundmathclassic.png"));
     private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
     private final Background backgroundmathclassic = new Background(new BackgroundImage(mathclassic,
@@ -35,59 +33,41 @@ public class Calcul extends BorderPane {
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
             bSize));
-
-    //attributs Image et Background
     private final Image mathexpert = new Image(getClass().getResourceAsStream("backgroundmathexpert.png"));
     private final Background backgroundmathexpert = new Background(new BackgroundImage(mathexpert,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
             bSize));
-
+    private int reponseSaisi;
+    private int positionX = 0;
+    private int positionY = 0;
+    private int note = 0;
+    private int typeOp;
+    private int number1;
+    private int number2;
+    private int resultat;
+    private String signeOperation;
+    private String lettre;
     private Text tCalcul;
     private TextField screenCalcul;
     private Text answer;
-    //private Button btCheck;
+    private TextField tfInput;
     private MyButton btegale;
     private MyButton btReponse;
     private MyButton btOtherCalcul;
     private VBox vbText;
     private VBox vbCalcul;
-    private HBox hbButton;//contient les 2 boutons réponse et solution
-
-    private TextField tfInput;
-
-    private String lettre;
-    private int positionX = 0;
-    private int positionY = 0;
-    private int note = 0;
-
+    private HBox hbButton;//contient les 2 boutons réponse et solution 
     private DoCalcul calculAtrouver;
-
+    
+    //----- Génération des chiffres et le type d'opération à éxécuter aléatoirement--------
     Text lettre_touche;
 
-    //----- Génération des chiffres et le type d'opération à éxécuter aléatoirement--------
-    int typeOp;
-    int number1;
-    int number2;
-
-    String signeOperation;
-    int resultat;
-
-    /*
-    //debug
-    String v1 = Integer.toString(MenuForm.level); //conversion en string
-    String v2 = Integer.toString(number1);
-    String v3 = Integer.toString(number2);
-    String v4 = Integer.toString(typeOp);
-    /*
-    //String debug = "\n MenuForm.level : " + v1 + "\n number1 : " + v2 + "\n number2 : " + v3 +
-    //               "\n typeOp : "+ v4;
-    
     //Avec les 2 niveaux :
     /*--constructeur par défaut--*/
     public Calcul() {
-        typeOp = getRandomOpertaion();
+        typeOp  = getRandomOpertaion();
         number1 = getRandomChiffre();
         number2 = getRandomChiffre();
         signeOperation = new String();
@@ -103,40 +83,17 @@ public class Calcul extends BorderPane {
         Label afficheurCalcul = new Label(questionCalcul + " = ?");
         afficheurCalcul.setFont(new Font("Verdana", 75));
         afficheurCalcul.setWrapText(true);
-        /*
-        //le bouton de signe =
-        btegale = new Button("=");
-        btegale.setMinSize(100, 50);
-         */
-        //Le champs de saisir le résultat
-        /*
-        //création d'abord d'un Hbox afin de centrer le TextField()
-        HBox hBox1 = new HBox(20);
-        //création de 2 boutons
-        Button btleft = new Button();
-        Button btright = new Button();
-        btleft.setMinSize(1000, 50);
-        btright.setMinSize(1000, 50);        
-        */
+        
         TextField saisirResultat = new TextField();
         saisirResultat.setPromptText("Entrez votre réponse");
         saisirResultat.setPrefHeight(80);
         saisirResultat.setPrefWidth(25);
         saisirResultat.getStyleClass().add("TextField");// css pour le textfield 
-        
-        /*
-        btleft.setAlignment(Pos.CENTER_LEFT);
-        btright.setAlignment(Pos.CENTER_RIGHT);
-        hBox1.getChildren().addAll(btleft, saisirResultat, btright);
-        */
         //Autofocus
         //saisirResultat.setFocusTraversable(false);
         //saisirResultat.requestFocus();
-        //saisirResultat.setPrefColumnCount(35);
         // on ajoute les boutons au vBox1
-        //vBox1.getChildren().addAll(afficheurCalcul, btegale, saisirResultat);
         vBox1.getChildren().addAll(afficheurCalcul, saisirResultat);
-        //vBox1.getChildren().addAll(afficheurCalcul, hBox1);
         this.setCenter(vBox1);
 
         /*---------------------Le contenaire bas de la page de type HBox----------*/
@@ -166,16 +123,16 @@ public class Calcul extends BorderPane {
             //Récupération réponse candidat en string
             String reponseCandidatStr = saisirResultat.getText();
             //Convérsion réponse candidat en int
-            int reponseSaisi = Integer.parseInt(reponseCandidatStr);
             int result = 0;
-            /*
-            typeOp = getRandomOpertaion(MenuForm.level);
-            number1 = getRandomChiffre1(MenuForm.level) ;
-            number2 = getRandomChiffre2(MenuForm.level) ;
-             */
-            //String otherCalcul = getRandomCalcul(number1, number2, typeOp);
+            try{
+                 //géstions les erreurs de saisi
+                 this.reponseSaisi = Integer.parseInt(reponseCandidatStr);
+            }catch (Exception e2) {
+                System.out.println("Erreur de saisie, Veuillez saisissez un entier.");
+            }finally{
+                //System.out.println("Fin");                
+            }
             String otherCalcul = getRandomCalcul(number1, number2, typeOp);
-
             if (typeOp == 0) {
                 result = number1 + number2;
             }
@@ -201,6 +158,7 @@ public class Calcul extends BorderPane {
                 //saisirResultat.setText("Mauvaise réponse : " + otherCalcul + " = " + result);
                 saisirResultat.setText("Mauvaise réponse : " + otherCalcul + " = " + result);
             }
+            
         });
 
         /*--bouton Autre Calcul--*/
@@ -208,23 +166,18 @@ public class Calcul extends BorderPane {
             this.setBackground(MenuForm.level == 1 ? backgroundmathclassic : backgroundmathexpert);
             saisirResultat.clear();
             saisirResultat.setStyle("-fx-background-color : #FFFFFF"); // on colorie la zone réponse en blanc
-
             // génération de nouveaux nombres aléatoires
             typeOp = getRandomOpertaion();
             number1 = getRandomChiffre();
             number2 = getRandomChiffre();
-
             // Nouvelle opération 
-
             afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp) + " = ?"); 
-
             /*
             //debug      
             String nb1 = Integer.toString(number1);
             String nb2 = Integer.toString(number2);
             String nb3 = Integer.toString(typeOp);
             String nb4 = Integer.toString(MenuForm.level);
-
             afficheurCalcul.setText(" opération : " + getRandomCalcul(number1, number2, typeOp)
                     + "\n number1 : " + number1 + " number2 : " + number2 + "\n typeOp : " + typeOp
                     + " MenuForm.level : " + MenuForm.level);
@@ -234,8 +187,8 @@ public class Calcul extends BorderPane {
 
     /*-------------------------------------------------------------------------------------*/
     //Méthode qui retourne le type d'opération selon le niveau
-    //Addition, Soustraction pour le niveau1, pour le niveau 2, il y'a la multiplication en plus 
-    //  
+    //0: corréspond à l'addition, 1: corréspond à la soustraction (pour les deux niveaux)
+    //2: corréspond à la multiplication (uniquement pour le niveau 2)
     public int getRandomOpertaion() {
         int typeOperation = 0;
         if (MenuForm.level == 1) {
@@ -246,35 +199,30 @@ public class Calcul extends BorderPane {
         }
         return typeOperation;
     }
-
     //Méthode d'envoie de 1ér chiffre aléatoire selon le niveau  
+    //niveau1 : Addition, Soustraction (nombres positifs à 1 chiffre)
+    //niveau 2: Addition, Soustraction (nombres positifs à 3 chiffres), Multiplication (nombre positif à 1 chiffre) 
     public int getRandomChiffre() {
 
         int chiffre = 5;
         //level = MenuForm.level;
         if (MenuForm.level == 1) {
-            chiffre = (int) (Math.random() * 10);      //chiffre aléatoire entre 0 et 9
-            //return chiffre1;
-        } //(getRandomOpertaion(level) != 2
+            chiffre = (int) (Math.random() * 9) + 1;      //chiffre aléatoire entre 1 et 9
+        } 
         else {
-            //chiffre1 = (int)(Math.random() * 1000);    //chiffre aléatoire entre 0 et 999
-
             if (typeOp == 2) {
-                chiffre = (int) (Math.random() * 10);
+                chiffre = (int) (Math.random() * 9) + 1;   //chiffre aléatoire entre 1 et 9 
             } else {
-                chiffre = (int) (Math.random() * 1000);
+                chiffre = (int) (Math.random() * 999) + 1; //chiffre aléatoire entre 1 et 999
             }
         }
         return chiffre;
     }
-
     // Méthode qui renvoie l'opération à résoudre sous type string   
     public String getRandomCalcul(int chif1, int chif2, int typeOpe) {
-        //int resultat = 0;    
-        //String signeOperation = "hello";        
-        //if (MenuForm.level == 1) {
         if (MenuForm.level == 1) {
-            //comparaison des 2 chiffres aléatoires
+            //Niveau 1 : comparaison des 2 chiffres aléatoires, chif1 prend toujours la valeur max
+            //afin d'avoir un résultat toujour positif si l'opération est la soustraction
             if (chif1 < chif2) {
                 int temp = chif1;
                 chif1 = chif2;
@@ -284,7 +232,7 @@ public class Calcul extends BorderPane {
         //--conversions en string
         String ch1 = Integer.toString(chif1); //1ér chiffre aléatoire
         String ch2 = Integer.toString(chif2); //2éme chiffre aléatoire 
-
+        // Déterminer le type d'opération selon le chiffre aléatoire retourné entre 0 et 2
         if (typeOpe == 0) {
             signeOperation = "+";        //signe de l'opération à exécuter
             resultat = chif1 + chif2;

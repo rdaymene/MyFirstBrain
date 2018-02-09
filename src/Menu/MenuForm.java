@@ -75,7 +75,7 @@ public class MenuForm extends MenuBar {
             MyFirstBrain.selectionModel.select(2);
             MyFirstBrain.questions = new Questions();
             MyFirstBrain.questionTab.setContent(questions);
-           // MyFirstBrain.questions.getTfInput().requestFocus();
+           
         });
         menuCalculItem.setOnAction(e -> {
             MyFirstBrain.selectionModel.select(1);

@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -31,19 +32,19 @@ public class AdministrationLogin {
 
         GridPane champloginetpass = new GridPane();
 
-        Scene scene_formulaire = new Scene(administrationlogin, 350, 200);
+        Scene sceneLogin = new Scene(administrationlogin, 350, 200);
 
-        Stage stage_formulaire = new Stage();
+        Stage stageLogin = new Stage();
 
         champloginetpass.setAlignment(Pos.CENTER);
         champloginetpass.setHgap(10);
         champloginetpass.setVgap(10);
         champloginetpass.setPadding(new Insets(25, 25, 25, 25));
 
-        stage_formulaire.setTitle("Administration Login");
-        stage_formulaire.setScene(scene_formulaire);
+        stageLogin.setTitle("Administration Login");
+        stageLogin.setScene(sceneLogin);
 
-        stage_formulaire.initModality(Modality.APPLICATION_MODAL);
+        stageLogin.initModality(Modality.APPLICATION_MODAL);
 
         Label login_label = new Label("Nom d'utilisateur");
         champloginetpass.add(login_label, 0, 1);
@@ -54,7 +55,7 @@ public class AdministrationLogin {
         TextField loginText = new TextField();
         champloginetpass.add(loginText, 1, 1);
 
-        TextField pwdText = new TextField();
+        PasswordField pwdText = new PasswordField();
         champloginetpass.add(pwdText, 1, 2);
 
         GridPane annulerokGrid = new GridPane();
@@ -74,10 +75,10 @@ public class AdministrationLogin {
         administrationlogin.getChildren().add(champloginetpass);
         administrationlogin.getChildren().add(annulerokGrid);
 
-        stage_formulaire.initOwner(primaryStage);
-        stage_formulaire.setX(primaryStage.getX() + 200);
-        stage_formulaire.setY(primaryStage.getY() + 100);
-        stage_formulaire.show();
+        stageLogin.initOwner(primaryStage);
+        stageLogin.setX(primaryStage.getX() + 200);
+        stageLogin.setY(primaryStage.getY() + 100);
+        stageLogin.show();
 
         //Chargement des variables 
         // Crée un objet properties        
@@ -93,9 +94,9 @@ public class AdministrationLogin {
         }
         USER = recup_info.getProperty("USER");
         PASSWORD = recup_info.getProperty("PASSWORD");
-        loginText.setText(USER);
-        pwdText.setText(PASSWORD);
-
+        //loginText.setText(USER);  // peut etre effacer
+        //pwdText.setText(PASSWORD);
+//==================  EVENT LOGIN BUTTON
         btnLogin.setOnAction(e -> {
 
             if (recup_info.equals(loginText.getText())) {
@@ -125,10 +126,18 @@ public class AdministrationLogin {
                 administrationTab.setClosable(false);
                 
                 MyFirstBrain.tabPane.getTabs().add(administrationTab);
+                stageLogin.close();
                 
             }
 
         });
+//============= EVENT CANCEL
+
+btnannuler.setOnAction(e->{
+        stageLogin.close();
+});
+
+
 
     }
 

@@ -7,7 +7,7 @@ package calcul;
 
 /**
  *
- * @author stag
+ * @author Rachid
  */
 public class DoCalculExpert extends DoCalcul {
     

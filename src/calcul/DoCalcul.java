@@ -7,7 +7,7 @@ package calcul;
 
 /**
  *
- * @author stag
+ * @author Rachid
  */
 public class DoCalcul{
     protected int number;

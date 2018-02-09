@@ -58,7 +58,7 @@ public class MySQLConnection {
         Properties recup_info = new Properties();
         
         //INFO >> je cree une instance de type MySQLConnection, pour pouvoir utiliser 
-        //
+        //getClass, car la methode getClass ne fctionne qu avec des instances.
         MySQLConnection c = new MySQLConnection();
 
         InputStream in = c.getClass().getResourceAsStream("/ressources/SQLinfo");

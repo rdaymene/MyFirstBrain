@@ -27,17 +27,17 @@ public class MySQLConnection {
      */
     //private static final String HOST = "127.0.0.1";
     //private static final String PORT = "3306";
-    //private static final String DATABASE = "testing";
-    private static String URL;
+    //private static final String DATABASE = "myfirstbrain";
+    private static String URL ;//=  "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
     /**
      * Nom du user
      */
-    //private static final String USER = "toto";
+   // private static final String USER = "cece2";
     /**
      * Mot de passe du user
      */
-    //private static final String PASSWORD = "1234512345";
+    // static final String PASSWORD = "12345";
     /**
      * Objet Connection
      */
@@ -79,4 +79,7 @@ public class MySQLConnection {
         }
         return connection;
     }
+     //private static Connection connection;
+
+   
 }

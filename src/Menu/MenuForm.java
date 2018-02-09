@@ -56,6 +56,7 @@ public class MenuForm extends MenuBar {
             level = 1;
             MyFirstBrain.questions = new Questions();
             MyFirstBrain.questionTab.setContent(questions);
+           // MyFirstBrain.questions.getTfInput().requestFocus();
             MyFirstBrain.calcul = new Calcul();
             MyFirstBrain.calculTab.setContent( MyFirstBrain.calcul);
         });
@@ -64,6 +65,7 @@ public class MenuForm extends MenuBar {
             level = 2;
             MyFirstBrain.questions = new Questions();
             MyFirstBrain.questionTab.setContent(questions);
+          
             MyFirstBrain.calcul = new Calcul();
             MyFirstBrain.calculTab.setContent( MyFirstBrain.calcul);
         });
@@ -73,13 +75,13 @@ public class MenuForm extends MenuBar {
             MyFirstBrain.selectionModel.select(2);
             MyFirstBrain.questions = new Questions();
             MyFirstBrain.questionTab.setContent(questions);
-
+           // MyFirstBrain.questions.getTfInput().requestFocus();
         });
         menuCalculItem.setOnAction(e -> {
             MyFirstBrain.selectionModel.select(1);
             MyFirstBrain.calcul = new Calcul();
             MyFirstBrain.calculTab.setContent( MyFirstBrain.calcul);
-
+            MyFirstBrain.calcul.getTfInput().requestFocus();
         });
         menuDrawItem.setOnAction(e -> {
             MyFirstBrain.selectionModel.select(0);

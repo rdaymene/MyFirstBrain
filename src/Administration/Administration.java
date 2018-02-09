@@ -222,6 +222,7 @@ public class Administration extends VBox {
 //<editor-fold>
         btLogOff.setOnAction(e->{
             MyFirstBrain.tabPane.getTabs().remove(AdministrationLogin.administrationTab);
+            MyFirstBrain.selectionModel.select(0);
         });
         //</editor-fold>
 //========== EVENT SAVE ADD BUTTON

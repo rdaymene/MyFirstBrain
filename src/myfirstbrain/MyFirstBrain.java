@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 public class MyFirstBrain extends Application {
 
     public static SingleSelectionModel<Tab> selectionModel;
+    public static TabPane tabPane;
+    private Tab drawTab;
     // attribut question
     public static Questions questions;
     public static Calcul calcul;
@@ -37,45 +39,46 @@ public class MyFirstBrain extends Application {
         questions = new Questions();
         //création d'un objet calcul
         calcul = new Calcul(); 
-        Administration my_administration = new Administration();
+        //Administration my_administration = new Administration();
         Draw my_draw = new Draw();
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================
         //On crée un onglet pour chaque jeu de notre programme
 
         //Onglet 1 : L'ardoise magique
         //Creation de l'onget tab avec un label Dessin
-        Tab drawTab = new Tab("Dessin");
+        drawTab = new Tab("Draw");
+       
         //On rajoute le contenu crée à partir de la classe Dessin
         drawTab.setContent(my_draw);
 
         //Creation de l'onget tab avec un label Calcul
-        calculTab = new Tab("Calcul");
+        calculTab = new Tab("Math");
         //On rajoute le contenu crée à partir de la classe Calcul
         calculTab.setContent(this.calcul);
 
         //Creation de l'onget tab avec un label Questions
-        questionTab = new Tab("Questions");
+        questionTab = new Tab("Quizz");
         //On rajoute le contenu crée à partir de la classe Questions
         questionTab.setContent(this.questions);
         
         //Creation de l'onget tab avec un label Administration
-        Tab administrationTab = new Tab("Administration");
+        //Tab administrationTab = new Tab("Administration");
         //On rajoute le contenu crée à partir de la classe Administration
-        administrationTab.setContent(my_administration);
+        //administrationTab.setContent(my_administration);
 
         //enlever le bouton pour fermer un onglet
         drawTab.setClosable(false);
         calculTab.setClosable(false);
         questionTab.setClosable(false);
-        administrationTab.setClosable(false);
+        //administrationTab.setClosable(false);
 
         //creation du TabBane qui contiendra l'ensemble de nos onglets 
-        TabPane tabPane = new TabPane();
+        tabPane = new TabPane();
         //ajout de chaque tab à la tabPane principale.
         tabPane.getTabs().add(drawTab);
         tabPane.getTabs().add(calculTab);
         tabPane.getTabs().add(questionTab);
-        tabPane.getTabs().add(administrationTab);
+        //tabPane.getTabs().add(administrationTab);
         selectionModel = tabPane.getSelectionModel();
         selectionModel.select(0);
        MyFirstBrain.questions.getTfInput().requestFocus();
@@ -93,6 +96,9 @@ public class MyFirstBrain extends Application {
         root.setCenter(tabPane);
         root.setTop(menuBar);
         root.getStylesheets().add("file:stylesheet.css");
+        drawTab.getStyleClass().add("Tab");
+        calculTab.getStyleClass().add("Tab");
+        questionTab.getStyleClass().add("Tab");
         primaryStage.setResizable(false);
         primaryStage.setTitle("MyFirstBrain");
         primaryStage.setScene(scene);

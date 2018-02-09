@@ -119,7 +119,7 @@ public class Draw extends BorderPane {
         sliderepaisseur.setValue(10);
         //sliderepaisseur.setShowTickLabels(true);
         //sliderepaisseur.setShowTickMarks(true);
-        sliderepaisseur.setBlockIncrement(10);
+        sliderepaisseur.setBlockIncrement(1);
         sliderepaisseur.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             gc.setLineWidth((double) newValue);
         });
@@ -157,7 +157,7 @@ public class Draw extends BorderPane {
         slidereffacer.setValue(0);
         //slider.setShowTickLabels(true);
         //slider.setShowTickMarks(true);
-        slidereffacer.setBlockIncrement(50);
+        slidereffacer.setBlockIncrement(100);
         //On positionne le slider qui efface l'ardoise
         slidereffacer.setTranslateY(-15);
         slidereffacer.setTranslateX(325);

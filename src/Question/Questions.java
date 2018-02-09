@@ -65,8 +65,7 @@ public class Questions extends BorderPane {
     private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
     private QuestionBean questionBean;
-    
-    private GridPane gp;
+   
     
     public Questions() {
        
@@ -77,22 +76,22 @@ public class Questions extends BorderPane {
         // on instancie 2 listes qui contiendront les questions déjà passées
         ArrayList<QuestionBean> List1Passed = new ArrayList<>();
         ArrayList<QuestionBean> List2Passed = new ArrayList<>();
-        gp = new GridPane();
+        // on fixe un padding au container parent
         this.setPadding(new Insets(15, 10, 15, 10));// on fait le padding du container parent
-        
+        // on instancie la vbox qui contiendra la question,la réponse et champ de saisie
         vbQuestion = new VBox(30);
         vbQuestion.setSpacing(60);
         vbQuestion.setAlignment(Pos.CENTER);
         
-        // on instancie le champ question
-        tQuestion = new Label();
-        
+        // on instancie le champ question et on le place et on l'embellit avec du css
+        tQuestion = new Label();        
         tQuestion.setTranslateY(50);
-        tQuestion.setTranslateX(40);
+        tQuestion.setTranslateX(35);
         tQuestion.setMaxWidth(780);
-        tQuestion.setWrapText(true);
-        ///jsdfkskhfZ
+        tQuestion.setWrapText(true);   
+        tQuestion.setMaxHeight(400);
         tQuestion.getStyleClass().add("Question");
+        
         //on remplit le texte avec une question aléatoire
         if (MenuForm.level == 1) {// de la liste 1 si niveau1
             this.questionBean = ListNiveau1.get(getRandomQuestionBean(ListNiveau1.size() - 1));
@@ -104,56 +103,46 @@ public class Questions extends BorderPane {
         }
         // on affiche la question aléatoire 
         tQuestion.setText(questionBean.getQuestion());
-        tQuestion.setMaxHeight(400);
-       
+               
         // on instancie et positionne le texte qui donne la réponse 
-        answer = new Text();
-        //answer.setTranslateY(200);
+        answer = new Text();      
         answer.setFont(new Font("Verdana", 20));
-        //answer.minHeight(30);
+        
         // on instancie le champ réponse et on le positionne
         tfInput = new TextField();
         tfInput.setPromptText("Entrez votre réponse");
         tfInput.setPrefHeight(80);
         tfInput.setPrefWidth(20);
         tfInput.setLayoutY(100);
-        tfInput.getStyleClass().add("TextField");// css pour le textfield       
-        // on instancie le text qui fera apparaitre la bonne réponse
+        tfInput.getStyleClass().add("TextField");// css pour le textfield          
         tfInput.requestFocus();
         tfInput.setPrefColumnCount(100);
+        
         // on ajoute ces éléments à la vbox
         vbQuestion.getChildren().addAll(tQuestion,answer,tfInput);
-       // vbQuestion.setVgrow(tfInput,Priority.NEVER);
-       // vbQuestion.setFillWidth(false);
+       
        
         // on instancie la hbox qui contiendra les boutons:
         hbButton = new HBox(20);
         hbButton.setSpacing(150);
         // on instancie les boutons
-        btCheck = new MyButton("Vérifier");
-        
+        btCheck = new MyButton("Vérifier");       
         btSolution = new MyButton("Solution");
         btOtherQuestion = new MyButton("Autre question");
         btCheck.setMinSize(130, 80);
         btOtherQuestion.setMinSize(130, 80);
+        // on positionne ces boutons au centre de son container
         hbButton.setAlignment(Pos.CENTER);        
         // on ajoute les boutons au hbox
         hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);       
-        // on affiche le niveau actuel lors de la mise en route 
-
+      
+        // on ajoute les 3 box au container parent  et on les place
         
-       // on remplit le gridpane avec la question à gauche et le niveau à droite
-        
-        
-        
-        //gp.setMinHeight(100);
-        // on ajoute les 3 box au container parent  
-        tfInput.requestFocus();
-        this.setCenter(vbQuestion);// contient la question 
+        this.setCenter(vbQuestion);
         this.setBottom(hbButton);
-        //this.setBottom(hbButton);
+        // on donne un background en fonction du niveau
         this.setBackground(MenuForm.level == 1 ? backgroundquestionclassic : backgroundquestionexpert);
-        //this.setStyle("-fx-background-color: #6D6671;");// background color
+        
 
 ////////////////////////////GESTION EVENEMENTIELLE //////////////////////////////////
         // gestion evenementielle du bouton vérifier
@@ -191,6 +180,7 @@ public class Questions extends BorderPane {
         });
 //////// gestion évenementielle pour le bouton autre question
         btOtherQuestion.setOnAction(e -> {
+            // on change le background en fonction du niveau
             this.setBackground(MenuForm.level == 1 ? backgroundquestionclassic : backgroundquestionexpert);
             answer.setText(null);// on levelInvide le texte qui mentionne la réponse
             tfInput.clear();// on vide le champ de saisie
@@ -264,6 +254,4 @@ public class Questions extends BorderPane {
         return this.tfInput;
     }
     
-    
-
 }

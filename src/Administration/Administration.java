@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import myfirstbrain.MyFirstBrain;
 
 public class Administration extends VBox {
 
@@ -200,7 +201,10 @@ public class Administration extends VBox {
 
             }
         });
-
+//==========EVENT LOGOFF 
+        btLogOff.setOnAction(e->{
+            MyFirstBrain.tabPane.getTabs().remove(AdministrationLogin.administrationTab);
+        });
 //=======================  EVENT SAVE ADD BUTTON
         btAddSave.setOnAction(e -> {
             if (!textAddAnsw.getText().trim().isEmpty()) {
@@ -211,8 +215,6 @@ public class Administration extends VBox {
                             textAddAnsw.getText()
                 );
                 qb = adminDAO.create(qbAjout);
-
-
             }
         });
 
@@ -259,4 +261,5 @@ public class Administration extends VBox {
             boxy.getItems().add(qb.getID());
         }
     }
+    
 }

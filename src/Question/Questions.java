@@ -11,11 +11,8 @@ import Menu.MenuForm;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Random;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,15 +22,14 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import Question.MyButton;
+import Question.MyButton;import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 
 /**
  *
@@ -66,7 +62,6 @@ public class Questions extends BorderPane {
     private MyButton btCheck;
     private MyButton btSolution;
     private MyButton btOtherQuestion;
-    private VBox vbText;//contient les 2 textfield (question et saisie réponse) 
     private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
     private QuestionBean questionBean;
@@ -84,14 +79,20 @@ public class Questions extends BorderPane {
         ArrayList<QuestionBean> List2Passed = new ArrayList<>();
         gp = new GridPane();
         this.setPadding(new Insets(15, 10, 15, 10));// on fait le padding du container parent
-        vbText = new VBox(30);
-        vbQuestion = new VBox();
+        
+        vbQuestion = new VBox(30);
+        vbQuestion.setSpacing(60);
+        vbQuestion.setAlignment(Pos.CENTER);
+        
         // on instancie le champ question
         tQuestion = new Label();
-        tQuestion.setFont(new Font("Verdana", 30)); // grosse fonte pour la question 
-        tQuestion.setTranslateY(20);
+        
+        tQuestion.setTranslateY(50);
         tQuestion.setTranslateX(40);
-       
+        tQuestion.setMaxWidth(780);
+        tQuestion.setWrapText(true);
+        ///jsdfkskhfZ
+        tQuestion.getStyleClass().add("Question");
         //on remplit le texte avec une question aléatoire
         if (MenuForm.level == 1) {// de la liste 1 si niveau1
             this.questionBean = ListNiveau1.get(getRandomQuestionBean(ListNiveau1.size() - 1));
@@ -100,31 +101,31 @@ public class Questions extends BorderPane {
         } else {// de la liste 2 si niveau 2
             this.questionBean = ListNiveau2.get(getRandomQuestionBean(ListNiveau2.size() - 1));
             List2Passed.add(questionBean);
-
         }
         // on affiche la question aléatoire 
         tQuestion.setText(questionBean.getQuestion());
-        tQuestion.setMaxWidth(780);
-        tQuestion.setWrapText(true);
-        vbQuestion.setAlignment(Pos.CENTER);// on centre la question
-
+        tQuestion.setMaxHeight(400);
+       
+        // on instancie et positionne le texte qui donne la réponse 
+        answer = new Text();
+        //answer.setTranslateY(200);
+        answer.setFont(new Font("Verdana", 20));
+        //answer.minHeight(30);
         // on instancie le champ réponse et on le positionne
         tfInput = new TextField();
         tfInput.setPromptText("Entrez votre réponse");
-        tfInput.setPrefHeight(70);
+        tfInput.setPrefHeight(80);
         tfInput.setPrefWidth(20);
-        tfInput.setPrefColumnCount(10);
-        tfInput.setTranslateY(170);
+        tfInput.setLayoutY(100);
         tfInput.getStyleClass().add("TextField");// css pour le textfield       
         // on instancie le text qui fera apparaitre la bonne réponse
-        answer = new Text();
-        answer.setTranslateY(200);
-        answer.setFont(new Font("Verdana", 20));
-        answer.minHeight(30);
+        tfInput.requestFocus();
+        tfInput.setPrefColumnCount(100);
         // on ajoute ces éléments à la vbox
-        vbQuestion.getChildren().add(tQuestion);
-        
-        vbText.getChildren().addAll(tfInput, answer);
+        vbQuestion.getChildren().addAll(tQuestion,answer,tfInput);
+       // vbQuestion.setVgrow(tfInput,Priority.NEVER);
+       // vbQuestion.setFillWidth(false);
+       
         // on instancie la hbox qui contiendra les boutons:
         hbButton = new HBox(20);
         hbButton.setSpacing(150);
@@ -143,16 +144,14 @@ public class Questions extends BorderPane {
         
        // on remplit le gridpane avec la question à gauche et le niveau à droite
         
-        gp.setHgap(50);
-        gp.add(vbQuestion,0,0);              
-        gp.setTranslateY(100);
-        gp.getStyleClass().add("GridPane");
-        gp.setMinHeight(100);
-        // on ajoute les 3 box au container parent  
         
-        this.setTop(gp);// contient la question
-        this.setCenter(vbText);// contient le champ de saisie 
+        
+        //gp.setMinHeight(100);
+        // on ajoute les 3 box au container parent  
+        tfInput.requestFocus();
+        this.setCenter(vbQuestion);// contient la question 
         this.setBottom(hbButton);
+        //this.setBottom(hbButton);
         this.setBackground(MenuForm.level == 1 ? backgroundquestionclassic : backgroundquestionexpert);
         //this.setStyle("-fx-background-color: #6D6671;");// background color
 

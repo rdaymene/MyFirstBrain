@@ -35,7 +35,7 @@ public class Calcul extends BorderPane {
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
             bSize));
-    
+
     //attributs Image et Background
     private final Image mathexpert = new Image(getClass().getResourceAsStream("backgroundmathexpert.png"));
     private final Background backgroundmathexpert = new Background(new BackgroundImage(mathexpert,
@@ -69,9 +69,8 @@ public class Calcul extends BorderPane {
     //----- Génération des chiffres et le type d'opération à éxécuter aléatoirement--------
     int typeOp;
     int number1;
-    int number2 ;
+    int number2;
 
-    
     String signeOperation;
     int resultat;
 
@@ -108,7 +107,7 @@ public class Calcul extends BorderPane {
         //le bouton de signe =
         btegale = new Button("=");
         btegale.setMinSize(100, 50);
-        */
+         */
         //Le champs de saisir le résultat
         /*
         //création d'abord d'un Hbox afin de centrer le TextField()
@@ -216,7 +215,9 @@ public class Calcul extends BorderPane {
             number2 = getRandomChiffre();
 
             // Nouvelle opération 
+
             afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp) + " = ?"); 
+
             /*
             //debug      
             String nb1 = Integer.toString(number1);
@@ -227,7 +228,7 @@ public class Calcul extends BorderPane {
             afficheurCalcul.setText(" opération : " + getRandomCalcul(number1, number2, typeOp)
                     + "\n number1 : " + number1 + " number2 : " + number2 + "\n typeOp : " + typeOp
                     + " MenuForm.level : " + MenuForm.level);
-            */        
+             */
         });
     }
 
@@ -248,7 +249,7 @@ public class Calcul extends BorderPane {
 
     //Méthode d'envoie de 1ér chiffre aléatoire selon le niveau  
     public int getRandomChiffre() {
-        
+
         int chiffre = 5;
         //level = MenuForm.level;
         if (MenuForm.level == 1) {
@@ -257,15 +258,14 @@ public class Calcul extends BorderPane {
         } //(getRandomOpertaion(level) != 2
         else {
             //chiffre1 = (int)(Math.random() * 1000);    //chiffre aléatoire entre 0 et 999
-           
+
             if (typeOp == 2) {
                 chiffre = (int) (Math.random() * 10);
-                
+            } else {
+                chiffre = (int) (Math.random() * 1000);
             }
-            else{chiffre = (int) (Math.random() * 1000);}
-                  
         }
-             return chiffre;
+        return chiffre;
     }
 
     // Méthode qui renvoie l'opération à résoudre sous type string   
@@ -284,7 +284,7 @@ public class Calcul extends BorderPane {
         //--conversions en string
         String ch1 = Integer.toString(chif1); //1ér chiffre aléatoire
         String ch2 = Integer.toString(chif2); //2éme chiffre aléatoire 
-        
+
         if (typeOpe == 0) {
             signeOperation = "+";        //signe de l'opération à exécuter
             resultat = chif1 + chif2;
@@ -302,5 +302,9 @@ public class Calcul extends BorderPane {
         //String questionCalcul = ch1 + " " + signeOperation + " " + ch2 + " = ?";
         String questionCalcul = ch1 + " " + signeOperation + " " + ch2 ;
         return questionCalcul;
+    }
+
+    public TextField getTfInput() {
+        return this.tfInput;
     }
 }

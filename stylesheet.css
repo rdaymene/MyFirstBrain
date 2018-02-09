@@ -27,7 +27,7 @@
         linear-gradient(#d6d6d6 50%, white 100%),
         radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
     -fx-height:50px;
-    -fx-width:100px;
+    -fx-width:200px;
     -fx-font-size: 25px;
     -fx-border-style: solid;
     -fx-border-width: 5px;
@@ -39,6 +39,11 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );  
     
 }
-
+.Question{
+    -fx-font-weight: bold;
+    -fx-font-family:"Verdana";
+    -fx-font-size:30px;
+    -fx-text-align:center;
+}
     
     

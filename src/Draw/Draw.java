@@ -101,7 +101,7 @@ public class Draw extends BorderPane {
 //=============================== CREATION DU CANVAS =====================================================================
         //creation du canvas zone ou l'on pourra dessiner 
         canvas = new Canvas(795,370);
-        canvas.setTranslateY(-2);
+        canvas.setTranslateY(-4);
         canvas.setTranslateX(0);
 //=============================== ELEMENT QUI VA DESSINER SUR L'ARDOISE ======================================        
         GraphicsContext gc;

@@ -159,9 +159,11 @@ public class AdministrationLogin {
                 administrationTab = new Tab("Administration");
                 administrationTab.setContent(my_administration);
                 administrationTab.getStyleClass().add("Tab");
+               
                 administrationTab.setClosable(false);
 
                 MyFirstBrain.tabPane.getTabs().add(administrationTab);
+                MyFirstBrain.selectionModel.select(4);                
                 stageLogin.close();
 
             }

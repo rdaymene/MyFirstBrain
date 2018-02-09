@@ -117,7 +117,10 @@ public class Draw extends BorderPane {
         //sliderepaisseur.setShowTickLabels(true);
         //sliderepaisseur.setShowTickMarks(true);
         sliderepaisseur.setBlockIncrement(1);
-        sliderepaisseur.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+        sliderepaisseur.valueProperty().addListener
+        ((ObservableValue<? extends Number> observable, 
+                                    Number oldValue, 
+                                    Number newValue) -> {
             gc.setLineWidth((double) newValue);
         });
 //=============================== CREATION DU COLORPICKER POUR CHOISIR UNE COULEUR PARMI UN PANEL ======================================        

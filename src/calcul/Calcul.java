@@ -105,7 +105,6 @@ public final class Calcul extends BorderPane {
         //-------------------- gestion evenementielle---------------------------------------*/
         /*--bouton Solution--*/
         btReponse.setOnAction(e -> {
-            int reponseCandidat = 0;
             //Récupération réponse candidat en string
             String reponseCandidatStr = saisirResultat.getText();
             //Convérsion réponse candidat en int
@@ -114,7 +113,7 @@ public final class Calcul extends BorderPane {
                  //géstions les erreurs de saisi
                  this.reponseSaisi = Integer.parseInt(reponseCandidatStr);
             }catch (Exception e2) {
-                System.out.println("Erreur de saisie, Veuillez saisissez un entier.");
+                System.out.println("Erreur de saisie, Veuillez saisir un entier.");
             }finally{
                 //System.out.println("Fin");                
             }
@@ -184,7 +183,6 @@ public final class Calcul extends BorderPane {
     public int getRandomChiffre() {
 
         int chiffre;
-        //level = MenuForm.level;
         if (MenuForm.level == 1) {
             chiffre = (int) (Math.random() * 9) + 1;      //chiffre aléatoire entre 1 et 9
         } 

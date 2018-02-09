@@ -85,6 +85,8 @@ public class Administration extends VBox {
         radiovbox = new VBox();
 
         radioGrid = new GridPane();
+        radioGrid.setVgap(10);
+        radioGrid.setHgap(10);
         radioLevelGroup = new ToggleGroup();
 
         radioText = new Label("Niveau de la question à modifier");
@@ -116,9 +118,12 @@ public class Administration extends VBox {
         vboxAdd = new VBox();
 
         labelAdd = new Label("Ajouter");
+
         labelAdd.setAlignment(Pos.CENTER);
 
         gridAddQA = new GridPane();
+        gridAddQA.setHgap(10);
+        gridAddQA.setVgap(10);
         labelAddQuest = new Label("Question");
         textAddQuest = new TextField();
         labelAddAnsw = new Label("Réponse");
@@ -131,6 +136,8 @@ public class Administration extends VBox {
         gridAddSaveCancel = new GridPane();
         btAddCancel = new Button("Annuler");
         btAddSave = new Button("Enregistrer");
+        gridAddSaveCancel.setHgap(10);
+        gridAddSaveCancel.setVgap(10);
         gridAddSaveCancel.add(btAddCancel, 0, 1);
         gridAddSaveCancel.add(btAddSave, 1, 1);
 
@@ -138,6 +145,7 @@ public class Administration extends VBox {
         vboxAdd.getChildren().add(gridAddQA);
         vboxAdd.getChildren().add(gridAddSaveCancel);
         vboxAdd.setSpacing(20);
+        
         
 //</editor-fold>
 //=============================== PANNEAU MODIFIER ==============================================================        
@@ -170,6 +178,8 @@ public class Administration extends VBox {
         btModifySave = new Button("Enregistrer");
         gridModifySaveCancel.add(btModifyCancel, 0, 1);
         gridModifySaveCancel.add(btModifySave, 1, 1);
+        gridModifySaveCancel.setHgap(10);
+        gridModifySaveCancel.setVgap(10);
 
         vboxModify.getChildren().add(labelModify);
 

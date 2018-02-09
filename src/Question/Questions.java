@@ -88,7 +88,7 @@ public class Questions extends BorderPane {
         tQuestion = new Label();
         
         tQuestion.setTranslateY(50);
-        tQuestion.setTranslateX(40);
+        tQuestion.setTranslateX(35);
         tQuestion.setMaxWidth(780);
         tQuestion.setWrapText(true);
         ///jsdfkskhfZ

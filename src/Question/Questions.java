@@ -28,7 +28,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import Question.MyButton;import javafx.scene.layout.Priority;
+import Question.MyButton;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 /**
@@ -36,7 +37,7 @@ import javafx.stage.Stage;
  * @author $céline
  */
 public class Questions extends BorderPane {
-    
+
     //attributs qui concerne le background classic
     private final Image questionclassic = new Image(getClass().getResourceAsStream("backgroundquestionclassic.png"));
     private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
@@ -65,10 +66,9 @@ public class Questions extends BorderPane {
     private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
     private QuestionBean questionBean;
-   
-    
+
     public Questions() {
-       
+
         // on instancie l'objet Dao et les 2 listes d'objet question
         questionDAO = new Dao();
         ListNiveau1 = questionDAO.fillCollection(1);// remplit la collection avec les questions faciles
@@ -82,16 +82,16 @@ public class Questions extends BorderPane {
         vbQuestion = new VBox(30);
         vbQuestion.setSpacing(60);
         vbQuestion.setAlignment(Pos.CENTER);
-        
+
         // on instancie le champ question et on le place et on l'embellit avec du css
-        tQuestion = new Label();        
+        tQuestion = new Label();
         tQuestion.setTranslateY(50);
         tQuestion.setTranslateX(35);
         tQuestion.setMaxWidth(780);
-        tQuestion.setWrapText(true);   
+        tQuestion.setWrapText(true);
         tQuestion.setMaxHeight(400);
         tQuestion.getStyleClass().add("Question");
-        
+
         //on remplit le texte avec une question aléatoire
         if (MenuForm.level == 1) {// de la liste 1 si niveau1
             this.questionBean = ListNiveau1.get(getRandomQuestionBean(ListNiveau1.size() - 1));
@@ -103,11 +103,11 @@ public class Questions extends BorderPane {
         }
         // on affiche la question aléatoire 
         tQuestion.setText(questionBean.getQuestion());
-               
+
         // on instancie et positionne le texte qui donne la réponse 
-        answer = new Text();      
+        answer = new Text();
         answer.setFont(new Font("Verdana", 20));
-        
+
         // on instancie le champ réponse et on le positionne
         tfInput = new TextField();
         tfInput.setPromptText("Entrez votre réponse");
@@ -117,32 +117,29 @@ public class Questions extends BorderPane {
         tfInput.getStyleClass().add("TextField");// css pour le textfield          
         tfInput.requestFocus();
         tfInput.setPrefColumnCount(100);
-        
+
         // on ajoute ces éléments à la vbox
-        vbQuestion.getChildren().addAll(tQuestion,answer,tfInput);
-       
-       
+        vbQuestion.getChildren().addAll(tQuestion, answer, tfInput);
+
         // on instancie la hbox qui contiendra les boutons:
         hbButton = new HBox(20);
         hbButton.setSpacing(150);
         // on instancie les boutons
-        btCheck = new MyButton("Vérifier");       
+        btCheck = new MyButton("Vérifier");
         btSolution = new MyButton("Solution");
         btOtherQuestion = new MyButton("Autre question");
         btCheck.setMinSize(130, 80);
         btOtherQuestion.setMinSize(130, 80);
         // on positionne ces boutons au centre de son container
-        hbButton.setAlignment(Pos.CENTER);        
+        hbButton.setAlignment(Pos.CENTER);
         // on ajoute les boutons au hbox
-        hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);       
-      
+        hbButton.getChildren().addAll(btCheck, btSolution, btOtherQuestion);
+
         // on ajoute les 3 box au container parent  et on les place
-        
         this.setCenter(vbQuestion);
         this.setBottom(hbButton);
         // on donne un background en fonction du niveau
         this.setBackground(MenuForm.level == 1 ? backgroundquestionclassic : backgroundquestionexpert);
-        
 
 ////////////////////////////GESTION EVENEMENTIELLE //////////////////////////////////
         // gestion evenementielle du bouton vérifier
@@ -189,7 +186,6 @@ public class Questions extends BorderPane {
             if (MenuForm.level == 1) {// si niveau 1 
                 // on vide la liste de questions passées si elle contient ttes les questions
                 if (ListNiveau1.size() == List1Passed.size()) {
-
                     List1Passed.removeAll(ListNiveau1);
                 }
                 do {
@@ -206,7 +202,6 @@ public class Questions extends BorderPane {
                     this.questionBean = ListNiveau2.get(getRandomQuestionBean(ListNiveau2.size() - 1));
                 } while (List2Passed.contains(questionBean));
                 List2Passed.add(questionBean);
-
             }
             tQuestion.setText(questionBean.getQuestion());// on affiche la question
         });
@@ -250,8 +245,9 @@ public class Questions extends BorderPane {
         return randomNum;// on retourne le nombre aléatoire
     }
 // getter du textfield pour focus
+
     public TextField getTfInput() {
         return this.tfInput;
     }
-    
+
 }

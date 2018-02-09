@@ -16,7 +16,6 @@ public class DoCalcul{
     public DoCalcul(int number) {
         this.number = number;
     }
-
     
     //getters + setters
     public int getNumber() {
@@ -32,7 +31,6 @@ public class DoCalcul{
     public String toString() {
         return "DoCalcul{" + "number=" + number + '}';
     }
-
     
     //méthode d'addition de 2 nombres
     public int addition(int a, int b){
@@ -43,7 +41,5 @@ public class DoCalcul{
     public int substraction(int a, int b){
         return a-b;
     }
-       
-    
-    
+     
 }

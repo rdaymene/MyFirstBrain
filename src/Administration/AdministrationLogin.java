@@ -123,6 +123,7 @@ public class AdministrationLogin {
                 //Creation de l'onget tab avec un label Administration
                 administrationTab = new Tab("Administration");
                 administrationTab.setContent(my_administration);
+                administrationTab.getStyleClass().add("Tab");
                 administrationTab.setClosable(false);
                 
                 MyFirstBrain.tabPane.getTabs().add(administrationTab);

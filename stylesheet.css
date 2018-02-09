@@ -47,5 +47,18 @@
     -fx-font-size:30px;
     -fx-text-align:center;
 }
+.Tab{
+    -fx-font-weight: bold;
+    -fx-font-family:"Verdana";
+    -fx-font-size:20px;
+    -fx-text-align:center;
+    -fx-height:30px;
+    -fx-width:100px;
     
-    
+}    
+.Tab:pressed{
+    -fx-background-color:#bbb;
+}   
+.Tab:selected{
+    -fx-background-color:#aaa;
+}

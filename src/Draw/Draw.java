@@ -94,9 +94,6 @@ public class Draw extends BorderPane {
     private final Label sliderepaisseurlabel;
     private final Slider sliderepaisseur;
     //</editor-fold>
-    
-    
-
     public Draw(){
 //=============================== CREATION DU CANVAS =====================================================================
         //creation du canvas zone ou l'on pourra dessiner 
@@ -146,7 +143,6 @@ public class Draw extends BorderPane {
         buttonchoixardoiseGrid.add(buttonclassic,0,1);
         buttonchoixardoiseGrid.add(buttoncars,1,1);
         buttonchoixardoiseGrid.add(buttonfrozen,2,1); 
-        
         buttonchoixardoiseGrid.setTranslateY(15);
 //=============================== CREATION DU SLIDER QUI EFFACE L'ARDOISE ======================================
         slidereffacer = new Slider();
@@ -157,7 +153,7 @@ public class Draw extends BorderPane {
         slidereffacer.setValue(0);
         //slider.setShowTickLabels(true);
         //slider.setShowTickMarks(true);
-        slidereffacer.setBlockIncrement(100);
+        slidereffacer.setBlockIncrement(75);
         //On positionne le slider qui efface l'ardoise
         slidereffacer.setTranslateY(-15);
         slidereffacer.setTranslateX(325);
@@ -191,28 +187,29 @@ public class Draw extends BorderPane {
         couleurGrid.add(btnRouge,0,1);
         couleurGrid.add(btnVert,1,1);
         couleurGrid.add(btnBleu,2,1);
-        
         couleurGrid.setHgap(5);
-       
+//=============================== MENU BOITE A OUTILS 3 : COLORPICKER ET SLIDER EPAISSEUR ======================================       
+        //rajout du container de la grille de couleur et de du slider epaisseur 
         colorPickerandslider = new VBox();
-        
+        //creation du label de la grille de couleur
         colorpickerlabel = new Label ("Palette de Couleur");
+        //on change la couleur de l'affichage du label colorpicker
         colorpickerlabel.setTextFill(Color.web("#FFFFFF"));
+        //creation du label du slider dans la barre
         sliderepaisseurlabel = new Label ("Epaisseur Pinceau");
+        //on change la couleur de l'affichage du label slider epaisseur
         sliderepaisseurlabel.setTextFill(Color.web("#FFFFFF"));
+        //on rajoute chaque element a la VBox qui gère les deux outils couleurgrid et epaisseur
         colorPickerandslider.getChildren().add(colorpickerlabel);
         colorPickerandslider.getChildren().add(colorPicker);
         colorPickerandslider.getChildren().add(sliderepaisseurlabel);
         colorPickerandslider.getChildren().add(sliderepaisseur);
         colorPickerandslider.setAlignment(Pos.CENTER);
-        
-        
         //espace entre les boutons couleurs
         colorPicker.setOnAction((ActionEvent event) -> {
             gc.setStroke(colorPicker.getValue());
         });
-        
-//=============================== MENU BOITE A OUTILS 3 : BOUTON DE FORME DU PINCEAU ======================================
+//=============================== MENU BOITE A OUTILS 4 : BOUTON DE FORME DU PINCEAU ======================================
         //creation de la grille des boutons des formes
         formeGrid = new HBox();
         //creation des boutons de la grille avec une image en icone

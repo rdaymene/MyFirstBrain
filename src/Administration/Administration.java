@@ -137,8 +137,8 @@ public class Administration extends VBox {
         vboxAdd.getChildren().add(labelAdd);
         vboxAdd.getChildren().add(gridAddQA);
         vboxAdd.getChildren().add(gridAddSaveCancel);
-
         vboxAdd.setSpacing(20);
+        
 //</editor-fold>
 //=============================== PANNEAU MODIFIER ==============================================================        
 //<editor-fold>
@@ -237,6 +237,9 @@ public class Administration extends VBox {
                 );
                 qb = adminDAO.create(qbAjout);
             loadingCombo();
+            textAddAnsw.clear();
+            textAddQuest.clear();
+            
             }
         });
 //</editor-fold>

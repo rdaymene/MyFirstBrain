@@ -2,6 +2,7 @@ package Administration;
 
 import java.io.IOException;
 import java.io.InputStream;
+import javafx.scene.paint.Color;
 import java.util.Properties;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,56 +25,86 @@ public class AdministrationLogin {
     private String PASSWORD;
     private boolean flagPwd;
     private boolean flagUser;
+    private GridPane gridLogin;
+
+    private VBox administrationlogin;
+    private Scene sceneLogin;
+    private Stage stageLogin;
+
+    private Label labelUser;
+    private Label labelPwd;
+
+    private TextField loginText;
+    private PasswordField pwdText;
+
+    private GridPane gridCancelLogin;
+    private Button btCancel;
+    private Button btLogin;
+    private Label labelErrorUser;
+    private Label labelErrorPwd;
+    private Properties recup_info;
+
+    private Administration my_administration;
 
     public AdministrationLogin(Stage primaryStage) {
 
         //BorderPane administrationlogin
-        VBox administrationlogin = new VBox();
+        administrationlogin = new VBox();
 
-        GridPane champloginetpass = new GridPane();
+        gridLogin = new GridPane();
 
-        Scene sceneLogin = new Scene(administrationlogin, 350, 200);
+        sceneLogin = new Scene(administrationlogin, 350, 200);
 
-        Stage stageLogin = new Stage();
+        stageLogin = new Stage();
 
-        champloginetpass.setAlignment(Pos.CENTER);
-        champloginetpass.setHgap(10);
-        champloginetpass.setVgap(10);
-        champloginetpass.setPadding(new Insets(25, 25, 25, 25));
+        gridLogin.setAlignment(Pos.CENTER);
+        gridLogin.setHgap(10);
+        gridLogin.setVgap(10);
+        gridLogin.setPadding(new Insets(25, 25, 25, 25));
 
         stageLogin.setTitle("Administration Login");
         stageLogin.setScene(sceneLogin);
 
         stageLogin.initModality(Modality.APPLICATION_MODAL);
 
-        Label login_label = new Label("Nom d'utilisateur");
-        champloginetpass.add(login_label, 0, 1);
+        labelUser = new Label("Nom d'utilisateur");
+        gridLogin.add(labelUser, 0, 1);
 
-        Label pass_label = new Label("Mot de passe");
-        champloginetpass.add(pass_label, 0, 2);
+        labelPwd = new Label("Mot de passe");
+        gridLogin.add(labelPwd, 0, 2);
 
-        TextField loginText = new TextField();
-        champloginetpass.add(loginText, 1, 1);
+        loginText = new TextField();
+        gridLogin.add(loginText, 1, 1);
 
-        PasswordField pwdText = new PasswordField();
-        champloginetpass.add(pwdText, 1, 2);
+        pwdText = new PasswordField();
+        gridLogin.add(pwdText, 1, 2);
 
-        GridPane annulerokGrid = new GridPane();
-        Button btnannuler = new Button("Annuler");
-        Button btnLogin = new Button("Login");
+        gridCancelLogin = new GridPane();
+        btCancel = new Button("Annuler");
+        btLogin = new Button("Login");
 
-        annulerokGrid.add(btnannuler, 1, 0);
-        annulerokGrid.add(btnLogin, 2, 0);
+        GridPane gridError = new GridPane();
+        labelErrorUser = new Label("");
+        labelErrorPwd = new Label("");
+        gridError.add(labelErrorUser, 1, 0);
+        gridError.add(labelErrorPwd, 1, 1);
 
-        btnannuler.setAlignment(Pos.TOP_LEFT);
-        btnLogin.setAlignment(Pos.TOP_LEFT);
+        gridError.setTranslateX(110);
+        gridError.setTranslateY(10);
 
-        annulerokGrid.setAlignment(Pos.CENTER);
+        gridCancelLogin.add(btCancel, 1, 0);
+        gridCancelLogin.add(btLogin, 2, 0);
 
-        annulerokGrid.setHgap(40);
+        btCancel.setAlignment(Pos.TOP_LEFT);
+        btLogin.setAlignment(Pos.TOP_LEFT);
 
-        administrationlogin.getChildren().add(champloginetpass);
-        administrationlogin.getChildren().add(annulerokGrid);
+        gridCancelLogin.setAlignment(Pos.CENTER);
+
+        gridCancelLogin.setHgap(40);
+
+        administrationlogin.getChildren().add(gridLogin);
+        administrationlogin.getChildren().add(gridCancelLogin);
+        administrationlogin.getChildren().add(gridError);
 
         stageLogin.initOwner(primaryStage);
         stageLogin.setX(primaryStage.getX() + 200);
@@ -82,62 +113,67 @@ public class AdministrationLogin {
 
         //Chargement des variables 
         // Crée un objet properties        
-        Properties recup_info = new Properties();
+        recup_info = new Properties();
 
-        //INFO >> je cree une instance de type MySQLConnection, pour pouvoir utiliser 
-        //getClass, car la methode getClass ne fctionne qu avec des instances.
         try {
             recup_info.load(this.getClass().getResourceAsStream("/ressources/ManagementInfo"));
 
         } catch (IOException ex) {
             System.out.println("Fichier property << Management Info >> n'a pas pu être lu");
         }
+
         USER = recup_info.getProperty("USER");
         PASSWORD = recup_info.getProperty("PASSWORD");
-        //loginText.setText(USER);  // peut etre effacer
-        //pwdText.setText(PASSWORD);
-//==================  EVENT LOGIN BUTTON
-        btnLogin.setOnAction(e -> {
 
-            if (recup_info.equals(loginText.getText())) {
-//      //mettre un text rouge // ou logo 
-//flagUser false
-                flagUser = false;
+//==================  EVENT LOGIN BUTTON
+        btLogin.setOnAction(e -> {
+
+//            if (recup_info.equals(loginText.getText())) {
+            if (loginText.getText().equals(USER)) {
+                //mettre un text rouge // ou logo 
+                //flagUser false
+                labelErrorUser.setText("");
+                flagUser = true;
+                if (PASSWORD.equals(pwdText.getText())) {
+                    //mettre un text rouge // ou logo
+                    // mettre flagPwd false
+                    labelErrorPwd.setText("");
+                    flagPwd = true;
+                } else {
+                    //clear text rouge // ou logo 
+                    // mettre flagPwd true
+                    labelErrorPwd.setText("Mot de passe erroné");
+                    labelErrorPwd.setTextFill(Color.RED);
+                    flagPwd = false;
+                }
             } else {
                 //clear text rouge // ou logo 
                 // mettre flagUser True
-                flagUser = true;
-            }
-            if (!recup_info.get("PASSWORD").equals(pwdText.getText())) {
-                //mettre un text rouge // ou logo
-                // mettre flagPwd false
-                flagPwd = false;
-            } else {
-                //clear text rouge // ou logo 
-                // mettre flagPwd true
-                flagPwd = true;
+                labelErrorUser.setText("Cet utilisateur n'existe pas");
+                labelErrorUser.setTextFill(Color.RED);
+                flagUser = false;
+
             }
             if (flagPwd && flagUser) {
                 System.out.println("there is a match!!");
-                Administration my_administration = new Administration();
+
                 //Creation de l'onget tab avec un label Administration
+                my_administration = new Administration();
                 administrationTab = new Tab("Administration");
                 administrationTab.setContent(my_administration);
                 administrationTab.setClosable(false);
-                
+
                 MyFirstBrain.tabPane.getTabs().add(administrationTab);
                 stageLogin.close();
-                
+
             }
 
         });
 //============= EVENT CANCEL
 
-btnannuler.setOnAction(e->{
-        stageLogin.close();
-});
-
-
+        btCancel.setOnAction(e -> {
+            stageLogin.close();
+        });
 
     }
 

@@ -95,7 +95,7 @@ public class AdministrationLogin {
         PASSWORD = recup_info.getProperty("PASSWORD");
         loginText.setText(USER);
         pwdText.setText(PASSWORD);
-
+//==================  EVENT LOGIN BUTTON
         btnLogin.setOnAction(e -> {
 
             if (recup_info.equals(loginText.getText())) {
@@ -130,6 +130,13 @@ public class AdministrationLogin {
             }
 
         });
+//============= EVENT CANCEL
+
+btnannuler.setOnAction(e->{
+        stageLogin.close();
+});
+
+
 
     }
 

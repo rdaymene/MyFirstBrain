@@ -189,24 +189,30 @@ public class Administration extends VBox {
 
         this.setAlignment(Pos.CENTER);
 
-//========= EVENT SAVE MODIF BUTTON
+//========== EVENT SAVE MODIF BUTTON
+//<editor-fold>
+
         btModifySave.setOnAction(e -> {
+            loadingCombo();
             if (!textModifyAnsw.getText().trim().isEmpty()) {
                 qb = adminDAO.find((int) comboListID.getValue());
                 qb.setQuestion(textModifyQuestion.getText());
                 qb.setReponse(textModifyAnsw.getText());
                 qb.setNiveau(localLevel);
                 qb = adminDAO.update(qb);
-//saveData(qb)
-
-            }
+   }
         });
-//==========EVENT LOGOFF 
+        //</editor-fold>
+//========== EVENT LOGOFF 
+//<editor-fold>
         btLogOff.setOnAction(e->{
             MyFirstBrain.tabPane.getTabs().remove(AdministrationLogin.administrationTab);
         });
-//=======================  EVENT SAVE ADD BUTTON
+        //</editor-fold>
+//========== EVENT SAVE ADD BUTTON
+//<editor-fold>
         btAddSave.setOnAction(e -> {
+            
             if (!textAddAnsw.getText().trim().isEmpty()) {
                 QuestionBean qbAjout = new QuestionBean(
                             0,
@@ -217,8 +223,9 @@ public class Administration extends VBox {
                 qb = adminDAO.create(qbAjout);
             }
         });
-
-//=========================  EVENT COMBOBOX
+//</editor-fold>
+//========== EVENT COMBOBOX
+//<editor-fold>
         comboListID.setOnAction(e -> {
 
 //            a ce moment la je ne connais k mon ID, je dois donc faire une recherche sur la base, pour me 
@@ -233,26 +240,34 @@ public class Administration extends VBox {
             }
 
         });
+//</editor-fold>
+//========== RADIO BUTTON
+//<editor-fold>
 
-//================ RADIO BUTTON
-//                 EVENT RADIO BUTTON
         radioLevelGroup.selectedToggleProperty().addListener(e -> {
 
             String tmplevel = radioLevelGroup.getSelectedToggle().getUserData().toString();
             localLevel = Integer.valueOf(tmplevel);
+loadingCombo();
+});
+//</editor-fold>
+//=========== EVENT CANCEL ADD BUTTON
+//<editor-fold>
+btAddCancel.setOnAction(e->{
+    textAddAnsw.clear();
+    textAddQuest.clear();
+});
 
-            comboListID.getSelectionModel().clearSelection();
-            comboListID.getItems().clear();
+//</editor-fold>
+//=========== EVENT CANCEL MODIFY BUTTON
+//<editor-fold>
+btModifyCancel.setOnAction(e->{
+    loadingCombo();
+});
 
-            textModifyQuestion.clear();
-            textModifyAnsw.clear();
-
-            feedingComboBOX(comboListID);
-
-        });
-
+//</editor-fold>
     }
-
+  
     private void feedingComboBOX(ComboBox boxy) {
         adminDAO = new Dao();
         listLevel = adminDAO.fillCollection(localLevel);
@@ -260,6 +275,16 @@ public class Administration extends VBox {
         for (QuestionBean qb : listLevel) {
             boxy.getItems().add(qb.getID());
         }
+    }
+
+    private void loadingCombo() {
+            comboListID.getSelectionModel().clearSelection();
+            comboListID.getItems().clear();
+
+            textModifyQuestion.clear();
+            textModifyAnsw.clear();
+
+            feedingComboBOX(comboListID);
     }
     
 }

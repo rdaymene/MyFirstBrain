@@ -10,11 +10,26 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import myfirstbrain.MyFirstBrain;
 
 public class Administration extends VBox {
+    
+    private final Image administration = new Image(getClass().getResourceAsStream("backgroundadministration.png"));
+    private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);   
+    private Background backgroundadministration = new Background(new BackgroundImage(administration,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER,
+            bSize));   
+    
 
     private int localLevel = 2;
     private Dao adminDAO;
@@ -171,7 +186,10 @@ public class Administration extends VBox {
         btLogOff = new Button("Se déconnecter");
 //</editor-fold>
 
-     feedingComboBOX(comboListID);
+        //rajout du background administration
+        this.setBackground(backgroundadministration);
+        feedingComboBOX(comboListID);
+
 
         this.setSpacing(50);
 

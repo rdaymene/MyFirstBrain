@@ -20,8 +20,6 @@ import static myfirstbrain.MyFirstBrain.selectionModel;
 public class MenuForm extends MenuBar {
 
     public static int level;
-    private Questions q;
-
     public MenuForm(Stage primaryStage) {
 
         //=============================== CHANGEMENT DU FOND DU MENU ==================================================================================
@@ -55,8 +53,7 @@ public class MenuForm extends MenuBar {
         menuNiveau1Item.setOnAction(e -> {
             level = 1;
             MyFirstBrain.questions = new Questions();
-            MyFirstBrain.questionTab.setContent(questions);
-           // MyFirstBrain.questions.getTfInput().requestFocus();
+            MyFirstBrain.questionTab.setContent(questions);           
             MyFirstBrain.calcul = new Calcul();
             MyFirstBrain.calculTab.setContent( MyFirstBrain.calcul);
         });

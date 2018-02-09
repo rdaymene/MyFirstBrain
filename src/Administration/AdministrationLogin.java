@@ -159,6 +159,7 @@ public class AdministrationLogin {
                 my_administration = new Administration();
                 administrationTab = new Tab("Administration");
                 administrationTab.setContent(my_administration);
+                administrationTab.getStyleClass().add("Tab");
                 administrationTab.setClosable(false);
 
                 MyFirstBrain.tabPane.getTabs().add(administrationTab);

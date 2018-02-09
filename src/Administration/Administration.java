@@ -23,13 +23,14 @@ import myfirstbrain.MyFirstBrain;
 public class Administration extends VBox {
     
     private final Image administration = new Image(getClass().getResourceAsStream("backgroundadministration.png"));
-    private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
-    
+    private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);   
     private Background backgroundadministration = new Background(new BackgroundImage(administration,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
-            bSize));
+            bSize));   
+    
+
     private int localLevel = 2;
     private Dao adminDAO;
     private ComboBox comboListID;                      /////////COMBO TOOL
@@ -76,7 +77,6 @@ public class Administration extends VBox {
     private final GridPane gridModifySaveCancel;
     private final Button btModifyCancel;
     private final Button btModifySave;
-
     private final Button btLogOff;
 
     public Administration() {
@@ -188,8 +188,8 @@ public class Administration extends VBox {
 
         //rajout du background administration
         this.setBackground(backgroundadministration);
-
         feedingComboBOX(comboListID);
+
 
         this.setSpacing(50);
 
@@ -203,24 +203,31 @@ public class Administration extends VBox {
 
         this.setAlignment(Pos.CENTER);
 
-//========= EVENT SAVE MODIF BUTTON
+//========== EVENT SAVE MODIF BUTTON
+//<editor-fold>
+
         btModifySave.setOnAction(e -> {
+            
             if (!textModifyAnsw.getText().trim().isEmpty()) {
                 qb = adminDAO.find((int) comboListID.getValue());
                 qb.setQuestion(textModifyQuestion.getText());
                 qb.setReponse(textModifyAnsw.getText());
                 qb.setNiveau(localLevel);
                 qb = adminDAO.update(qb);
-//saveData(qb)
-
-            }
+                loadingCombo();
+   }
         });
-//==========EVENT LOGOFF 
+        //</editor-fold>
+//========== EVENT LOGOFF 
+//<editor-fold>
         btLogOff.setOnAction(e->{
             MyFirstBrain.tabPane.getTabs().remove(AdministrationLogin.administrationTab);
         });
-//=======================  EVENT SAVE ADD BUTTON
+        //</editor-fold>
+//========== EVENT SAVE ADD BUTTON
+//<editor-fold>
         btAddSave.setOnAction(e -> {
+            
             if (!textAddAnsw.getText().trim().isEmpty()) {
                 QuestionBean qbAjout = new QuestionBean(
                             0,
@@ -229,15 +236,17 @@ public class Administration extends VBox {
                             textAddAnsw.getText()
                 );
                 qb = adminDAO.create(qbAjout);
+            loadingCombo();
             }
         });
-
-//=========================  EVENT COMBOBOX
+//</editor-fold>
+//========== EVENT COMBOBOX
+//<editor-fold>
         comboListID.setOnAction(e -> {
 
-//            a ce moment la je ne connais k mon ID, je dois donc faire une recherche sur la base, pour me 
+//            a ce moment la je ne connais que mon ID, je dois donc faire une recherche sur la base, pour me 
 //            donner par rapport a l ID, quel est la question et reponse associe.
-//            j appelle une fonction GETID de ma DAO, que me retourne un oject de type QuestionDAO,
+//            j appelle une fonction GETID de ma DAO, qui me retourne un oject de type QuestionDAO,
 //            et grace a cet object je pourrais updater mes textfields
 //            adminDAO est de type DAO
             if (comboListID.getValue() != null) {
@@ -247,26 +256,35 @@ public class Administration extends VBox {
             }
 
         });
+//</editor-fold>
+//========== RADIO BUTTON
+//<editor-fold>
 
-//================ RADIO BUTTON
-//                 EVENT RADIO BUTTON
         radioLevelGroup.selectedToggleProperty().addListener(e -> {
 
             String tmplevel = radioLevelGroup.getSelectedToggle().getUserData().toString();
             localLevel = Integer.valueOf(tmplevel);
+loadingCombo();
+});
+//</editor-fold>
+//=========== EVENT CANCEL ADD BUTTON
+//<editor-fold>
+btAddCancel.setOnAction(e->{
+    textAddAnsw.clear();
+    textAddQuest.clear();
+    loadingCombo();
+});
 
-            comboListID.getSelectionModel().clearSelection();
-            comboListID.getItems().clear();
+//</editor-fold>
+//=========== EVENT CANCEL MODIFY BUTTON
+//<editor-fold>
+btModifyCancel.setOnAction(e->{
+    loadingCombo();
+});
 
-            textModifyQuestion.clear();
-            textModifyAnsw.clear();
-
-            feedingComboBOX(comboListID);
-
-        });
-
+//</editor-fold>
     }
-
+  
     private void feedingComboBOX(ComboBox boxy) {
         adminDAO = new Dao();
         listLevel = adminDAO.fillCollection(localLevel);
@@ -274,6 +292,16 @@ public class Administration extends VBox {
         for (QuestionBean qb : listLevel) {
             boxy.getItems().add(qb.getID());
         }
+    }
+
+    private void loadingCombo() {
+            comboListID.getSelectionModel().clearSelection();
+            comboListID.getItems().clear();
+
+            textModifyQuestion.clear();
+            textModifyAnsw.clear();
+
+            feedingComboBOX(comboListID);
     }
     
 }

@@ -17,12 +17,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 /**
  * @author Rachid
  */
-public class Calcul extends BorderPane {
+public final class Calcul extends BorderPane {
 
     //attributs
     //Image et Background
@@ -40,34 +39,24 @@ public class Calcul extends BorderPane {
             BackgroundPosition.CENTER,
             bSize));
     private int reponseSaisi;
-    private int positionX = 0;
-    private int positionY = 0;
-    private int note = 0;
     private int typeOp;
     private int number1;
     private int number2;
     private int resultat;
     private String signeOperation;
     private String lettre;
-    private Text tCalcul;
     private TextField screenCalcul;
-    private Text answer;
     private TextField tfInput;
     private MyButton btegale;
-    private MyButton btReponse;
-    private MyButton btOtherCalcul;
+    private final MyButton btReponse;
+    private final MyButton btOtherCalcul;
     private VBox vbText;
-    private VBox vbCalcul;
-    private HBox hbButton;//contient les 2 boutons réponse et solution 
-    private DoCalcul calculAtrouver;
-    
-    //----- Génération des chiffres et le type d'opération à éxécuter aléatoirement--------
-    Text lettre_touche;
+    private final HBox hbButton;//contient les 2 boutons réponse et solution 
+    private DoCalcul calculAtrouver;    
 
-    //Avec les 2 niveaux :
     /*--constructeur par défaut--*/
     public Calcul() {
-        typeOp  = getRandomOpertaion();
+        typeOp  = getRandomOperation();
         number1 = getRandomChiffre();
         number2 = getRandomChiffre();
         signeOperation = new String();
@@ -77,46 +66,43 @@ public class Calcul extends BorderPane {
         this.setPadding(new Insets(15, 10, 15, 10));
         VBox vBox1 = new VBox(20);
         vBox1.setSpacing(80);
-        vBox1.setAlignment(Pos.CENTER);
-        //Initialisation: affichage de l'opération à faire
-        String questionCalcul = getRandomCalcul(number1, number2, typeOp);        
+        vBox1.setAlignment(Pos.CENTER);        
+        //Initialisation: affichage de calcul à faire
+        String questionCalcul = getRandomCalcul(number1, number2, typeOp); 
+        //création de Label (notre afficheur) 
         Label afficheurCalcul = new Label(questionCalcul + " = ?");
         afficheurCalcul.setFont(new Font("Verdana", 75));
         afficheurCalcul.setWrapText(true);
-        
+        //création de TextField (champs de saisir la réponse)
         TextField saisirResultat = new TextField();
         saisirResultat.setPromptText("Entrez votre réponse");
         saisirResultat.setPrefHeight(80);
         saisirResultat.setPrefWidth(25);
         saisirResultat.getStyleClass().add("TextField");// css pour le textfield 
-        //Autofocus
-        //saisirResultat.setFocusTraversable(false);
-        //saisirResultat.requestFocus();
+        /*
+        //Autofocus sur le champs de réponse
+        saisirResultat.setFocusTraversable(true);
+        saisirResultat.requestFocus();
+        */
         // on ajoute les boutons au vBox1
         vBox1.getChildren().addAll(afficheurCalcul, saisirResultat);
-        this.setCenter(vBox1);
-
-        /*---------------------Le contenaire bas de la page de type HBox----------*/
+        this.setCenter(vBox1);      // l'affichage au centre de notre page 
+        /*---------------------Le contenaire bas de la page de type HBox--------------------*/
         hbButton = new HBox(20);
         hbButton.setSpacing(150);
-
         // on instancie les boutons
-        btReponse = new MyButton("Solution");
-        btOtherCalcul = new MyButton("Autre Calcul");
+        btReponse = new MyButton("Solution");   //le bouton d'affiche de la réponse
+        btOtherCalcul = new MyButton("Autre Calcul"); //le bouton de génération d'autre calcul
         btReponse.setMinSize(100, 50);
         btOtherCalcul.setMinSize(100, 50);
         hbButton.setAlignment(Pos.CENTER);
-
         // on ajoute les boutons au hbox
         hbButton.getChildren().addAll(btReponse, btOtherCalcul);
-
-        // on ajoute les 2 box au container parent 
-        this.setTop(vbCalcul);
-        this.setBottom(hbButton);
-        //ajout du backgroundmath
+        this.setBottom(hbButton);   // l'affichage au bas de notre page        
+        /*---------------------ajout du backgroundmath--------------------------------------*/
         this.setBackground(MenuForm.level == 1 ? backgroundmathclassic : backgroundmathexpert);
 
-        //-------------------- gestion evenementielle--------------------------
+        //-------------------- gestion evenementielle---------------------------------------*/
         /*--bouton Solution--*/
         btReponse.setOnAction(e -> {
             int reponseCandidat = 0;
@@ -147,13 +133,10 @@ public class Calcul extends BorderPane {
                 result = number1 * number2;
             }
             if (reponseSaisi == result) {
-                //btReponse.setStyle("-fx-background-color : #3A9D23");    //on colorie le bouton Solution en vert
                 saisirResultat.setStyle("-fx-background-color : #3A9D23"); // on colorie la zone réponse en vert
-                // on affiche : bonne réponse + toute l'opération
-                //saisirResultat.setText("Bonne réponse : " + otherCalcul + " = " + result);
+                // on affiche : Bonne réponse + toute l'opération
                 saisirResultat.setText("Bonne réponse : " + otherCalcul + " = " + result);
             } else {
-                //btReponse.setStyle("-fx-background-color : #FF0000;");        //on colorie le bouton Solution en rouge
                 saisirResultat.setStyle("-fx-background-color : #FF0000;");     //on colorie la zone réponse en rouge
                 //saisirResultat.setText("Mauvaise réponse : " + otherCalcul + " = " + result);
                 saisirResultat.setText("Mauvaise réponse : " + otherCalcul + " = " + result);
@@ -167,17 +150,13 @@ public class Calcul extends BorderPane {
             saisirResultat.clear();
             saisirResultat.setStyle("-fx-background-color : #FFFFFF"); // on colorie la zone réponse en blanc
             // génération de nouveaux nombres aléatoires
-            typeOp = getRandomOpertaion();
+            typeOp = getRandomOperation();
             number1 = getRandomChiffre();
             number2 = getRandomChiffre();
             // Nouvelle opération 
             afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp) + " = ?"); 
             /*
             //debug      
-            String nb1 = Integer.toString(number1);
-            String nb2 = Integer.toString(number2);
-            String nb3 = Integer.toString(typeOp);
-            String nb4 = Integer.toString(MenuForm.level);
             afficheurCalcul.setText(" opération : " + getRandomCalcul(number1, number2, typeOp)
                     + "\n number1 : " + number1 + " number2 : " + number2 + "\n typeOp : " + typeOp
                     + " MenuForm.level : " + MenuForm.level);
@@ -189,7 +168,7 @@ public class Calcul extends BorderPane {
     //Méthode qui retourne le type d'opération selon le niveau
     //0: corréspond à l'addition, 1: corréspond à la soustraction (pour les deux niveaux)
     //2: corréspond à la multiplication (uniquement pour le niveau 2)
-    public int getRandomOpertaion() {
+    public int getRandomOperation() {
         int typeOperation = 0;
         if (MenuForm.level == 1) {
             typeOperation = (int) (Math.random() * 2); // 2 possibilités d'opérations (niveau 1)
@@ -204,7 +183,7 @@ public class Calcul extends BorderPane {
     //niveau 2: Addition, Soustraction (nombres positifs à 3 chiffres), Multiplication (nombre positif à 1 chiffre) 
     public int getRandomChiffre() {
 
-        int chiffre = 5;
+        int chiffre;
         //level = MenuForm.level;
         if (MenuForm.level == 1) {
             chiffre = (int) (Math.random() * 9) + 1;      //chiffre aléatoire entre 1 et 9
@@ -247,7 +226,6 @@ public class Calcul extends BorderPane {
         }
         //--conversions du résultat en string--//
         String ch3 = Integer.toString(resultat);
-        //String questionCalcul = ch1 + " " + signeOperation + " " + ch2 + " = ?";
         String questionCalcul = ch1 + " " + signeOperation + " " + ch2 ;
         return questionCalcul;
     }

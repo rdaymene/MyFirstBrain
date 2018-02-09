@@ -56,7 +56,7 @@ public final class Calcul extends BorderPane {
 
     /*--constructeur par défaut--*/
     public Calcul() {
-        typeOp  = getRandomOpertaion();
+        typeOp  = getRandomOperation();
         number1 = getRandomChiffre();
         number2 = getRandomChiffre();
         signeOperation = new String();
@@ -150,17 +150,13 @@ public final class Calcul extends BorderPane {
             saisirResultat.clear();
             saisirResultat.setStyle("-fx-background-color : #FFFFFF"); // on colorie la zone réponse en blanc
             // génération de nouveaux nombres aléatoires
-            typeOp = getRandomOpertaion();
+            typeOp = getRandomOperation();
             number1 = getRandomChiffre();
             number2 = getRandomChiffre();
             // Nouvelle opération 
             afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp) + " = ?"); 
             /*
             //debug      
-            String nb1 = Integer.toString(number1);
-            String nb2 = Integer.toString(number2);
-            String nb3 = Integer.toString(typeOp);
-            String nb4 = Integer.toString(MenuForm.level);
             afficheurCalcul.setText(" opération : " + getRandomCalcul(number1, number2, typeOp)
                     + "\n number1 : " + number1 + " number2 : " + number2 + "\n typeOp : " + typeOp
                     + " MenuForm.level : " + MenuForm.level);
@@ -172,7 +168,7 @@ public final class Calcul extends BorderPane {
     //Méthode qui retourne le type d'opération selon le niveau
     //0: corréspond à l'addition, 1: corréspond à la soustraction (pour les deux niveaux)
     //2: corréspond à la multiplication (uniquement pour le niveau 2)
-    public int getRandomOpertaion() {
+    public int getRandomOperation() {
         int typeOperation = 0;
         if (MenuForm.level == 1) {
             typeOperation = (int) (Math.random() * 2); // 2 possibilités d'opérations (niveau 1)

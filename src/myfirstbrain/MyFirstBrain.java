@@ -2,6 +2,7 @@ package myfirstbrain;
 
 import Administration.Administration;
 import Draw.Draw;
+import Grid.Grid;
 import Menu.MenuForm;
 import Question.Questions;
 import calcul.Calcul;
@@ -24,6 +25,7 @@ public class MyFirstBrain extends Application {
     public static SingleSelectionModel<Tab> selectionModel;
     public static TabPane tabPane;
     private Tab drawTab;
+    private Tab gridTab;
     // attribut question
     public static Questions questions;
     public static Calcul calcul;
@@ -41,10 +43,15 @@ public class MyFirstBrain extends Application {
         //création d'un objet calcul
         calcul = new Calcul(); 
         //Administration my_administration = new Administration();
+
         my_draw = new Draw();
+
+        //creation d'un objet grid
+        Grid my_grid = new Grid();
+
         //=============================== CREATION DE TAB DES FONCTIONS DU PROGRAMME ======================================
         //On crée un onglet pour chaque jeu de notre programme
-
+        
         //Onglet 1 : L'ardoise magique
         //Creation de l'onget tab avec un label Dessin
         drawTab = new Tab("Draw");
@@ -62,6 +69,13 @@ public class MyFirstBrain extends Application {
         //On rajoute le contenu crée à partir de la classe Questions
         questionTab.setContent(this.questions);
         
+        //creation de l'onglet tab avec un label Grid
+        gridTab = new Tab("Grid");
+        //on rajoute le contenu crée à partir de la classe Grid
+        gridTab.setContent(my_grid); 
+        
+        
+        
         //Creation de l'onget tab avec un label Administration
         //Tab administrationTab = new Tab("Administration");
         //On rajoute le contenu crée à partir de la classe Administration
@@ -71,6 +85,7 @@ public class MyFirstBrain extends Application {
         drawTab.setClosable(false);
         calculTab.setClosable(false);
         questionTab.setClosable(false);
+        gridTab.setClosable(false);
         //administrationTab.setClosable(false);
 
         //creation du TabBane qui contiendra l'ensemble de nos onglets 
@@ -79,6 +94,7 @@ public class MyFirstBrain extends Application {
         tabPane.getTabs().add(drawTab);
         tabPane.getTabs().add(calculTab);
         tabPane.getTabs().add(questionTab);
+        tabPane.getTabs().add(gridTab);
         //tabPane.getTabs().add(administrationTab);
         selectionModel = tabPane.getSelectionModel();
         selectionModel.select(0);
@@ -100,6 +116,7 @@ public class MyFirstBrain extends Application {
         drawTab.getStyleClass().add("Tab");
         calculTab.getStyleClass().add("Tab");
         questionTab.getStyleClass().add("Tab");
+        gridTab.getStyleClass().add("Tab");
         primaryStage.setResizable(false);
         primaryStage.setTitle("MyFirstBrain");
         primaryStage.setScene(scene);

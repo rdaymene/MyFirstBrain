@@ -157,10 +157,6 @@ public final class Calcul extends BorderPane {
             afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp) + " = ?"); 
             /*
             //debug      
-            String nb1 = Integer.toString(number1);
-            String nb2 = Integer.toString(number2);
-            String nb3 = Integer.toString(typeOp);
-            String nb4 = Integer.toString(MenuForm.level);
             afficheurCalcul.setText(" opération : " + getRandomCalcul(number1, number2, typeOp)
                     + "\n number1 : " + number1 + " number2 : " + number2 + "\n typeOp : " + typeOp
                     + " MenuForm.level : " + MenuForm.level);

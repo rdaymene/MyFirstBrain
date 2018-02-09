@@ -1,7 +1,11 @@
 package Administration;
 
+import DAO.Dao;
+import DAO.QuestionBean;
+import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -9,152 +13,250 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class Administration extends VBox{
-    
+public class Administration extends VBox {
+
+    private int localLevel = 2;
+    private Dao adminDAO;
+    private ComboBox comboListID;                      /////////COMBO TOOL
+    private QuestionBean qb;
+    private ArrayList<QuestionBean> listLevel;
+
     private final VBox radiovbox;
-    
+
     private final GridPane radioGrid;
-    private final ToggleGroup radioniveauGroup;
+    private final ToggleGroup radioLevelGroup;
 
     private final Label radioText;
-    private final RadioButton radioniveau1;
-    private final RadioButton radioniveau2;
-    private final GridPane modifieretajoutergrid;
-    
-    private final VBox ajoutervbox ;
-    
-    private final Label labelajouter;
-    
-    private final GridPane questionreponsegridajoutergrid;
-    private final Label question_label_ajouter ;
-    private final TextField questionajoutertext ;
-    private final Label reponse_label_ajouter ;
-    private final TextField reponseajoutertext ;
+    private final RadioButton radioLevel1;
+    private final RadioButton radioLevel2;
+    private final GridPane gridModifyAdd;
+
+    private final VBox vboxAdd;
+
+    private final Label labelAdd;
+
+    private final GridPane gridAddQA;
+    private final Label labelAddQuest;
+    private final TextField textAddQuest;
+    private final Label labelAddAnsw;
+    private final TextField textAddAnsw;
     //bouton du panneau modifier
-    private final GridPane annuleretenregisterajoutergrid;
-    private final Button annulerajouter;
-    private final Button enregistrerajouter;
-    
-    
-    
-    private final VBox modifiervbox ;
-    
-    private final Label labelmodifier;
-    
-    private final GridPane questionreponsemodifiergrid;
-    private final Label question_label_modifier ;
-    private final TextField questionmodifiertext ;
-    private final Label reponse_label_modifier ;
-    private final TextField reponsemodifiertext ;
+    private final GridPane gridAddSaveCancel;
+    private final Button btAddCancel;
+    private final Button btAddSave;
+
+    private final VBox vboxModify;
+
+    private final Label labelModify;
+
+    private final GridPane gridModifyQA;
+
+    private final Label labelModifyComboBox; ///////////////COMBO LABEL
+
+    private final Label labelModifyQuestion;
+    private final TextField textModifyQuestion;
+    private final Label labelModifyAnsw;
+    private final TextField textModifyAnsw;
     //bouton du panneau modifier
-    private final GridPane annuleretenregistrermodifiergrid;
-    private final Button annulermodifier;
-    private final Button enregistrermodifier;
-    
-    private final Button btnsedeconnecter;
-    
-    public Administration(){
-       
+    private final GridPane gridModifySaveCancel;
+    private final Button btModifyCancel;
+    private final Button btModifySave;
+
+    private final Button btLogOff;
+
+    public Administration() {
+
         //Choix du Niveau
         radiovbox = new VBox();
-        
+
         radioGrid = new GridPane();
-        radioniveauGroup = new ToggleGroup();
-             
+        radioLevelGroup = new ToggleGroup();
+
         radioText = new Label("Niveau de la question à modifier");
-        radioniveau1 = new RadioButton("1");
-        radioniveau2 = new RadioButton("2");
-        
-        radioniveau1.setToggleGroup(radioniveauGroup);
-        radioniveau2.setToggleGroup(radioniveauGroup);
-        
-        radioGrid.add(radioniveau1,0,1);
-        radioGrid.add(radioniveau2,1,1);
+        radioLevel1 = new RadioButton("1");
+        radioLevel2 = new RadioButton("2");
+
+        //set the value of my radio buttons       
+        radioLevel1.setUserData("1");
+        radioLevel2.setUserData("2");
+
+        radioLevel1.setToggleGroup(radioLevelGroup);
+        radioLevel2.setToggleGroup(radioLevelGroup);      
+        radioLevel2.setSelected(true); // set default to 2
+
+        radioGrid.add(radioLevel1, 0, 1);
+        radioGrid.add(radioLevel2, 1, 1);
         radioGrid.setHgap(20);
         radioGrid.setAlignment(Pos.CENTER);
-        
+
         radiovbox.getChildren().add(radioText);
         radiovbox.getChildren().add(radioGrid);
-        
+
         //radioGrid.vgapProperty(20);
 //=============================== CONTAINER DU PANNEAU MODIFIER ET AJOUTER ======================================
-        modifieretajoutergrid = new GridPane();
+        gridModifyAdd = new GridPane();
 //=============================== PANNEAU AJOUTER ==============================================================
         //Construction de l'affichage du panneau qui permet d'ajouter une question
-        ajoutervbox = new VBox();
-        
-        labelajouter = new Label("Ajouter");
-        labelajouter.setAlignment(Pos.CENTER);
-        
-        questionreponsegridajoutergrid = new GridPane();
-        question_label_ajouter = new Label("Question");
-        questionajoutertext = new TextField();
-        reponse_label_ajouter = new Label("Réponse");
-        reponseajoutertext = new TextField();
-        questionreponsegridajoutergrid.add(question_label_ajouter, 0, 1);
-        questionreponsegridajoutergrid.add(reponse_label_ajouter, 0, 2);
-        questionreponsegridajoutergrid.add(questionajoutertext, 1, 1);
-        questionreponsegridajoutergrid.add(reponseajoutertext, 1, 2);
-        
-        annuleretenregisterajoutergrid = new GridPane();
-        annulerajouter = new Button("Annuler");
-        enregistrerajouter = new Button("Enregistrer");
-        annuleretenregisterajoutergrid.add(annulerajouter, 0, 1);
-        annuleretenregisterajoutergrid.add(enregistrerajouter, 1, 1);
-        
-        ajoutervbox.getChildren().add(labelajouter);
-        ajoutervbox.getChildren().add(questionreponsegridajoutergrid);
-        ajoutervbox.getChildren().add(annuleretenregisterajoutergrid);
-        
-        ajoutervbox.setSpacing(20);
-           
+//<editor-fold>
+        vboxAdd = new VBox();
+
+        labelAdd = new Label("Ajouter");
+        labelAdd.setAlignment(Pos.CENTER);
+
+        gridAddQA = new GridPane();
+        labelAddQuest = new Label("Question");
+        textAddQuest = new TextField();
+        labelAddAnsw = new Label("Réponse");
+        textAddAnsw = new TextField();
+        gridAddQA.add(labelAddQuest, 0, 1);
+        gridAddQA.add(labelAddAnsw, 0, 2);
+        gridAddQA.add(textAddQuest, 1, 1);
+        gridAddQA.add(textAddAnsw, 1, 2);
+
+        gridAddSaveCancel = new GridPane();
+        btAddCancel = new Button("Annuler");
+        btAddSave = new Button("Enregistrer");
+        gridAddSaveCancel.add(btAddCancel, 0, 1);
+        gridAddSaveCancel.add(btAddSave, 1, 1);
+
+        vboxAdd.getChildren().add(labelAdd);
+        vboxAdd.getChildren().add(gridAddQA);
+        vboxAdd.getChildren().add(gridAddSaveCancel);
+
+        vboxAdd.setSpacing(20);
+//</editor-fold>
 //=============================== PANNEAU MODIFIER ==============================================================        
+//<editor-fold>
         //Construction de l'affichage du panneau qui permet de modifier une question
-        modifiervbox = new VBox();
-        
-        labelmodifier = new Label("Modifier");
-        labelmodifier.setAlignment(Pos.CENTER);
-        
-        questionreponsemodifiergrid = new GridPane();
-        question_label_modifier = new Label("Question");
-        questionmodifiertext = new TextField();
-        reponse_label_modifier = new Label("Réponse");
-        reponsemodifiertext = new TextField();
-        
-        questionreponsemodifiergrid.add(question_label_modifier, 0, 1);
-        questionreponsemodifiergrid.add(reponse_label_modifier, 0, 2);
-        questionreponsemodifiergrid.add(questionmodifiertext, 1, 1);
-        questionreponsemodifiergrid.add(reponsemodifiertext, 1,2);
-        
-        annuleretenregistrermodifiergrid = new GridPane();
-        annulermodifier = new Button("Annuler");
-        enregistrermodifier = new Button("Enregistrer");
-        annuleretenregistrermodifiergrid.add(annulermodifier, 0, 1);
-        annuleretenregistrermodifiergrid.add(enregistrermodifier,1, 1);
-        
-        modifiervbox.getChildren().add(labelmodifier);
-        modifiervbox.getChildren().add(questionreponsemodifiergrid);
-        modifiervbox.getChildren().add(annuleretenregistrermodifiergrid);
-        
-        modifiervbox.setSpacing(20);
-        
-        modifieretajoutergrid.add(ajoutervbox, 0, 1);
-        modifieretajoutergrid.add(modifiervbox, 1, 1);
-        
-        modifieretajoutergrid.setHgap(30);
-        
-        btnsedeconnecter = new Button("Se déconnecter");
- 
+        vboxModify = new VBox();
+
+        labelModify = new Label("Modifier");
+        labelModify.setAlignment(Pos.CENTER);
+
+        gridModifyQA = new GridPane();
+        labelModifyQuestion = new Label("Question");
+        labelModifyComboBox = new Label("List id"); // info COMBOBOX
+        comboListID = new ComboBox();
+        textModifyQuestion = new TextField();
+        labelModifyAnsw = new Label("Réponse");
+        textModifyAnsw = new TextField();
+
+        //addition de mon ComboBox qui n est pas top  :-/
+        gridModifyQA.add(labelModifyComboBox, 0, 1);
+        gridModifyQA.add(comboListID, 1, 1);
+
+        gridModifyQA.add(labelModifyQuestion, 0, 2);
+        gridModifyQA.add(labelModifyAnsw, 0, 3);
+        gridModifyQA.add(textModifyQuestion, 1, 2);
+        gridModifyQA.add(textModifyAnsw, 1, 3);
+
+        gridModifySaveCancel = new GridPane();
+        btModifyCancel = new Button("Annuler");
+        btModifySave = new Button("Enregistrer");
+        gridModifySaveCancel.add(btModifyCancel, 0, 1);
+        gridModifySaveCancel.add(btModifySave, 1, 1);
+
+        vboxModify.getChildren().add(labelModify);
+
+        vboxModify.getChildren().add(gridModifyQA);
+        vboxModify.getChildren().add(gridModifySaveCancel);
+
+        vboxModify.setSpacing(20);
+
+        gridModifyAdd.add(vboxAdd, 0, 1);
+        gridModifyAdd.add(vboxModify, 1, 1);
+
+        gridModifyAdd.setHgap(30);
+
+        btLogOff = new Button("Se déconnecter");
+//</editor-fold>
+
+
+  
+
+        feedingComboBOX(comboListID);
+
         this.setSpacing(50);
 
         this.getChildren().add(radiovbox);
-        this.getChildren().add(modifieretajoutergrid);
-        this.getChildren().add(btnsedeconnecter);
-        
+        this.getChildren().add(gridModifyAdd);
+        this.getChildren().add(btLogOff);
+
         radiovbox.setAlignment(Pos.TOP_CENTER);
-        modifieretajoutergrid.setAlignment(Pos.TOP_CENTER);
-        btnsedeconnecter.setAlignment(Pos.TOP_CENTER);
-        
+        gridModifyAdd.setAlignment(Pos.TOP_CENTER);
+        btLogOff.setAlignment(Pos.TOP_CENTER);
+
         this.setAlignment(Pos.CENTER);
+
+//========= EVENT SAVE MODIF BUTTON
+        btModifySave.setOnAction(e -> {
+            if (!textModifyAnsw.getText().trim().isEmpty()) {
+                qb = adminDAO.find((int) comboListID.getValue());
+                qb.setQuestion(textModifyQuestion.getText());
+                qb.setReponse(textModifyAnsw.getText());
+                qb.setNiveau(localLevel);
+                qb = adminDAO.update(qb);
+//saveData(qb)
+
+            }
+        });
+
+//=======================  EVENT SAVE ADD BUTTON
+        btAddSave.setOnAction(e -> {
+            if (!textAddAnsw.getText().trim().isEmpty()) {
+                QuestionBean qbAjout = new QuestionBean(
+                            0,
+                            localLevel,
+                            textAddQuest.getText(),
+                            textAddAnsw.getText()
+                );
+                qb = adminDAO.create(qbAjout);
+
+
+            }
+        });
+
+//=========================  EVENT COMBOBOX
+        comboListID.setOnAction(e -> {
+
+//            a ce moment la je ne connais k mon ID, je dois donc faire une recherche sur la base, pour me 
+//            donner par rapport a l ID, quel est la question et reponse associe.
+//            j appelle une fonction GETID de ma DAO, que me retourne un oject de type QuestionDAO,
+//            et grace a cet object je pourrais updater mes textfields
+//            adminDAO est de type DAO
+            if (comboListID.getValue() != null) {
+                qb = adminDAO.find((int) comboListID.getValue());
+                textModifyQuestion.setText(qb.getQuestion());
+                textModifyAnsw.setText(qb.getReponse());
+            }
+
+        });
+
+//================ RADIO BUTTON
+//                 EVENT RADIO BUTTON
+        radioLevelGroup.selectedToggleProperty().addListener(e -> {
+
+            String tmplevel = radioLevelGroup.getSelectedToggle().getUserData().toString();
+            localLevel = Integer.valueOf(tmplevel);
+
+            comboListID.getSelectionModel().clearSelection();
+            comboListID.getItems().clear();
+
+            textModifyQuestion.clear();
+            textModifyAnsw.clear();
+
+            feedingComboBOX(comboListID);
+
+        });
+
+    }
+
+    private void feedingComboBOX(ComboBox boxy) {
+        adminDAO = new Dao();
+        listLevel = adminDAO.fillCollection(localLevel);
+
+        for (QuestionBean qb : listLevel) {
+            boxy.getItems().add(qb.getID());
+        }
     }
 }

@@ -48,7 +48,7 @@ public  class Dao {
     public  QuestionBean create(QuestionBean qb){
         QuestionBean qb2 = null;
         try {
-            String req = "insert INTO " + TABLE + " (niveau,question,reponse) VALUES (?, ? ,? );";
+            String req = "INSERT INTO " + TABLE + " (niveau,question,reponse) VALUES (?, ? ,? );";
             PreparedStatement pstmt = this.connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS);
             pstmt.setInt(1, qb.getNiveau());
             pstmt.setString(2, qb.getQuestion());
@@ -123,4 +123,7 @@ public  class Dao {
         }
         return questionList;
     }
+ 
+
+
 }

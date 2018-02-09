@@ -28,9 +28,10 @@ public class MyFirstBrain extends Application {
     // getter question
     public static Tab questionTab;
     public static Tab calculTab;
+    Stage primaryStage;
     public void start(Stage primaryStage) {
 
-          
+        this.primaryStage = primaryStage;  
         BorderPane root = new BorderPane();
         MenuForm menuBar = new MenuForm(primaryStage);
         questions = new Questions();
@@ -56,7 +57,7 @@ public class MyFirstBrain extends Application {
         questionTab = new Tab("Questions");
         //On rajoute le contenu crée à partir de la classe Questions
         questionTab.setContent(this.questions);
-
+        
         //Creation de l'onget tab avec un label Administration
         Tab administrationTab = new Tab("Administration");
         //On rajoute le contenu crée à partir de la classe Administration
@@ -77,12 +78,12 @@ public class MyFirstBrain extends Application {
         tabPane.getTabs().add(administrationTab);
         selectionModel = tabPane.getSelectionModel();
         selectionModel.select(0);
-        questions.getTfInput().requestFocus();
+       MyFirstBrain.questions.getTfInput().requestFocus();
         tabPane.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> arg0, Tab arg1, Tab arg2) -> {
             if (arg2 == questionTab) {
                 this.questions = new Questions();
                 questionTab.setContent(questions);
-                questions.getTfInput().requestFocus();
+                
             }
         });
 
@@ -95,6 +96,7 @@ public class MyFirstBrain extends Application {
         primaryStage.setResizable(false);
         primaryStage.setTitle("MyFirstBrain");
         primaryStage.setScene(scene);
+         
         primaryStage.show();
     }
 

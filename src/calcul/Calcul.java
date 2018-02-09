@@ -98,20 +98,9 @@ public class Calcul extends BorderPane {
         VBox vBox1 = new VBox(20);
         vBox1.setSpacing(80);
         vBox1.setAlignment(Pos.CENTER);
-
         //Initialisation: affichage de l'opération à faire
-        String questionCalcul = getRandomCalcul(number1, number2, typeOp);
-        /*
-        //debug
-        //String ch1 = Integer.toString(chif1); //1ér chiffre aléatoire
-        String v1 = Integer.toString(MenuForm.level); //conversion en string
-        String v2 = Integer.toString(number1);
-        String v3 = Integer.toString(number2);
-        String v4 = Integer.toString(typeOp);
-        String debug = " opération : "+questionCalcul+ "\n MenuForm.level : " + v1 +
-                "\n number1 : " + v2 + ", number2 : " + v3 + "\n typeOp : "+ v4;
-         */
-        Label afficheurCalcul = new Label(questionCalcul);
+        String questionCalcul = getRandomCalcul(number1, number2, typeOp);        
+        Label afficheurCalcul = new Label(questionCalcul + " = ?");
         afficheurCalcul.setFont(new Font("Verdana", 75));
         afficheurCalcul.setWrapText(true);
         /*
@@ -120,19 +109,34 @@ public class Calcul extends BorderPane {
         btegale.setMinSize(100, 50);
          */
         //Le champs de saisir le résultat
+        /*
+        //création d'abord d'un Hbox afin de centrer le TextField()
+        HBox hBox1 = new HBox(20);
+        //création de 2 boutons
+        Button btleft = new Button();
+        Button btright = new Button();
+        btleft.setMinSize(1000, 50);
+        btright.setMinSize(1000, 50);        
+        */
         TextField saisirResultat = new TextField();
         saisirResultat.setPromptText("Entrez votre réponse");
         saisirResultat.setPrefHeight(80);
         saisirResultat.setPrefWidth(25);
-        saisirResultat.getStyleClass().add("TextField");// css pour le textfield   
+        saisirResultat.getStyleClass().add("TextField");// css pour le textfield 
+        
+        /*
+        btleft.setAlignment(Pos.CENTER_LEFT);
+        btright.setAlignment(Pos.CENTER_RIGHT);
+        hBox1.getChildren().addAll(btleft, saisirResultat, btright);
+        */
         //Autofocus
         //saisirResultat.setFocusTraversable(false);
         //saisirResultat.requestFocus();
-
         //saisirResultat.setPrefColumnCount(35);
         // on ajoute les boutons au vBox1
         //vBox1.getChildren().addAll(afficheurCalcul, btegale, saisirResultat);
         vBox1.getChildren().addAll(afficheurCalcul, saisirResultat);
+        //vBox1.getChildren().addAll(afficheurCalcul, hBox1);
         this.setCenter(vBox1);
 
         /*---------------------Le contenaire bas de la page de type HBox----------*/
@@ -189,10 +193,12 @@ public class Calcul extends BorderPane {
                 //btReponse.setStyle("-fx-background-color : #3A9D23");    //on colorie le bouton Solution en vert
                 saisirResultat.setStyle("-fx-background-color : #3A9D23"); // on colorie la zone réponse en vert
                 // on affiche : bonne réponse + toute l'opération
+                //saisirResultat.setText("Bonne réponse : " + otherCalcul + " = " + result);
                 saisirResultat.setText("Bonne réponse : " + otherCalcul + " = " + result);
             } else {
                 //btReponse.setStyle("-fx-background-color : #FF0000;");        //on colorie le bouton Solution en rouge
                 saisirResultat.setStyle("-fx-background-color : #FF0000;");     //on colorie la zone réponse en rouge
+                //saisirResultat.setText("Mauvaise réponse : " + otherCalcul + " = " + result);
                 saisirResultat.setText("Mauvaise réponse : " + otherCalcul + " = " + result);
             }
         });
@@ -209,7 +215,9 @@ public class Calcul extends BorderPane {
             number2 = getRandomChiffre();
 
             // Nouvelle opération 
-            afficheurCalcul.setText(getRandomCalcul(number1, number2, typeOp));
+
+            afficheurCalcul.setText(getRandomCalcul(number1,number2,typeOp) + " = ?"); 
+
             /*
             //debug      
             String nb1 = Integer.toString(number1);
@@ -291,7 +299,8 @@ public class Calcul extends BorderPane {
         }
         //--conversions du résultat en string--//
         String ch3 = Integer.toString(resultat);
-        String questionCalcul = ch1 + " " + signeOperation + " " + ch2 + " = ?";
+        //String questionCalcul = ch1 + " " + signeOperation + " " + ch2 + " = ?";
+        String questionCalcul = ch1 + " " + signeOperation + " " + ch2 ;
         return questionCalcul;
     }
 

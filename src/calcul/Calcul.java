@@ -230,7 +230,6 @@ public final class Calcul extends BorderPane {
         }
         //--conversions du résultat en string--//
         String ch3 = Integer.toString(resultat);
-        //String questionCalcul = ch1 + " " + signeOperation + " " + ch2 + " = ?";
         String questionCalcul = ch1 + " " + signeOperation + " " + ch2 ;
         return questionCalcul;
     }

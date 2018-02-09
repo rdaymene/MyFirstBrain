@@ -57,6 +57,7 @@ public class Questions extends BorderPane {
     private Dao questionDAO;
     private ArrayList<QuestionBean> ListNiveau1;
     private ArrayList<QuestionBean> ListNiveau2;
+     private QuestionBean questionBean;
     private Label tQuestion;
     private TextField tfInput;
     private Text answer;
@@ -65,7 +66,7 @@ public class Questions extends BorderPane {
     private MyButton btOtherQuestion;
     private VBox vbQuestion;
     private HBox hbButton;//contient les 3 boutons
-    private QuestionBean questionBean;
+   
 
     public Questions() {
 

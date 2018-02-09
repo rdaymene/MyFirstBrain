@@ -1,7 +1,6 @@
 package Administration;
 
 import java.io.IOException;
-import java.io.InputStream;
 import javafx.scene.paint.Color;
 import java.util.Properties;
 import javafx.geometry.Insets;

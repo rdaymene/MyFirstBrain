@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -54,7 +55,7 @@ public class AdministrationLogin {
         TextField loginText = new TextField();
         champloginetpass.add(loginText, 1, 1);
 
-        TextField pwdText = new TextField();
+        PasswordField pwdText = new PasswordField();
         champloginetpass.add(pwdText, 1, 2);
 
         GridPane annulerokGrid = new GridPane();
@@ -93,8 +94,8 @@ public class AdministrationLogin {
         }
         USER = recup_info.getProperty("USER");
         PASSWORD = recup_info.getProperty("PASSWORD");
-        loginText.setText(USER);
-        pwdText.setText(PASSWORD);
+        //loginText.setText(USER);  // peut etre effacer
+        //pwdText.setText(PASSWORD);
 //==================  EVENT LOGIN BUTTON
         btnLogin.setOnAction(e -> {
 

@@ -91,7 +91,7 @@ public class Questions extends BorderPane {
         tQuestion.setTranslateX(40);
         tQuestion.setMaxWidth(780);
         tQuestion.setWrapText(true);
-        
+        ///jsdfkskhfZ
         tQuestion.getStyleClass().add("Question");
         //on remplit le texte avec une question aléatoire
         if (MenuForm.level == 1) {// de la liste 1 si niveau1

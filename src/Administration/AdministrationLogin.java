@@ -126,28 +126,26 @@ public class AdministrationLogin {
         PASSWORD = recup_info.getProperty("PASSWORD");
 
 //==================  EVENT LOGIN BUTTON
+//<editor-fold>
         btLogin.setOnAction(e -> {
 
-//            if (recup_info.equals(loginText.getText())) {
+
             if (loginText.getText().equals(USER)) {
-                //mettre un text rouge // ou logo 
-                //flagUser false
+                labelErrorPwd.setText("");
                 labelErrorUser.setText("");
                 flagUser = true;
+                
                 if (PASSWORD.equals(pwdText.getText())) {
-                    //mettre un text rouge // ou logo
-                    // mettre flagPwd false
-                    labelErrorPwd.setText("");
                     flagPwd = true;
                 } else {
-                    //clear text rouge // ou logo 
-                    // mettre flagPwd true
+                    // text rouge // ou logo 
+                    // mettre flagPwd false
                     labelErrorPwd.setText("Mot de passe erroné");
                     labelErrorPwd.setTextFill(Color.RED);
                     flagPwd = false;
                 }
             } else {
-                //clear text rouge // ou logo 
+                // text rouge // ou logo 
                 // mettre flagUser True
                 labelErrorUser.setText("Cet utilisateur n'existe pas");
                 labelErrorUser.setTextFill(Color.RED);
@@ -169,12 +167,14 @@ public class AdministrationLogin {
             }
 
         });
-//============= EVENT CANCEL
-
+//</editor-fold>
+//=========== EVENT CANCEL 
+//<editor-fold>
         btCancel.setOnAction(e -> {
             stageLogin.close();
         });
 
+//</editor-fold>
     }
 
 }

@@ -62,7 +62,6 @@ public class Administration extends VBox {
     private final GridPane gridModifySaveCancel;
     private final Button btModifyCancel;
     private final Button btModifySave;
-
     private final Button btLogOff;
 
     public Administration() {
@@ -172,10 +171,7 @@ public class Administration extends VBox {
         btLogOff = new Button("Se déconnecter");
 //</editor-fold>
 
-
-  
-
-        feedingComboBOX(comboListID);
+     feedingComboBOX(comboListID);
 
         this.setSpacing(50);
 
@@ -193,13 +189,14 @@ public class Administration extends VBox {
 //<editor-fold>
 
         btModifySave.setOnAction(e -> {
-            loadingCombo();
+            
             if (!textModifyAnsw.getText().trim().isEmpty()) {
                 qb = adminDAO.find((int) comboListID.getValue());
                 qb.setQuestion(textModifyQuestion.getText());
                 qb.setReponse(textModifyAnsw.getText());
                 qb.setNiveau(localLevel);
                 qb = adminDAO.update(qb);
+                loadingCombo();
    }
         });
         //</editor-fold>
@@ -221,6 +218,7 @@ public class Administration extends VBox {
                             textAddAnsw.getText()
                 );
                 qb = adminDAO.create(qbAjout);
+            loadingCombo();
             }
         });
 //</editor-fold>
@@ -228,9 +226,9 @@ public class Administration extends VBox {
 //<editor-fold>
         comboListID.setOnAction(e -> {
 
-//            a ce moment la je ne connais k mon ID, je dois donc faire une recherche sur la base, pour me 
+//            a ce moment la je ne connais que mon ID, je dois donc faire une recherche sur la base, pour me 
 //            donner par rapport a l ID, quel est la question et reponse associe.
-//            j appelle une fonction GETID de ma DAO, que me retourne un oject de type QuestionDAO,
+//            j appelle une fonction GETID de ma DAO, qui me retourne un oject de type QuestionDAO,
 //            et grace a cet object je pourrais updater mes textfields
 //            adminDAO est de type DAO
             if (comboListID.getValue() != null) {
@@ -256,6 +254,7 @@ loadingCombo();
 btAddCancel.setOnAction(e->{
     textAddAnsw.clear();
     textAddQuest.clear();
+    loadingCombo();
 });
 
 //</editor-fold>

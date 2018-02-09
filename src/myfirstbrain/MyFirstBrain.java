@@ -88,14 +88,14 @@ public class MyFirstBrain extends Application {
         gridTab.setClosable(false);
         //administrationTab.setClosable(false);
 
-        //creation du TabBane qui contiendra l'ensemble de nos onglets 
+        //creation du TabPane qui contiendra l'ensemble de nos onglets 
         tabPane = new TabPane();
         //ajout de chaque tab à la tabPane principale.
         tabPane.getTabs().add(drawTab);
         tabPane.getTabs().add(calculTab);
         tabPane.getTabs().add(questionTab);
         tabPane.getTabs().add(gridTab);
-        //tabPane.getTabs().add(administrationTab);
+               
         selectionModel = tabPane.getSelectionModel();
         selectionModel.select(0);
         questions.getTfInput().requestFocus();

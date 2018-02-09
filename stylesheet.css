@@ -28,9 +28,11 @@
         radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
     -fx-height:50px;
     -fx-width:200px;
-    -fx-font-size: 25px;
+    -fx-font-size: 35px;
     -fx-border-style: solid;
     -fx-border-width: 5px;
+    -fx-font-weight:bold;
+    
     -fx-border-color:black;
     -fx-background-radius: 30;
     -fx-background-insets: 0,1,1;

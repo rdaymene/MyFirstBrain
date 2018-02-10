@@ -97,16 +97,20 @@ public class Draw extends BorderPane {
     public Draw(){
 //=============================== CREATION DU CANVAS =====================================================================
         //creation du canvas zone ou l'on pourra dessiner 
+        //Creation du cursor de la souris
+        ImageCursor crayoncursor = new ImageCursor(crayon);
+        //creation du canvas
         canvas = new Canvas(795,370);
         canvas.setTranslateY(-4);
         canvas.setTranslateX(0);
+        canvas.setCursor(crayoncursor);
 //=============================== ELEMENT QUI VA DESSINER SUR L'ARDOISE ======================================        
         GraphicsContext gc;
         gc = canvas.getGraphicsContext2D();
         //déclaration de la forme du pinceau , de la couleur et de son épaisseur.
-        gc.setLineCap(StrokeLineCap.SQUARE);
+        gc.setLineCap(StrokeLineCap.ROUND);
         gc.setStroke(Color.BLACK);
-        gc.setLineWidth(5);        
+        gc.setLineWidth(10);        
 //=============================== SLIDER QUI GERE L'EPAISSEUR DE NOTRE TRAIT ======================================        
         sliderepaisseur = new Slider();
         //la valeur minimum du slider
@@ -233,7 +237,7 @@ public class Draw extends BorderPane {
 //=============================== EVENT SUR LES DIFFERENTS BOUTONS ======================================
         //evenement sur bouton effacer
         btnEffacer.setOnAction((ActionEvent event) -> {
-            gc.clearRect(0, 0, 796, 370);
+            gc.clearRect(0, 0, 795, 370);
         });
         //evenement sur bouton rouge
         btnRouge.setOnAction((ActionEvent event) -> {
@@ -258,21 +262,21 @@ public class Draw extends BorderPane {
         //gestion de l'effacement de l'ardoise en fonction de la position du slider
         slidereffacer.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             gc.setStroke(Color.WHITE);
-            gc.strokeLine(-3, 560, -3, 0);
-            gc.strokeLine((double) newValue, 560, (double) newValue, 0);
+            gc.strokeLine(0, 370, 0, 0);
+            gc.strokeLine((double) newValue, 370, (double) newValue, 0);
             //if ((double) newValue == 570)
             gc.setStroke(Color.BLACK);
         });
         //début du tracé dans la zone canvas avec la position de la souris
         canvas.setOnMousePressed(e->{
-            canvas.setCursor(new ImageCursor(crayon));
             gc.beginPath();
-            gc.lineTo(e.getSceneX()-100, e.getSceneY()-125);
+            gc.lineTo(e.getX(),e.getY());
             gc.stroke();
         });
-        //arret du tracé dans la zone canvas avec la position de la souris
+        //tracé lorsque l'on appuie sur le clic gauche et que l'on bouge la souris
         canvas.setOnMouseDragged(e->{
-            gc.lineTo(e.getSceneX()-100, e.getSceneY()-125);
+            gc.beginPath();
+            gc.lineTo(e.getX(), e.getY());
             gc.stroke();
         });        
         //rajout à la barre latérale du choix du layout en haut 

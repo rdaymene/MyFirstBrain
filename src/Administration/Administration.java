@@ -87,6 +87,8 @@ public class Administration extends VBox {
         radiovbox = new VBox();
 
         radioGrid = new GridPane();
+        radioGrid.setVgap(10);
+        radioGrid.setHgap(10);
         radioLevelGroup = new ToggleGroup();
 
         radioText = new Label("Niveau de la question à modifier");
@@ -120,11 +122,15 @@ public class Administration extends VBox {
         vboxAdd = new VBox();
 
         labelAdd = new Label("Ajouter");
+
         labelAdd.setFont(new Font("Verdana", 25));
         labelAdd.setAlignment(Pos.CENTER);
 
         gridAddQA = new GridPane();
-        gridAddQA.setVgap(5);
+        gridAddQA.setVgap(10);
+        gridAddQA.setHgap(10);
+
+        labelAdd.setAlignment(Pos.CENTER);
 
         labelAddQuest = new Label("Question");
         textAddQuest = new TextArea();
@@ -148,6 +154,8 @@ public class Administration extends VBox {
         gridAddSaveCancel = new GridPane();
         btAddCancel = new Button("Annuler");
         btAddSave = new Button("Enregistrer");
+        gridAddSaveCancel.setHgap(10);
+        gridAddSaveCancel.setVgap(10);
         gridAddSaveCancel.add(btAddCancel, 0, 1);
         gridAddSaveCancel.add(btAddSave, 1, 1);
         gridAddSaveCancel.setHgap(10);
@@ -155,11 +163,11 @@ public class Administration extends VBox {
         vboxAdd.getChildren().add(labelAdd);
         vboxAdd.getChildren().add(gridAddQA);
         vboxAdd.getChildren().add(gridAddSaveCancel);
-        vboxAdd.setSpacing(10);
 
-//</editor-fold>
-//=============================== PANNEAU MODIFIER ==============================================================        
-//<editor-fold>
+        vboxAdd.setSpacing(20);
+        //</editor-fold>
+        //=============================== PANNEAU MODIFIER ==============================================================        
+        //<editor-fold>
         //Construction de l'affichage du panneau qui permet de modifier une question
         vboxModify = new VBox();
 
@@ -198,6 +206,8 @@ public class Administration extends VBox {
         gridModifySaveCancel.add(btModifyCancel, 0, 1);
         gridModifySaveCancel.add(btModifySave, 1, 1);
         gridModifySaveCancel.setHgap(10);
+        gridModifySaveCancel.setVgap(10);
+
         gridModifySaveCancel.setAlignment(Pos.CENTER);
 
         vboxModify.getChildren().add(labelModify);

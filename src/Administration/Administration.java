@@ -3,11 +3,13 @@ package Administration;
 import DAO.Dao;
 import DAO.QuestionBean;
 import java.util.ArrayList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -18,18 +20,18 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import myfirstbrain.MyFirstBrain;
 
 public class Administration extends VBox {
-    
+
     private final Image administration = new Image(getClass().getResourceAsStream("backgroundadministration.png"));
-    private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);   
+    private final BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
     private Background backgroundadministration = new Background(new BackgroundImage(administration,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
-            bSize));   
-    
+            bSize));
 
     private int localLevel = 2;
     private Dao adminDAO;
@@ -53,9 +55,9 @@ public class Administration extends VBox {
 
     private final GridPane gridAddQA;
     private final Label labelAddQuest;
-    private final TextField textAddQuest;
+    private final TextArea textAddQuest;
     private final Label labelAddAnsw;
-    private final TextField textAddAnsw;
+    private final TextArea textAddAnsw;
     //bouton du panneau modifier
     private final GridPane gridAddSaveCancel;
     private final Button btAddCancel;
@@ -70,9 +72,9 @@ public class Administration extends VBox {
     private final Label labelModifyComboBox; ///////////////COMBO LABEL
 
     private final Label labelModifyQuestion;
-    private final TextField textModifyQuestion;
+    private final TextArea textModifyQuestion;
     private final Label labelModifyAnsw;
-    private final TextField textModifyAnsw;
+    private final TextArea textModifyAnsw;
     //bouton du panneau modifier
     private final GridPane gridModifySaveCancel;
     private final Button btModifyCancel;
@@ -88,6 +90,8 @@ public class Administration extends VBox {
         radioLevelGroup = new ToggleGroup();
 
         radioText = new Label("Niveau de la question à modifier");
+        radioText.setPadding(new Insets(10, 10, 10, 10));
+        radioText.setFont(new Font("Verdana", 18));
         radioLevel1 = new RadioButton("1");
         radioLevel2 = new RadioButton("2");
 
@@ -96,7 +100,7 @@ public class Administration extends VBox {
         radioLevel2.setUserData("2");
 
         radioLevel1.setToggleGroup(radioLevelGroup);
-        radioLevel2.setToggleGroup(radioLevelGroup);      
+        radioLevel2.setToggleGroup(radioLevelGroup);
         radioLevel2.setSelected(true); // set default to 2
 
         radioGrid.add(radioLevel1, 0, 1);
@@ -116,29 +120,43 @@ public class Administration extends VBox {
         vboxAdd = new VBox();
 
         labelAdd = new Label("Ajouter");
+        labelAdd.setFont(new Font("Verdana", 25));
         labelAdd.setAlignment(Pos.CENTER);
 
         gridAddQA = new GridPane();
+        gridAddQA.setVgap(5);
+
         labelAddQuest = new Label("Question");
-        textAddQuest = new TextField();
+        textAddQuest = new TextArea();
+        textAddQuest.setPrefRowCount(2);
+        textAddQuest.setPrefColumnCount(15);
+        textAddQuest.setWrapText(true);
+
         labelAddAnsw = new Label("Réponse");
-        textAddAnsw = new TextField();
-        gridAddQA.add(labelAddQuest, 0, 1);
-        gridAddQA.add(labelAddAnsw, 0, 2);
-        gridAddQA.add(textAddQuest, 1, 1);
-        gridAddQA.add(textAddAnsw, 1, 2);
+        textAddAnsw = new TextArea();
+        textAddAnsw.setPrefRowCount(2);
+        textAddAnsw.setPrefColumnCount(15);
+        textAddAnsw.setWrapText(true);
+        Label vide = new Label("");
+        vide.setPadding(new Insets(7, 7, 7, 7));
+        gridAddQA.add(vide, 0, 1);
+        gridAddQA.add(labelAddQuest, 0, 2);
+        gridAddQA.add(labelAddAnsw, 0, 3);
+        gridAddQA.add(textAddQuest, 1, 2);
+        gridAddQA.add(textAddAnsw, 1, 3);
 
         gridAddSaveCancel = new GridPane();
         btAddCancel = new Button("Annuler");
         btAddSave = new Button("Enregistrer");
         gridAddSaveCancel.add(btAddCancel, 0, 1);
         gridAddSaveCancel.add(btAddSave, 1, 1);
-
+        gridAddSaveCancel.setHgap(10);
+        gridAddSaveCancel.setAlignment(Pos.CENTER);
         vboxAdd.getChildren().add(labelAdd);
         vboxAdd.getChildren().add(gridAddQA);
         vboxAdd.getChildren().add(gridAddSaveCancel);
-        vboxAdd.setSpacing(20);
-        
+        vboxAdd.setSpacing(10);
+
 //</editor-fold>
 //=============================== PANNEAU MODIFIER ==============================================================        
 //<editor-fold>
@@ -146,15 +164,24 @@ public class Administration extends VBox {
         vboxModify = new VBox();
 
         labelModify = new Label("Modifier");
+        labelModify.setFont(new Font("Verdana", 25));
+
         labelModify.setAlignment(Pos.CENTER);
 
         gridModifyQA = new GridPane();
+        gridModifyQA.setVgap(5);
         labelModifyQuestion = new Label("Question");
         labelModifyComboBox = new Label("List id"); // info COMBOBOX
         comboListID = new ComboBox();
-        textModifyQuestion = new TextField();
+        textModifyQuestion = new TextArea();
+        textModifyQuestion.setPrefRowCount(2);
+        textModifyQuestion.setPrefColumnCount(15);
+        textModifyQuestion.setWrapText(true);
         labelModifyAnsw = new Label("Réponse");
-        textModifyAnsw = new TextField();
+        textModifyAnsw = new TextArea();
+        textModifyAnsw.setPrefRowCount(2);
+        textModifyAnsw.setPrefColumnCount(15);
+        textModifyAnsw.setWrapText(true);
 
         //addition de mon ComboBox qui n est pas top  :-/
         gridModifyQA.add(labelModifyComboBox, 0, 1);
@@ -170,13 +197,15 @@ public class Administration extends VBox {
         btModifySave = new Button("Enregistrer");
         gridModifySaveCancel.add(btModifyCancel, 0, 1);
         gridModifySaveCancel.add(btModifySave, 1, 1);
+        gridModifySaveCancel.setHgap(10);
+        gridModifySaveCancel.setAlignment(Pos.CENTER);
 
         vboxModify.getChildren().add(labelModify);
 
         vboxModify.getChildren().add(gridModifyQA);
         vboxModify.getChildren().add(gridModifySaveCancel);
 
-        vboxModify.setSpacing(20);
+        vboxModify.setSpacing(10);
 
         gridModifyAdd.add(vboxAdd, 0, 1);
         gridModifyAdd.add(vboxModify, 1, 1);
@@ -190,8 +219,7 @@ public class Administration extends VBox {
         this.setBackground(backgroundadministration);
         feedingComboBOX(comboListID);
 
-
-        this.setSpacing(50);
+        this.setSpacing(30);
 
         this.getChildren().add(radiovbox);
         this.getChildren().add(gridModifyAdd);
@@ -205,9 +233,8 @@ public class Administration extends VBox {
 
 //========== EVENT SAVE MODIF BUTTON
 //<editor-fold>
-
         btModifySave.setOnAction(e -> {
-            
+
             if (!textModifyAnsw.getText().trim().isEmpty()) {
                 qb = adminDAO.find((int) comboListID.getValue());
                 qb.setQuestion(textModifyQuestion.getText());
@@ -215,12 +242,12 @@ public class Administration extends VBox {
                 qb.setNiveau(localLevel);
                 qb = adminDAO.update(qb);
                 loadingCombo();
-   }
+            }
         });
         //</editor-fold>
 //========== EVENT LOGOFF 
 //<editor-fold>
-        btLogOff.setOnAction(e->{
+        btLogOff.setOnAction(e -> {
             MyFirstBrain.tabPane.getTabs().remove(AdministrationLogin.administrationTab);
             MyFirstBrain.selectionModel.select(0);
         });
@@ -228,19 +255,19 @@ public class Administration extends VBox {
 //========== EVENT SAVE ADD BUTTON
 //<editor-fold>
         btAddSave.setOnAction(e -> {
-            
+
             if (!textAddAnsw.getText().trim().isEmpty()) {
                 QuestionBean qbAjout = new QuestionBean(
-                            0,
-                            localLevel,
-                            textAddQuest.getText(),
-                            textAddAnsw.getText()
+                        0,
+                        localLevel,
+                        textAddQuest.getText(),
+                        textAddAnsw.getText()
                 );
                 qb = adminDAO.create(qbAjout);
-            loadingCombo();
-            textAddAnsw.clear();
-            textAddQuest.clear();
-            
+                loadingCombo();
+                textAddAnsw.clear();
+                textAddQuest.clear();
+
             }
         });
 //</editor-fold>
@@ -268,27 +295,27 @@ public class Administration extends VBox {
 
             String tmplevel = radioLevelGroup.getSelectedToggle().getUserData().toString();
             localLevel = Integer.valueOf(tmplevel);
-loadingCombo();
-});
+            loadingCombo();
+        });
 //</editor-fold>
 //=========== EVENT CANCEL ADD BUTTON
 //<editor-fold>
-btAddCancel.setOnAction(e->{
-    textAddAnsw.clear();
-    textAddQuest.clear();
-    loadingCombo();
-});
+        btAddCancel.setOnAction(e -> {
+            textAddAnsw.clear();
+            textAddQuest.clear();
+            loadingCombo();
+        });
 
 //</editor-fold>
 //=========== EVENT CANCEL MODIFY BUTTON
 //<editor-fold>
-btModifyCancel.setOnAction(e->{
-    loadingCombo();
-});
+        btModifyCancel.setOnAction(e -> {
+            loadingCombo();
+        });
 
 //</editor-fold>
     }
-  
+
     private void feedingComboBOX(ComboBox boxy) {
         adminDAO = new Dao();
         listLevel = adminDAO.fillCollection(localLevel);
@@ -299,13 +326,13 @@ btModifyCancel.setOnAction(e->{
     }
 
     private void loadingCombo() {
-            comboListID.getSelectionModel().clearSelection();
-            comboListID.getItems().clear();
+        comboListID.getSelectionModel().clearSelection();
+        comboListID.getItems().clear();
 
-            textModifyQuestion.clear();
-            textModifyAnsw.clear();
+        textModifyQuestion.clear();
+        textModifyAnsw.clear();
 
-            feedingComboBOX(comboListID);
+        feedingComboBOX(comboListID);
     }
-    
+
 }

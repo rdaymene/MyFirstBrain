@@ -29,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import Question.MyButton;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
@@ -206,7 +207,23 @@ public class Questions extends BorderPane {
             }
             tQuestion.setText(questionBean.getQuestion());// on affiche la question
         });
-
+          ///gestion evenement clavier
+        tfInput.setOnKeyPressed(ke->{
+            
+            if(ke.getCode() == KeyCode.ENTER){
+            answer.setText(null);
+            tfInput.setStyle("-fx-background-color : #fff");
+            // on appelle la methode booleenne de comparaison question réponse
+            if (compareAnswerToRightAnswer(tQuestion.getText(), tfInput.getText())) {// reponse juste
+                // on colorie la zone réponse en vert
+                tfInput.setStyle("-fx-background-color : #0E8C1B");
+            } else {// réponse fausse
+                //on colorie la zone réponse en rouge
+                tfInput.setStyle("-fx-background-color : #D20303;");
+            }
+            }
+                
+        });        
     }
 ////////////////////////METHODES GESTION QUESTION ALEATOIRE    ///////////////////////////
 

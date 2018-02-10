@@ -1,7 +1,7 @@
-#URL=jdbc:mysql://127.0.0.1:3306/testing
+#URL=jdbc:mysql://127.0.0.1:3306/myfirstbrain
 URL=jdbc:mysql://172.16.0.48:3306/dsig2
 # + HOST + ":" + PORT + "/" + DATABASE
 USER=dsig2
-#USER=toto
-#PASSWORD=1234512345
+#USER=cece2
+#PASSWORD=12345
 PASSWORD=dsig2

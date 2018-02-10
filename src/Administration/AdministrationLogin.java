@@ -152,8 +152,8 @@ public class AdministrationLogin {
 
             }
             if (flagPwd && flagUser) {
-                System.out.println("there is a match!!");
-
+                //System.out.println("there is a match!!");
+                if(!MyFirstBrain.tabPane.getTabs().contains(administrationTab)){
                 //Creation de l'onget tab avec un label Administration
                 my_administration = new Administration();
                 administrationTab = new Tab("Administration");
@@ -165,7 +165,7 @@ public class AdministrationLogin {
                 MyFirstBrain.tabPane.getTabs().add(administrationTab);
                 MyFirstBrain.selectionModel.select(4);                
                 stageLogin.close();
-
+                }
             }
 
         });

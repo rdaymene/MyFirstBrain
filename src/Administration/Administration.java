@@ -92,7 +92,7 @@ public class Administration extends VBox {
         radioLevelGroup = new ToggleGroup();
 
         radioText = new Label("Niveau de la question à modifier");
-        radioText.setPadding(new Insets(10, 10, 10, 10));
+        radioText.setPadding(new Insets(20, 10, 10, 10));
         radioText.setFont(new Font("Verdana", 18));
         radioLevel1 = new RadioButton("1");
         radioLevel2 = new RadioButton("2");
@@ -164,7 +164,7 @@ public class Administration extends VBox {
         vboxAdd.getChildren().add(gridAddQA);
         vboxAdd.getChildren().add(gridAddSaveCancel);
 
-        vboxAdd.setSpacing(20);
+        
         //</editor-fold>
         //=============================== PANNEAU MODIFIER ==============================================================        
         //<editor-fold>
